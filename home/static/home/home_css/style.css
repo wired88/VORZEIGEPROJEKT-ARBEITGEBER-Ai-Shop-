@@ -1,0 +1,833 @@
+.body {
+    display: grid;
+    grid-template-columns: 101%;
+    top: 50px;
+    position: relative;
+    grid-template-rows: 60px 2000px 110px;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(255, 255, 250, 0.1);
+    margin: 0;  /*rückt die inhalte im Body 0 px ein */
+}
+
+.head_container {
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 3px 3px rgba(0, 0, 0, .5);
+    grid-row: 1;
+    border-bottom: 1px solid black;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 50px 150px 50px 50px 500px 50px 50px 50px 50px
+}
+
+.head_container > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* head */
+.head_col1 {
+    grid-column: 1;
+    position: relative;
+}
+
+.head_container header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+header h3 {
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.6)
+}
+
+.dropdown_button {
+    position: absolute;
+    padding: 4px;
+    background-color: transparent;
+    border: 0;
+    box-shadow: 0 0;
+    border-radius: 0;
+    margin: 0;
+    top: -50px;
+}
+.dropdown_button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+
+}
+
+.dropdown_button_img {
+    transition: filter 0.1s;
+    filter: invert(66%);
+    width: 70%;
+    position: relative;
+}
+
+.dropdown_button_img:hover {
+    filter: invert(0%)
+
+}
+
+.logo {
+    width: 200px;
+    position: relative;
+    background-color: transparent;
+    height: 130%;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+
+
+.logo_container {
+    grid-column:2;
+    padding: 0;
+
+}
+
+/* Category Modal */
+.modal-content {
+    width: 150vh;
+    left: -240px;
+    height: 25vh;
+    position: absolute;
+    flex-direction: row;
+
+}
+
+.modal-content h3 {
+    color: rgba(255, 255, 255,.8);
+    margin-left: 50px;
+}
+
+.modal-content section {
+    color: rgba(255, 255, 255,.8);
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 20px 15px 20px 20px 20px;
+    column-gap: 10px; /* schafft platz zwischen den einzelnen columns */
+    align-content: center;
+    justify-items: flex-end;
+    border-bottom: 1px solid rgba(255, 255, 255, .6);
+
+}
+.modal-content p {
+    text-decoration: underline;
+    color: rgba(255, 255, 255,.4);
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+}
+
+
+.modal-content div {
+    overflow-x: hidden;
+    overflow-y: visible;
+    display: flex;
+
+}
+
+.navbar_a {
+    color: rgba(255, 255, 255,.7);
+    text-decoration: none; !important;
+    opacity: 0;
+    filter: blur(5px);
+    transition: all 1s, box-shadow .2s; /* ease in out lässt die animation schneller werden. das lässt sie natürlicher aussehen */
+    transform: translateX(-100%);
+    transition-delay: calc(var(--order) * 200ms); /* in base wurde jedem element der klasse navbar_a eine variable --order: 1-4 gegeben
+    Diese zahl wird ier benutzt um das delay für die verscheidenen eemente festzulegen. */
+}
+
+.navbar_a:hover {
+    box-shadow: 0 0 16px rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255,.9);
+    text-decoration: none; !important;
+}
+
+#modal_category {
+    background-color: rgba(0,0,0,.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255,.8);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* main */
+.home_main {
+    grid-row: 2;
+    background-color: transparent;
+    display: grid;
+    grid-template-rows: 550px 300px 550px;
+    grid-template-columns: 101%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.home_main > * {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+}
+.upper_main {
+    grid-row: 1;
+    height: 100%;
+    position: relative;
+    justify-content: center;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.upper_header {
+    background-color: transparent;
+    flex-direction: row;
+    padding: 3px;
+    position: absolute;
+    top: 50px;
+
+    color: rgba(255,255,255,.9);
+    z-index: 30000000;
+    font-weight: bold;
+}
+
+.middle_main {
+    grid-row: 2;
+    height: 100%;
+    position: relative;
+    background-color: rgba(169, 169, 169, 0.32)
+}
+
+
+
+
+/* lower main */
+.lower_main {
+    grid-row: 3;
+    background-color: rgba(0, 0, 0, .8);
+    height: 100%;
+    display: flex;
+    place-items: center;
+    align-items: center;
+
+}
+
+.swipe_box {
+    display: grid;
+    grid-template-columns: 220px;
+    grid-template-rows: 200px 60px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.7);
+    margin-right: 20px;
+    cursor: pointer;
+    filter: blur(5px); /* je höher der 'blur'- Wert ist, desto verschwommener wird ein element. */
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: all 1s, box-shadow 0.2s;
+    flex-direction: column;
+}
+
+.swipe_box:hover {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7)
+}
+.swipe_box:hover .text_swipe_box{
+    color: rgba(255, 255, 255, 0.72)
+}
+
+.swipe_box > * {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image_swipe_box {
+    grid-row: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(47, 47, 47, 0.72);
+    overflow: hidden;
+}
+
+.box_images {
+    height: 200px;
+    width: 220px;
+}
+
+
+
+.text_swipe_box {
+    grid-row: 2;
+    width: 100%;
+    background-color: rgba(47, 47, 47, 0.72);
+    color: rgba(255,255,255, 0.6);
+}
+
+@media (prefers-reduced-motion) {
+    .swipe_box {
+        transition: none;
+    }
+    .lower_header_text {
+        transition: none;
+    }
+    .navbar_a {
+        transition: none;
+    }
+}
+
+
+.lower_header_text {
+    font-weight: bold;
+    color: rgba(255,255,255, 0.9);
+    top: -210px;
+    position: relative;
+    transition: all 1s;
+}
+
+/* end_lower_main */
+
+
+
+
+
+.search-container {
+    position: absolute;
+    border-radius: 14px;
+    border: 2px solid black;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    padding: 2px;
+    justify-content: space-between;
+    align-items: center;
+    width: 33%;
+    top: 190px;
+    height: 50px;
+
+}
+
+.search-label {
+    position: absolute;
+    top: -40px;
+    left: 200px;
+    font-weight: bold;
+    color: white;
+    border: 3px solid black;
+    padding: 4px 4px;
+    border-radius: 7px;
+    background-color: #7c3300;
+}
+
+.video_main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    grid-row: 1;
+    display: flex;
+}
+
+.search_field_home {
+    position: absolute;
+    height: 80%;
+    width: 90%;
+    border-radius: 4px;
+    top: 5px;
+    left: 20px;
+
+}
+
+.product-container {
+    position: absolute;
+    left: 30%;
+    top: 270px;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-wrap: wrap; /* verschiebt die Elemente(welche sich im product-container befinden) automatisch in eine nuee Zeile, wenn der Platz in der momentanen nicht reicht. */
+    width: 610px;
+    border: 1px solid black;
+    border-radius: 40px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, .5)
+}
+
+.list-item { /*  Daten für die einzelnen tag-container. */
+    padding: 2px 4px 0 4px;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 40px;
+    background-color: rgba(107, 102, 102, .7);
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: stretch;
+}
+
+
+.list-item button {
+    border-radius: 50%;
+    position: relative;
+    padding: 0;
+    margin: 2px;
+    float: right; /* so wird dieses element im container rechts angeornet */
+}
+.list-item button:hover {
+    margin: 0 1px;
+    padding: 0;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.6);
+}
+
+.product-text {
+    color: white;
+    font-size: 12px;
+    margin-bottom: 2px;
+    margin-right: 6px;
+    float: left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* footer home */
+.footer_home {
+    width: 100%;
+    grid-row: 3;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 20% 30% 30% 20%;
+    border-bottom: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.8);
+    bottom: 50px;
+    position: relative;
+}
+
+.footer_home > * {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 33% 33% 33%;
+    justify-content: center;
+    align-items: center;
+
+}
+.footer_home a{
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    position: absolute;
+}
+.footer_home a:hover{
+    text-decoration: none; !important;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+}
+.footer_home section {
+    display: flex;
+    justify-content: flex-start;
+
+
+
+
+}
+.footer_home img {
+    width: 100%;
+    height: 100%;
+}
+
+.left_footer {
+    grid-column: 1;
+    position: relative;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+}
+
+.left_middle_footer {
+    grid-column: 2;
+}
+
+.left_middle_footer > * {
+    display: flex;
+    justify-content: center;
+}
+
+.right_middle_footer {
+    grid-column: 3;
+}
+
+
+.right_footer{
+    grid-column: 4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        button {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-color: #03442c;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 3px 3px 3px rgb(0, 0, 0, 0.4); /* schatten zeichen (rechts, unten, wie sehr verwischt) */
+            cursor: pointer; /*bei berührung mit cursor wird dieser als Hand dargststellt*/
+            border: 2px solid black; /* legt die breite, gleichmäßigkeit ud die Farbe fest */
+            margin: 15px; /* abstand zwischen den einzelnen buttons */
+            transition: all 0.3s; /* macht, beim rauf gehen smooth in andere Farbe und beim verlassen dasselbe (wenn in :hover nur beim raufgehen */
+
+
+        }
+
+        .button-class {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2px 14px;
+            font-weight:bold;
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s;
+
+
+
+        }
+
+        button:hover {
+            box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.4);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .button-class:active {
+            background-color: #af5757;
+            padding: 1px 11px;
+        }
+
+
+
+        .delete_button {
+            position: absolute;
+            right: -8px;
+            border-radius: 50%;
+            color: #000000;
+            font-weight: bold;
+
+            padding: 3px 6px;
+            transition: opacity 0.3s;
+            overflow: hidden;
+        }
+
+        .delete_button:hover {
+            opacity: 0.7;
+        }
+
+        .delete_button:active {
+            opacity: 0.3;
+        }
+
+        .information {
+            position: absolute;
+            left: 180px;
+            bottom: -47px;
+            color: black;
+        }
+
+        .search-img {
+            position: absolute;
+            top: 11.5%;
+            right: 750px;
+            width: 47px;
+            height: 47px;
+        }
+
+
+
+
+
+
+
+        .btn_two.btn_two-primary {
+            position: absolute;
+            right: 3px;
+            margin-right: 1px;
+            margin-top: -40px;
+            padding: 14px;
+            background-color: rgb(232, 41, 41);
+            border-radius: 7px;
+            color: black;
+            overflow: hidden;
+        }
+
+        .btn_two.btn_two-primary::before {
+            content: '';
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.5s;
+            transform: skewX(-15deg);
+            overflow: hidden;
+        }
+
+
+        .btn_two.btn_two-primary::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 1px;
+            width: 10px;
+            height: 100%;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.5s;
+            transform: skewX(-15deg);
+        }
+
+        .btn_two.btn_two-primary:hover::after {
+            left: 190px;
+        }
+
+
+
+        .trashcan-img {
+            position: absolute;
+            height: 18px;
+            width: 18px;
+        }
+
+
+        .head-button {
+            position: absolute;
+            background-color: transparent;
+            color: white;
+            border-radius: 0;
+            transition: background-color 0.3s;
+            padding: 11px;
+            border: 0;
+            box-shadow: 0 0;
+        }
+
+        .head-button:hover {
+            background-color: beige;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .head-button:active {
+            background-color: #ff9898;
+            color: black;
+        }
+
+
+        .welcome-text {
+            position: absolute;
+            font-weight: bold;
+            color: white;
+            font-size: 15px;
+            right: 200px;
+            top: 13px;
+        }
+
+
+
+
+
+        .sidebar_button_text { /* solang sidebar closed, wird der Text nicht angezeigt */
+            position: absolute;
+            margin-left: 2px;
+            display: flex;
+            margin-right: 40px;
+            text-align: center;
+            color: black;
+        }
+        .item_blocks {             /* li container */
+            position: relative;
+            height: 40px;
+            width: 100%;
+            left: 0;
+            border-bottom: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            top: 30%;
+            color: black;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .item_blocks:hover {
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.5)
+        }
+
+
+        .sidebar_img {
+            position: absolute;
+            transition: opacity 0.3s;
+            margin: 2px 4px;
+            width: 7%;
+            height: 50%;
+            cursor: pointer;
+            right: 15px;
+        }
+
+        .profile_img {
+            border: 1px solid black;
+            border-radius: 50%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+            position: relative;
+            transition: opacity 0.3s;
+            height: 15%;
+            width: 25%;
+            cursor: pointer;
+        }
+
+        .profile_img:hover {
+            opacity: 0.7;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        .btn-close {
+            right: 3px;
+            border: 1px solid black;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.9);
+            transition: opacity  0.2s;
+
+
+
+        }
+        .btn-close:hover {
+            opacity: 0.6;
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+            color: white;
+            font-weight: bold;
+
+
+        }
+
+        .top_sidebar {
+            grid-row: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 5px;
+        }
+
+
+        .top_sidebar_info {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            top: 100px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            font-size: 16px;
+        }
+
+
+
+
+        .under_sidebar {
+            display: flex;
+            grid-row: 2;
+            height: 400px;
+            top: 0;
+            width: 100%;
+            flex-grow: 1;
+            left: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+
+
+
+
+        .sidebar_item_container {          /* ul block */
+            padding: 0 0;
+            list-style: none;
+            width: 100%;
+            height: 80%;
+            top: 20%;
+            display: flex;
+            flex-direction: column;
+        }

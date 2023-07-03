@@ -1,0 +1,70 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block title %} Profile {% endblock %}
+
+
+
+
+
+
+
+{% block styles %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block authForm %}
+    <main class="profile_sidebar_container">
+        <nav class="profile_sidebar">
+            <ul class="element_block">
+                <li class="navigation_bar" onclick="window.location.href='{% url 'home:password' %}';">
+                    General Profile Settings
+                </li>
+                <li class="navigation_bar" onclick="window.location.href='{% url 'home:create' %}';">
+                    Create own Recipes
+                </li>
+                <li class="navigation_bar" onclick="window.location.href='{% url 'home:my-recipes' %}';">
+                    My Recipes
+                </li>
+            </ul>
+        </nav>
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{% comment %}
+profil settings uterteilung:
+- persönliche Daten (pb, pw, mail, nn,)
+- extra container für  gespeicherte rezepte
+-
+{% endcomment %}

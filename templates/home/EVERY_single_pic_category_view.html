@@ -1,0 +1,54 @@
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+{% block title %} Home - Create Your own Recipe {% endblock %}
+
+{% block styles %}
+
+
+
+
+{% endblock %}
+
+
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'detail/detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'categories/style.css' %}">
+{% endblock %}
+
+
+
+{% block authForm %}
+<form method="get">
+    <main class="list_view_main">
+        {% for product in category_products %}
+            <div class="category_image_container">
+                <img class="pic"
+                     title="{{ product.name }}"
+                     src="{{ product.p_cat_picture.url }}"
+                     alt="{{ product.name }}">
+
+                    <div class="category_name_text"
+                         title="{{ product.name }}">
+                        <p>
+                            {{ product.name }}
+                        </p>
+            </div>
+        {% endfor %}
+    </main>
+
+
+
+
+
+</form>
+
+
+
+
+{% endblock %}

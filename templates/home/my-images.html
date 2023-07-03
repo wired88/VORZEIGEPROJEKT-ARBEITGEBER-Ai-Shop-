@@ -1,0 +1,52 @@
+
+
+
+
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+
+{% comment %} File for storage all users createdf recipes {% endcomment %}
+
+
+{% load static %}
+
+
+{% block title %}My Recipes{% endblock %}
+
+{% block styles %}
+
+
+{% endblock %}
+
+
+
+
+{% block authForm %}
+<form method="get" enctype="multipart/form-data">
+    <main class="main">
+        {% for recipe in object_list %}
+            <div class="recipe_element" onclick="window.location.href='{% url 'home:user-recipe' recipe.pk %}';">
+                <img class="recipe_img_detail_list_view" src="{{ recipe.recipe_picture.url }}" alt="{{ recipe.title}}">
+                {{ recipe.title }} {{ recipe.author }}  <br>
+            </div>
+        {% endfor %}
+    </main>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

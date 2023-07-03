@@ -1,0 +1,165 @@
+
+
+.create_main {
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 165, 0, 1);
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    padding-top: 150px;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 1300px;
+    top: 200px;
+    left: 16%;
+    height: 200vh;
+    margin-bottom: 200px;
+}
+
+.create_main h2{
+    color: rgba(0, 0, 0, .7);
+    font-weight: bold;
+}
+
+.create_main > * {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background-color: rgba(255, 255, 255, .95)
+}
+
+.create_main .create_container {
+    position: relative;
+    display: grid;
+    margin-top: -50px;
+    grid-template-columns: 1200px;
+    grid-template-rows: 100px 70px 600px 200px;
+    }
+
+.head-container {
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.upper_body {
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upper_body input {
+    width: 600px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.create_body {
+    grid-row: 3;
+    margin-bottom: 5px;
+    flex-direction: column;
+    display: grid;
+    justify-content: center;
+
+    grid-template-columns: 100%;
+    grid-template-rows: 400px 100px;
+
+
+}
+
+.create_body > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lower_body {
+    height: 100%;
+    grid-row: 4;
+}
+
+
+.form-control {
+    width: 200px;
+    height: 85%;
+    position: relative;
+}
+
+
+#value_field {
+    height: 1000px;
+    width: 1000px;
+    position: absolute;
+    background-color: black;
+}
+
+
+.add_ingredients_and_value {
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 40% 10% 10% 40%;
+    grid-template-columns: 80vh;
+}
+
+.add_ingredients_and_value > * {
+    margin: 10px 0;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.create_label {
+    display:flex;
+    bottom: -10px;
+     font-weight: bold;
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+#picture_span {
+    width: 380px;
+}
+
+#price_span {
+    width: 150px;
+    display: flex; /* setzt kein automatisches kommata  todo heute abend*/
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#price_span::after {
+    content: ' €';
+    margin-left: 5px;
+    font-size: 16px;
+    vertical-align: bottom;
+    font-weight: bold;
+}
+
+
+#tag_field_span {
+    width: 200px;
+    margin-bottom: 0;
+
+}
+
+.ordered_tag_section {
+
+}
+
+
+
+
+#category_span {
+    width: 300px;
+
+    height: 50px;
+
+}
+
+

@@ -1,0 +1,672 @@
+
+{% load static %}
+{% load embed_video_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} Home {% endblock %}</title> {% comment 'hier werden Standardwerte festgelegt, welche nur verändert werden, wenn sie in einem anderen File überschireben werden' %}{% endcomment %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+
+    {% block css %}
+
+    {% endblock %}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+
+<script defer src="{% static 'home/home_js/home.js' %}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script defer src="{% static 'create/create.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.17.8/tagify.min.js"></script>
+
+    <style>
+
+
+        .image {
+            position: absolute;
+            width: 100%;
+            height: 75%;
+            bottom: 0;
+            border: 2px solid black;
+            z-index: 0; /* legt ebene des Bildes fest ( bei überlappen wird das Bild eine ebene nach hinten verlegt, sodass es hinter einem anderen objekt liegt */
+        }
+
+
+
+        .login_container {
+            position: absolute;
+            left: 30%;
+            top: 340px;
+            width: 550px;
+            height: 500px;
+            background-color: beige;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding-left: 20px;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5)
+            }
+
+
+
+        .container {
+            position: absolute;
+            justify-content: center;
+            color: rgb(0, 0, 0);
+            top: 0;
+            margin: 30px;
+            right: 30px;
+            vertical-align: top; /* die eleente werden nach em oberen punkt zentriert. so bewegen sie sich beihover nicht wenn eines größer wird */
+        }
+
+        .searchbox {
+            position: relative;
+            left: 12px;
+            top: 6px;
+            border-radius: 3px;
+            border: 1px solid black;
+            width: 700px;
+            min-height: 40px;
+            height: auto;
+            font-size: 20px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            line-height: 25px;
+            color: black;
+            transition: background-color;
+            line-break: strict;
+        }
+        .search-button {
+            background-color: white;
+            color: black;
+            position: absolute;
+            right: -25px;
+            bottom: -44px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+
+
+        {% block styles %}
+
+        {% endblock %}
+
+
+
+.profile_sidebar_container {
+    position: relative;
+        width: 1000px;
+        height: 1000px;
+        background-color: rgba(241, 232, 207, 0.5);
+        border: 1px solid black;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: space-between;
+        left: 400px;
+       top: 300px;
+        border-radius: 4px;
+    }
+    .profile_sidebar {   /* nav bar */
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid black;
+        align-items: center;
+        justify-content: center;
+        width: 25%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        background-color: rgba(252, 231, 176, 0.5);
+    }
+
+    .element_block { /* ul block */
+        padding: 3px 1px;
+        list-style: none;
+        border-top: 1px solid black;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        right: 0;
+        top: 15%;
+    }
+
+    .navigation_bar {     /* li container */
+        display: flex;
+        cursor: pointer;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        margin: 5px 0;
+        background-color: #03442c;
+        color: white;
+        font-weight: bold;
+        border: 1px solid black;
+        transition: background-color 0.2s;
+        border-radius: 0;
+    }
+
+    .navigation_bar:hover {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        background-color: beige;
+        color: black;
+    }
+
+    .navigation_bar:active {
+        border-left: 15px solid black;
+    }
+
+/* for user_recipe.html */
+    .main {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 1400px;
+        top: 300px;
+        left: 275px;
+        background-color: beige;
+        color: black;
+        border-radius: 7px;
+        border: 1px solid black;
+        grid-template-columns: 300px 300px 300px 300px;
+        grid-template-rows: auto 400px;
+    }
+
+    .search-box {
+        width: 1000px;
+        position: absolute;
+        top: 100px;
+        height: 100px;
+        border: 1px solid black;
+        color: black;
+    }
+
+
+/* for user_recipes.html */
+    .recipe_img_detail_list_view {
+        width: 100%;
+        border: 1px solid black;
+        top: 0;
+        left: 0;
+    }
+
+    .recipe_element {
+        display: grid;
+        grid-template-columns: 200px;
+        grid-template-rows: 200px 100px;
+        border: 1px solid black;
+        margin: 15px;
+        align-items: center;
+
+        cursor: pointer;
+        background-color: white;
+    }
+
+    .recipe_element:hover {
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6)
+    }
+
+    .sidebar_element {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        margin: 5px 0;
+    }
+
+
+
+    .offcanvas-body {
+        position: relative;
+        left: -15px;
+        margin: 3px 0;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 10% 70%;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .offcanvas-start {
+        margin-right: 0;
+        padding-right: 0;
+    }
+
+    .offcanvas-title {
+        border-bottom: 2px solid black;
+    }
+/* for recipe detail view */
+    .main_recipe_detail_view {
+        background-color: beige;
+        border: 10px solid #03442c;
+        position: relative;
+        left: 23%;
+        top: 300px;
+        width: 1000px;
+        height: 1200px;
+    }
+
+    .recipe_detail_container {
+        display: grid;
+        grid-template-columns: 90%;
+        grid-template-rows: 150px 300px 200px 550px;
+        position: relative;
+        border: 1px solid black;
+    }
+
+    .recipe_detail_heading {
+        text-decoration: underline;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        grid-row: 1;
+
+        top: 0;
+
+
+    }
+
+
+
+
+
+
+    .recipe_detail_image_view {
+        grid-row: 2; /* greift auf die zweite row in grid zu, alle hierfür festgekegten eigenschaften gelten ausschließlic für die 2. row. */
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 0;
+    }
+
+    .ingredients {
+        border-bottom: 1px solid black;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        grid-row: 3;
+        display: flex;
+        justify-content: left;
+    }
+
+
+    .recipe_detail_view {
+        width: 100%;
+        height: 100%;
+        grid-row: 4;
+        border-bottom: 1px solid black;
+        top: 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+
+
+
+
+<script>
+
+        function ClearField() {
+            document.getElementById("product-Item").value = "";
+        }
+
+        </script>
+
+</head>
+<body class="body">
+    <header class="head_container">
+        <div class="logo_container">
+            <img class="logo" src="{% static 'home/home_images/shopLogo.png' %}" alt="Logo" title="Home" onclick="window.location.href='{% url 'home:index' %}';">
+        </div>
+        <nav>
+            {% if request.user.is_authenticated %}
+            <p class="welcome-text">Welcome {{ request.user.username }}!</p>
+            <button class="head-button" style="right: 30px;" onclick="window.location.href='{% url 'home:logout' %}';">
+            Logout
+            </button>
+            {% else %}
+            <button class="head-button" style="right: 150px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+                Login
+            </button> {% comment #2  %} {%  endcomment %}
+            <button class="head-button" style="right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+                Register
+            </button>
+            {% endif %}
+
+            <button class="head-button" title="Description" style="left:30%;" onclick="window.location.href='{% url 'home:description' %}';">
+                Description
+            </button>
+            <button type="button" class="head-button" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="a_TransformX()">
+                Categories
+            </button>
+        </nav>
+        <div class="head_col1">
+            <button class="dropdown_button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                <img id="dropdown_menu_button" class="dropdown_button_img" src="{% static 'home/home_images/menu.png' %}" alt="dropdown_img">
+            </button>
+        </div>
+
+        <div class="offcanvas offcanvas-start" style="border: 3px solid black; background-color: beige;" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+              <div class="top_sidebar">
+              {% if request.user.is_authenticated %}
+                  <img class="profile_img" title="Profile" onclick="window.location.href='{% url 'home:profile' %}';" src="{% static 'home/avatar1.png' %}" alt="profile_img">
+                  <div class="top_sidebar_info" style="color: black; position: absolute; z-index: 4;">
+                    {{ request.user.username }} <br>
+                    Registered since: {{ request.user.date_joined }}
+                  {% else %}
+                <button class="head-button" style="position: relative; left: 10px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+                    Login
+                </button>
+                <button class="head-button" style=" right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+                    Register
+                </button>
+              {% endif %}
+              </div>
+              <div class="under_sidebar">
+                  {% if request.user.is_authenticated %}
+                    <ul class="sidebar_item_container">
+                        <li class="item_blocks" title="Marked Recipes" onclick="window.location.href='{% url 'home:profile' %}';">
+                            <span class="sidebar_button_text">Marked Recipes</span>
+                            <img class="sidebar_img" src="{% static 'home/marked_recipes.png' %}" alt="top_10_img">
+                        </li>
+                        <li class="item_blocks" title="Last Recipes" onclick="window.location.href='{% url 'home:profile' %}';">
+                            <span class="sidebar_button_text">Last Recipes</span>
+                            <img class="sidebar_img" src="{% static 'home/cooking_time.png' %}" alt="last_recipe_img">
+                        </li>
+                        <li class="item_blocks" title="Settings" onclick="window.location.href='{% url 'home:settings' %}';">
+                            <span class="sidebar_button_text">Settings</span>
+                            <img class="sidebar_img" src="{% static 'home/settings.png' %}" alt="top_10_img">
+                        </li>
+                        <li class="item_blocks" title="My Recipes" onclick="window.location.href='{% url 'home:my-images' %}';">
+                            My Recipes
+                        </li>
+                        <li class="item_blocks" title="Logout" onclick="window.location.href='{% url 'home:logout' %}';">
+                            <span class="sidebar_button_text">Logout</span>
+                            <img class="sidebar_img" style="margin-left: 3px;" src="{% static 'home/logout.png' %}" alt="top_10_img">
+                        </li>
+                    </ul>
+                  {% endif %}
+                </div>
+            </div>
+          </div>
+        </div>
+    </header>
+
+{% block authForm %}
+<main class="home_main">
+    <div class="upper_main">
+        <div class="upper_header">
+            <h2>Your Place for AI-Art</h2>
+        </div>
+
+        <form method="get" action="">
+            {% for clip in video %}
+                <video class="video_main" loop autoplay>
+                    <source src="{{ clip.video.url }}" type="video/mp4">
+                </video>
+            {% endfor %}
+        </form>
+
+        <div class="search-container">
+
+            <label class="search-label" for="product-Item">Which groceries do you have at home?</label> {%  comment %} labesl stehen am Anfang einer input leiste und beschreiben, was der user eingeben soll {% endcomment %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button-class" id="add_tag_searchfield" name="add_tag_searchfield" type="submit" title="add_tag_searchfield Grocery" style=" right: 10px; bottom: -20px;">
+                    <span class="add_button_sign">+</span>
+                </button>
+            </form>
+
+
+            <button class="btn-close" title="delete line" aria-label="Close" onclick="ClearField()">
+            </button>
+            <img class="search-img" src="{% static 'home/pot2.png' %}" alt=Pot>
+        </div>
+        <div class="product-container">
+            {% for product in object_list %}
+                <div class="list-item">
+                <form method="get" action="">
+                   <p class="product-text">{{ product.name }}</p>
+                </form>
+                    <button class="btn-close" id="delete_item" name="delete_item" title="delete" aria-label="Close" onclick="window.location.href='{% url 'home:delete' product.pk %}';"></button>
+                </div>
+            {% endfor %}
+            <button class="button-class" style="position:absolute; right: -25px; bottom: -48px;" title="search">search</button>
+        </div>
+    </div>
+    <div class="middle_main">
+    </div>
+    <div class="lower_main">
+        <h2 class="lower_header_text" >Explore</h2>
+        <div class="swipe_box">
+            <div class="image_swipe_box">
+                <img class="box_images" src="{% static 'home/home_images/discover_under_main.png' %}" alt="explore" title="Explore">
+            </div>
+            <div class="text_swipe_box">
+                <p>Images</p>
+            </div>
+        </div>
+        <div class="swipe_box">
+            <div class="image_swipe_box">
+                <img class="box_images" src="{% static 'home/home_images/top_rated.jpg' %}" alt="top" title="Top Rated">
+            </div>
+            <div class="text_swipe_box">
+                <img class="box_images" style="width:220px; height: 40px;" src="{% static 'home/home_images/top_text.png' %}" alt="top" title="Top Rated">
+            </div>
+        </div>
+        <div class="swipe_box">
+            <div class="image_swipe_box">
+                <img class="box_images" src="{% static 'home/home_images/categories.png' %}" alt="categories" title="Categories">
+            </div>
+            <div class="text_swipe_box">
+                <p>Categories</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+<footer class="footer_home">
+    <div class="left_footer">
+         <img class="logo" src="{% static 'home/home_images/shopLogo.png' %}" alt="Logo" title="Home" onclick="window.location.href='{% url 'home:index' %}';">
+    </div>
+    <div class="left_middle_footer">
+
+         <section style="grid-row: 1;">
+            <a href="{% url 'home:index' %}">Categories</a>
+        </section>
+        <section style="grid-row: 3;">
+            <a href="{% url 'home:index' %}">Sell Your Pictures</a>
+        </section>
+
+
+
+
+
+
+
+    </div>
+    <div class="right_middle_footer">
+        <section style="grid-row: 1;">
+            <a href="{% url 'home:index' %}">FAQ</a>
+        </section>
+        <section style="grid-row: 2;">
+            <a href="{% url 'home:index' %}">Rules</a>
+        </section>
+        <section style="grid-row: 3;">
+            <a href="{% url 'home:index' %}">Support/Contact</a>
+        </section>
+
+    </div>
+    <div class="right_footer">
+         <section style="grid-row: 1;">
+            <a href="{% url 'home:index' %}">About Us</a>
+        </section>
+        <section style="grid-row: 2;">
+            <a href="{% url 'home:index' %}">Impressum</a>
+        </section>
+        <section style="grid-row: 3;">
+            <a href="{% url 'home:index' %}">Bug Bounty Programm</a>
+        </section>
+
+    </div>
+
+</footer>
+
+
+
+
+
+
+<!-- Large Category modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="home_modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="modal_category">
+      <header class="category_header">
+          <h3>Categories</h3>
+      </header>
+        <section style="grid-column: 1;">
+            <div style="grid-row: 1;">
+                <p>Images</p>
+            </div>
+            <div style="grid-row: 2;">
+
+            </div>
+            <div style="grid-row: 3; --order: 1;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Categories</a>
+            </div>
+            <div style="grid-row: 4; --order: 2;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Image Sets</a>
+            </div>
+            <div style="grid-row: 5; --order: 3;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Explore</a>
+            </div>
+        </section>
+
+        <section style="grid-column: 2;">
+            <div style="grid-row: 1;">
+                <p>Videos</p>
+            </div>
+            <div style="grid-row: 2;">
+
+            </div>
+            <div style="grid-row: 3; --order: 1;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Explore</a>
+            </div>
+            <div style="grid-row: 4; --order: 2;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Categories</a>
+            </div>
+            <div style="grid-row: 5; --order: 3;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Top rated</a>
+            </div>
+        </section>
+
+        <section style="grid-column: 3;">
+            <div style="grid-row: 1;">
+                <p>Graphics</p>
+            </div>
+            <div style="grid-row: 2;">
+
+            </div>
+            <div style="grid-row: 3; --order: 1;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Top rated</a>
+            </div>
+            <div style="grid-row: 4; --order: 2;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Categories</a>
+            </div>
+            <div style="grid-row: 5; --order: 3;">
+                <a href="{% url 'home:index' %}" class="navbar_a">Explore</a>
+            </div>
+        </section>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+{% comment Jetzt möchte ich eine logggedin-Seite auf der Seite einbauen ohne eine zusätzliche App bauen zu müssen.%}
+{% in html kann mnan seiten so coden, dass sich nur bestimmte elemente bei ihnen verändern (wie bei der Vererbung %}
+{% heist soviel wie: Der User klickt auf einen Link um sich anzumelden. Jetzt ändert sic nur der körtper der seite
+aber zB die Fußzeile, das Hintergrundbild usw bleiben gleich. Diesen Prozess startet man mit:
+ {% block authForm %}
+
+
+
+{% endblock %}
+in diesen Bereich kommt immer nur das was ich verändert.
+ %}
+{% endcomment %}
+
+
+
+{% comment %}
+
+- finish headmenu (top 10 recipes o. Recipes of the Week)
+- drop down menu seite
+- User Interface? (anfangen)
+- fußzeile
+# 2 davon morgen #
+ Tipps:#
+ poswition: sticky<; lässt einen button (auch beim scrollen immer an gleicher Stelle stehen. zB in der oberen linken ecke des Bildschirms
+
+
+
+{% endcomment %}

@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+
+
+{% block title %} Home - Register {% endblock %}
+{% block styles %}
+
+
+
+{% endblock %}
+
+
+{% block authForm %}  {% comment Wir nehemen uns hier zunächst die block und endblock klammern aus home und cpen Sie hier rein %}{% endcomment %}
+
+<form method="POST" action=""> {% comment hier legen wir den body für dieses html file fest. %} {%  endcomment %}
+
+    <div class="login_container">
+        <h1>Register</h1>
+        {{ form.as_p }} {% comment mit .as_p geben wir den wert als <p> aus %} {%  endcomment %}
+        {% csrf_token %}
+
+        <button class='button-class' type="submit">Register</button>
+
+        <p class="login_text" >Have an account yet? Log In here!
+            <span>
+                <button class="button-class"  onclick="window.location.href='{% url 'home:login' %}';">
+                    Login
+                </button>
+
+            </span>
+
+        </p>
+    </div>
+</form>
+
+
+{% endblock %}

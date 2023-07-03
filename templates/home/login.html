@@ -1,0 +1,68 @@
+
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+{% block title %} Home - Login {% endblock %}
+
+{% block styles %}
+    .login_text {
+                position: absolute;
+                left: 20px;
+                bottom: 40px;
+                }
+    .login_image {
+                position: absolute;
+                top: 60%;
+                width: 64px;
+                height: 64px;
+                left: 40%;
+                }
+    .login_text span {
+                position: absolute;
+                }
+
+    .login_container {
+                position: absolute;
+                left: 30%;
+                top: 340px;
+                width: 550px;
+                height: 500px;
+                background-color: beige;
+                border: 1px solid black;
+                border-radius: 5px;
+                padding-left: 20px;
+                box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5)
+                display: flex;
+                justify-content: center;
+                }
+
+{% endblock %}
+
+
+{% block authForm %}  {% comment Wir nehemen uns hier zunächst die block und endblock klammern aus home und cpen Sie hier rein %}{% endcomment %}
+
+<div class="login_container">
+<form method="POST" action=""> {% comment hier legen wir den body für dieses html file fest. %} {%  endcomment %}
+{% csrf_token %}
+
+        <header class="login-header">
+            <h1 >Login</h1>
+            <h3 >Welcome back!</h3>
+        </header>
+    <span class="login_block">{{ form.as_p }}</span>
+        <button class='button-class'  type="submit">Login</button>
+        <img class="login_image" src="{% static 'home/noodle_soup.png' %}" alt="delicious png from pngtree.com/">
+    </form>
+
+        <p class="login_text" >Dont have an account yet? Register now!
+            <button class="head-button" style="margin-left: 120%;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+               Register
+            </button>
+
+        </p>
+
+</div>
+
+{% endblock %}
+

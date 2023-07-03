@@ -1,0 +1,73 @@
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+{% block title %} Home - Description {% endblock %}
+
+{% block styles %}
+.description-container {
+    position: absolute;
+    left: 20%;
+    top: 500px;
+    width: 1200px;
+    height: 400px;
+    border: 1px solid black;
+    border-radius: 14px;
+    box-shadow: 4px 4px 4px rgb(0, 0, 0);
+    background-color: rgba(245, 135, 49, 0.8);
+    margin-bottom: 100px;
+    }
+
+h3 {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    border: 1px solid black;
+    padding: 4px 10px;
+    background-color: #055b3b;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 1180px;
+    }
+.description-text {
+            color: black;
+            font-size: 17px;
+            margin: 75px 100px;
+            text-align: justify;
+            }
+.dot {
+    font-weight: bold;
+    font-size: 18px;
+    margin-right: 25px;
+    }
+
+img {
+    bottom: 26%;
+    height: 60px;
+    width: 60px;
+    position: absolute;
+    }
+{% endblock %}
+
+
+{% block authForm %}  {% comment Wir nehemen uns hier zunächst die block und endblock klammern aus home und cpen Sie hier rein %}{% endcomment %}
+    <div class="description-container">
+        <h3>Description</h3>
+        <p class="description-text"><span class="dot">&#183;</span>
+            Type in the search-Field one product at the time and continue with press the "Add"-Button.
+            You will see the Product in the list below. (Pay attention to your Spelling and that you just can type in one Product ath the time.
+            Otherwise, the Software won't find any recipe.<br><br>
+            <span class="dot">&#183;</span> If you have listed all your Products in the Box below, click the "search"-Button
+            you will be redirected to the "receipes"-url where you can find all recipes that match your input.<br>
+        </p>
+        <img alt="Groceries" style="left: 30%;" src="{% static 'home/grocery.png' %}">
+        <img alt="arrow" style="left: 40%;" src="{% static 'home/arrow-right.png' %}">
+        <img alt="cooking" style="left: 50%;" src="{% static 'home/cooking.png' %}">
+        <img alt="arrow" style="left: 60%;" src="{% static 'home/arrow-right.png' %}">
+        <img alt="meal" style="left: 70%;" src="{% static 'home/eating.png' %}">
+        <h3 style="bottom: 6%;" >HAPPY COOKING!</h3>
+    </div>
+
+
+{% endblock %}
+

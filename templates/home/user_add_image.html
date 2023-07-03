@@ -1,0 +1,123 @@
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+
+
+{% block title %} Home - Create Your own Recipe {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+{% endblock %}
+
+
+
+
+{% block styles %}
+
+
+
+
+
+{% endblock %}
+
+
+{% block authForm %}
+
+
+<form method="post" enctype="multipart/form-data">
+    <main class="create_main">
+
+
+        <div class="create_container">
+
+            <div class="head-container">
+
+                <h2>Sell</h2>
+
+            </div>
+
+            {% csrf_token %}
+            <div class="upper_body">
+                <span class="create_label">{{ title.label }}</span>
+                {{ form.title.as_widget }}
+
+            </div>
+            <div class="create_body">
+
+
+                    <section class="add_ingredients_and_value">
+
+                        <div style="grid-row: 1;">
+                            <span class="create_label">{{ picture.label }}</span>
+                            <span id="picture_span">{{ form.picture }}</span>
+                        </div>
+
+                        <div style="grid-row: 2;">
+                            <span class="create_label">{{ price.label }}</span>
+                            <span id="price_span">{{ form.price.as_widget }}</span>
+                        </div>
+
+                        <div style="grid-row: 3;">
+
+                            <label class="create_label" for="tag_field_span">
+                                {{ form.tag_field.label }}
+                            </label>
+                            <input data-tag-trigger="Space" type="text" name="tag_field" id="tag_field_span"
+                                   data-role="tagsinput" data-max-tags="5" data-random-color="true">
+
+
+                        </div>
+
+                        <div style="grid-row: 4;">
+                            <span class="create_label">{{ category.label }}</span>
+                            <span id="category_span">{{ form.category }}</span>
+                        </div>
+
+                    </section>
+
+                <section class="ordered_tag_section">
+                    <div class="multi_tag_container">
+
+                    </div>
+                </section>
+            </div>
+            <div class="lower_body">
+                <label class="create_label" for="user_name">
+                    {{ form.user_name.label }}
+                </label>
+                <style>
+                    /* da nicht gewollt ist, dass der pk des users sondern der username gerendert wird, wird die form
+                    as_hidden gerendert und direkt darunter der username.
+                     */
+                </style>
+                {{ username_field.user_name.as_hidden }}
+                {{ request.user.username }}
+                <button class='button-class' name="add_picture_button" id="add_picture_button" style="bottom: -36px; padding: 5px; right: -24px;" type="submit">
+                    Create
+                </button>
+            </div>
+        </div>
+    </main>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

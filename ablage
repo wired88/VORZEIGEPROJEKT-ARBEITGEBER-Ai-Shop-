@@ -1,0 +1,45 @@
+
+
+Probleme:
+Nach abschicken des Bildes funktioniert die weiterleitung zum success_url nicht mehr. 
+swipe-down menu funktioniert nicht mehr
+
+
+
+
+
+
+{% video LoadVideoForPageCreation.video 'background.mp4' %}
+#
+
+
+delete tag/product:
+<button class="btn_two btn_two-primary" title="delete" onclick="window.location.href='{% url 'home:delete' product.pk %}';"> <!-- die Funktion in views.py wird anahnd der übermittelten product.id ausgeführt -->
+                    <img class="trashcan-img" src="{% static 'home/trash-can.png'%}" alt="trash">
+                </button>
+                <p class="information">Please keep in mind: Just the Product name - no comma</p>
+
+//entry.target.style.opacity= '0';
+           // entry.target.classList.add('hidden');
+//entry.target.style.opacity= '1';
+           // entry.target.classList.remove('hidden');
+
+
+
+#price_span::after {
+    content: '€';
+    margin-left: 3px;
+    font-weight: bold;
+    font-size: 17px;
+    justify-content: center;
+    align-self: center;
+}
+
+#price_span::before {
+    content: 'Price: ';
+    font-weight: bold;
+    justify-content: center;
+    align-self: center;
+}
+
+request.user.username
