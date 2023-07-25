@@ -1,47 +1,153 @@
 {% extends 'home/base.html' %}
-
 {% load static %}
 
 {% block title %} Profile {% endblock %}
 
-
-
-
-
-
-
-{% block styles %}
-
-
-
-
-
-
-
-
-
-
-
-
-
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'detail/detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'profile/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'register/style.css' %}">
 {% endblock %}
 
+{% block script %}
+    <script src="{% static 'profile/script.js' %}"></script>
+{% endblock %}
 
 {% block authForm %}
-    <main class="profile_sidebar_container">
-        <nav class="profile_sidebar">
-            <ul class="element_block">
-                <li class="navigation_bar" onclick="window.location.href='{% url 'home:password' %}';">
-                    General Profile Settings
-                </li>
-                <li class="navigation_bar" onclick="window.location.href='{% url 'home:create' %}';">
-                    Create own Recipes
-                </li>
-                <li class="navigation_bar" onclick="window.location.href='{% url 'home:my-recipes' %}';">
-                    My Recipes
-                </li>
-            </ul>
-        </nav>
+
+    <main class="main_profile">
+        <section class="navbar_options">
+            <nav class="profile_sidebar">
+                    <ul class="element_block">
+                        <li class="navigation_bar" id="change_profile_button">
+                            <p>
+                                Profile Settings
+                            </p>
+                        </li>
+                        <li class="navigation_bar" id="change_password_button">
+                            <p>
+                                Change your Password
+                            </p>
+                        </li>
+                        <li class="navigation_bar" onclick="window.location.href='{% url 'home:create' %}';">
+                            <p>
+                                Upload ans Sell
+                            </p>
+                        </li>
+                        <li class="navigation_bar" onclick="window.location.href='{% url 'home:my-images' %}';">
+                            <p>
+                                My Images
+                            </p>
+                        </li>
+                        <li class="navigation_bar" onclick="window.location.href='{% url 'home:my-images' %}';">
+                            <p>
+                                My Images
+                            </p>
+                        </li>
+                        <li class="navigation_bar" onclick="window.location.href='{% url 'home:my-images' %}';">
+                            <p>
+                                General Settings
+                            </p>
+                        </li>
+                        <li class="navigation_bar" onclick="window.location.href='{% url 'home:my-images' %}';">
+                            <p>
+                                Sign Out
+                            </p>
+                        </li>
+                    </ul>
+                </nav>
+        </section>
+        <section class="content_profile">
+    <form method="POST">
+        {% csrf_token %}
+            <div class="profile_img_div">
+                <img class="profile_image" src="{{ request.user.profile_image.url }}" alt="{{ request.user.username }}- profile_img"
+                 onclick="document.getElementById('profile_img_id').click()">
+                <span style="display: none;">
+                    {{ form.profile_image }}
+                </span>
+                <span class="profile_img_box_shadow"></span>
+            </div>
+
+            <div class="profile_upper_body">
+
+                <div id="first_name_container">
+                    {{ form.first_name.label }}
+                    {{ form.first_name }}
+                </div>
+
+                <div id="last_name_container">
+                    {{ form.last_name.label }}
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <div class="profile_body">
+                <div style="grid-row: 2;">
+                    {{ form.username.label }}
+                    {{ form.username }}
+                </div>
+
+                <div style="grid-row: 4; margin-top: 60px;">
+                    {{ form.email.label }}
+                    {{ form.email }}
+                </div>
+
+                <div class="save_button_container">
+                    <button class="universal_sexy_button" type="submit">
+                            <svg width="100%" height="40px" viewBox="0 0 1200 70">
+                                <polyline points="1200,1 1200,67 1,67 1,1 1200,1" class="bg-line" style="stroke-width: 2;"/>
+                                <polyline points="1200,1 1200,67 1,67 1,1 1200,1" class="hl-line" style="stroke-width: 2;" />
+                            </svg>
+                        Save changes
+                    </button>
+                </div>
+            </div>
+            </form>
+
+        </section>
+
+    <section class="pw_change_page">   {% comment %} 100px 50px 110px 50px 100px; {% endcomment %}
+        <form method="POST">
+            {% csrf_token %}
+            <header class="change_header"> {% comment %} 1 {% endcomment %}
+                <h3>
+                    Enter your new Password
+                </h3>
+            </header>
+
+            <main class="body_pw_change"> {% comment %} 2;  {% endcomment %}
+
+
+                <div style="margin-right: 10px; grid-column: 1; grid-row: 1;">
+                    {{ form.password.label }}
+                    {{ form.password }}
+                </div>
+                <div style="margin-left: 10px; grid-column: 2; grid-row: 1;">
+                    <label for="#password2">
+                        Confirm
+                    </label>
+                    <span id="password2" style="width: 100%;">
+                        {{ form.password2 }}
+                    </span>
+                </div>
+
+                <div class="info_text_container">
+                    <p>
+                        We will send you a confirmation Mail to your Email Address.
+                    </p>
+                </div>
+            </main>
+            <footer>
+
+            </footer>
+                    </form>
+
+        </section>
+
     </main>
 
 

@@ -8,43 +8,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} Home {% endblock %}</title> {% comment 'hier werden Standardwerte festgelegt, welche nur verändert werden, wenn sie in einem anderen File überschireben werden' %}{% endcomment %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
 
     {% block css %}
 
     {% endblock %}
 
+    {% block script %}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% endblock %}
 
 
 
-<script defer src="{% static 'home/home_js/home.js' %}"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></script>
+    <!-- Import Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'home/libaries/css/bootstrap_css_5.1.3.css' %}">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-<script defer src="{% static 'create/create.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.17.8/tagify.min.js"></script>
 
     <style>
-
-
         .image {
             position: absolute;
             width: 100%;
@@ -53,23 +34,6 @@
             border: 2px solid black;
             z-index: 0; /* legt ebene des Bildes fest ( bei überlappen wird das Bild eine ebene nach hinten verlegt, sodass es hinter einem anderen objekt liegt */
         }
-
-
-
-        .login_container {
-            position: absolute;
-            left: 30%;
-            top: 340px;
-            width: 550px;
-            height: 500px;
-            background-color: beige;
-            border: 1px solid black;
-            border-radius: 5px;
-            padding-left: 20px;
-            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5)
-            }
-
-
 
         .container {
             position: absolute;
@@ -130,55 +94,7 @@
        top: 300px;
         border-radius: 4px;
     }
-    .profile_sidebar {   /* nav bar */
-        display: flex;
-        flex-direction: column;
-        border-right: 1px solid black;
-        align-items: center;
-        justify-content: center;
-        width: 25%;
-        height: 100%;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        background-color: rgba(252, 231, 176, 0.5);
-    }
 
-    .element_block { /* ul block */
-        padding: 3px 1px;
-        list-style: none;
-        border-top: 1px solid black;
-        width: 100%;
-        height: 100%;
-        flex-direction: column;
-        right: 0;
-        top: 15%;
-    }
-
-    .navigation_bar {     /* li container */
-        display: flex;
-        cursor: pointer;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        height: 35px;
-        margin: 5px 0;
-        background-color: #03442c;
-        color: white;
-        font-weight: bold;
-        border: 1px solid black;
-        transition: background-color 0.2s;
-        border-radius: 0;
-    }
-
-    .navigation_bar:hover {
-        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-        background-color: beige;
-        color: black;
-    }
-
-    .navigation_bar:active {
-        border-left: 15px solid black;
-    }
 
 /* for user_recipe.html */
     .main {
@@ -189,7 +105,6 @@
         width: 1400px;
         top: 300px;
         left: 275px;
-        background-color: beige;
         color: black;
         border-radius: 7px;
         border: 1px solid black;
@@ -205,130 +120,6 @@
         border: 1px solid black;
         color: black;
     }
-
-
-/* for user_recipes.html */
-    .recipe_img_detail_list_view {
-        width: 100%;
-        border: 1px solid black;
-        top: 0;
-        left: 0;
-    }
-
-    .recipe_element {
-        display: grid;
-        grid-template-columns: 200px;
-        grid-template-rows: 200px 100px;
-        border: 1px solid black;
-        margin: 15px;
-        align-items: center;
-
-        cursor: pointer;
-        background-color: white;
-    }
-
-    .recipe_element:hover {
-        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6)
-    }
-
-    .sidebar_element {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 35px;
-        margin: 5px 0;
-    }
-
-
-
-    .offcanvas-body {
-        position: relative;
-        left: -15px;
-        margin: 3px 0;
-        display: grid;
-        grid-template-columns: 100%;
-        grid-template-rows: 10% 70%;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    .offcanvas-start {
-        margin-right: 0;
-        padding-right: 0;
-    }
-
-    .offcanvas-title {
-        border-bottom: 2px solid black;
-    }
-/* for recipe detail view */
-    .main_recipe_detail_view {
-        background-color: beige;
-        border: 10px solid #03442c;
-        position: relative;
-        left: 23%;
-        top: 300px;
-        width: 1000px;
-        height: 1200px;
-    }
-
-    .recipe_detail_container {
-        display: grid;
-        grid-template-columns: 90%;
-        grid-template-rows: 150px 300px 200px 550px;
-        position: relative;
-        border: 1px solid black;
-    }
-
-    .recipe_detail_heading {
-        text-decoration: underline;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        grid-row: 1;
-
-        top: 0;
-
-
-    }
-
-
-
-
-
-
-    .recipe_detail_image_view {
-        grid-row: 2; /* greift auf die zweite row in grid zu, alle hierfür festgekegten eigenschaften gelten ausschließlic für die 2. row. */
-        height: 100%;
-        width: 100%;
-        overflow-x: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        top: 0;
-    }
-
-    .ingredients {
-        border-bottom: 1px solid black;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        grid-row: 3;
-        display: flex;
-        justify-content: left;
-    }
-
-
-    .recipe_detail_view {
-        width: 100%;
-        height: 100%;
-        grid-row: 4;
-        border-bottom: 1px solid black;
-        top: 0;
-    }
-
-
-
 
 
 
@@ -352,16 +143,258 @@
 
 </head>
 <body class="body">
+<!-- Import jQuery -->
+     <script  src="{% static 'home/libaries/js/jQuery3.6.0.js' %}"></script>
+
+<!-- Latest compiled JavaScript -->
+     <script src="{% static 'home/libaries/js/JavaScript_5.1.3.js' %}"></script>
+
+<!-- Import other libraries -->
+    <script defer src="{% static 'home/home_js/home.js' %}"></script>
+     <script src="{% static 'home/libaries/js/Tagify_4.17.8.js' %}"></script>
+
+<!-- Import es-module-shims -->
+         <script defer src="{% static 'home/libaries/js/es_module_shims1.js' %}"></script>
+
+
     <header class="head_container">
         <div class="logo_container">
-            <img class="logo" src="{% static 'home/home_images/shopLogo.png' %}" alt="Logo" title="Home" onclick="window.location.href='{% url 'home:index' %}';">
+            <img class="logo" src="{% static 'home/home_images/shopLogo.png' %}" alt="Logo" title="Home" onclick="window.location.href='/';">
         </div>
-        <nav>
-            {% if request.user.is_authenticated %}
-            <p class="welcome-text">Welcome {{ request.user.username }}!</p>
-            <button class="head-button" style="right: 30px;" onclick="window.location.href='{% url 'home:logout' %}';">
-            Logout
+
+
+        <div class="head_col1">
+            <button class="dropdown_button"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <img id="dropdown_menu_button" class="dropdown_button_img" src="{% static 'home/home_images/menu.png' %}" alt="dropdown_img">
             </button>
+        </div>
+
+
+{% comment %} ------------------------ SIDE-SLIDEBAR MENU ---------------- {% endcomment %}
+
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasWithBothOptionsLabel">
+
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                    Menu
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+
+            <div class="sidebar_body">
+
+                <div class="top_sidebar">
+
+                    {% if request.user.is_authenticated %}
+
+                        <div class="top_sidebar_info">
+                            <div style="grid-row: 1;">
+                            <button name="profile_button"
+                            id="profile_button"
+                            title="Profile" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
+
+                            <img class="profile_img"  src="{% static 'home/home_images/user_img_default.png' %}"
+                                 alt="profile_img">
+                            </button>
+                            </div>
+                            <div style="grid-row: 2;">
+                            <p>
+                            {{ request.user.username }} <br>
+                            </p>
+                            <p>
+                            Registered since: {{ request.user.date_joined }}
+                            </p>
+                            </div>
+                            </div>
+
+                            {% else %}
+
+                                <div class="top_sidebar_info" style="color: black; position: absolute; z-index: 4;">
+
+                                    <button class="head-button" style="position: relative; left: 10px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+                                        Login
+                                    </button>
+
+                                    <button class="head-button" style=" right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+                                        Register
+                                    </button>
+
+                                </div>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="under_sidebar">
+
+                {% if request.user.is_authenticated %}
+                <ul class="sidebar_item_container">
+
+                <li class="item_blocks" title="Profile" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
+                    <span class="sidebar_button_text">
+                        Profile
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                </li>
+
+                <li class="item_blocks" title="My Images" onclick="window.location.href='{% url 'home:my-images' %}';">
+                    <span class="sidebar_button_text">
+                        My Images
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+                    </svg>
+                </li>
+
+                <li class="item_blocks" title="Marked Images" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
+                    <span class="sidebar_button_text">
+                        Marked Images
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                    </svg>
+                </li>
+
+                <li class="item_blocks" title="Settings" onclick="window.location.href='{% url 'home:settings' %}';">
+                    <span class="sidebar_button_text">
+                        Settings
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" style="position: relative;" width="24" height="24" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                    </svg>
+                </li>
+
+
+                <li class="item_blocks" title="Sign out" onclick="window.location.href='{% url 'home:logout' %}';">
+                    <span class="sidebar_button_text">
+                        Sign out
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                    </svg>
+                </li>
+
+                </ul>
+                {% endif %}
+                </div>
+                </div>
+            </div>
+
+
+{% comment %} END ------------------------END SIDE-SLIDEBAR MENU END ---------------- END {% endcomment %}
+
+        <section class="header_button-box">
+            <div style="grid-column: 1;" class="dropdown">
+                <button title="Pictures" class="head-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Pictures
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <input class="dropdown-item" id="p_top_rated" name="p_top_rated" type="submit" value="Top Rated">
+                        </form>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <input  class="dropdown-item" id="picture_categories" name="picture_categories" type="submit" value="Categories">
+                        </form>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <input class="dropdown-item" id="pic_free_button" name="pic_free_button" type="submit" value="Free">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="grid-column: 2;" class="dropdown">
+                <button title="Graphics" class="head-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Graphics
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <input class="dropdown-item" id="g_top_rated" name="g_top_rated" type="submit" value="Top rated">
+                        </form>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <input class="dropdown-item" id="graphic_categories" name="graphic_categories" type="submit" value="Categories">
+                        </form>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <input class="dropdown-item" id="graphic_free" name="graphic_free" type="submit" value="Free">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            <div style="grid-column: 3;" class="dropdown">
+                <button title="Videos" class="head-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Videos
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <object class="dropdown-item" id="v_top_rated" name="v_top_rated" type="submit">
+                                Top rated
+                            </object>
+                        </form>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <object class="dropdown-item" id="cat_v_button" name="cat_v_button" type="submit">
+                                Categories
+                            </object>
+                        </form>
+                    </li>
+                    <li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <object class="dropdown-item" id="cat_free_v_button" name="cat_free_v_button" type="submit">
+                                Free
+                            </object>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="head_right">
+            {% if request.user.is_authenticated %}
+
+            <p class="welcome-text">
+                Welcome {{ request.user.username }}!
+            </p>
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <button class="head-button" title="Basket" id="basket_button" name="basket_button" style="right: 12px; margin: auto 10px; top: 8px;">
+                {% if session_data|length > 0 %}
+                    <svg xmlns="http://www.w3.org/2000/svg" style="right: 7px; top: 15px; position: absolute;" width="16" height="16" fill="rgb(255, 0, 0)" class="bi bi-circle-fill" viewBox="0 0 16 16">
+                        <circle cx="8" cy="8" r="8"/>
+                        </svg>
+                    {% endif %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"  fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
+                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
+                    </svg>
+                </button>
+            </form>
+
             {% else %}
             <button class="head-button" style="right: 150px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
                 Login
@@ -369,71 +402,15 @@
             <button class="head-button" style="right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
                 Register
             </button>
+
             {% endif %}
+        </section>
 
-            <button class="head-button" title="Description" style="left:30%;" onclick="window.location.href='{% url 'home:description' %}';">
-                Description
-            </button>
-            <button type="button" class="head-button" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="a_TransformX()">
-                Categories
-            </button>
-        </nav>
-        <div class="head_col1">
-            <button class="dropdown_button" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-                <img id="dropdown_menu_button" class="dropdown_button_img" src="{% static 'home/home_images/menu.png' %}" alt="dropdown_img">
-            </button>
-        </div>
 
-        <div class="offcanvas offcanvas-start" style="border: 3px solid black; background-color: beige;" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-              <div class="top_sidebar">
-              {% if request.user.is_authenticated %}
-                  <img class="profile_img" title="Profile" onclick="window.location.href='{% url 'home:profile' %}';" src="{% static 'home/avatar1.png' %}" alt="profile_img">
-                  <div class="top_sidebar_info" style="color: black; position: absolute; z-index: 4;">
-                    {{ request.user.username }} <br>
-                    Registered since: {{ request.user.date_joined }}
-                  {% else %}
-                <button class="head-button" style="position: relative; left: 10px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
-                    Login
-                </button>
-                <button class="head-button" style=" right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
-                    Register
-                </button>
-              {% endif %}
-              </div>
-              <div class="under_sidebar">
-                  {% if request.user.is_authenticated %}
-                    <ul class="sidebar_item_container">
-                        <li class="item_blocks" title="Marked Recipes" onclick="window.location.href='{% url 'home:profile' %}';">
-                            <span class="sidebar_button_text">Marked Recipes</span>
-                            <img class="sidebar_img" src="{% static 'home/marked_recipes.png' %}" alt="top_10_img">
-                        </li>
-                        <li class="item_blocks" title="Last Recipes" onclick="window.location.href='{% url 'home:profile' %}';">
-                            <span class="sidebar_button_text">Last Recipes</span>
-                            <img class="sidebar_img" src="{% static 'home/cooking_time.png' %}" alt="last_recipe_img">
-                        </li>
-                        <li class="item_blocks" title="Settings" onclick="window.location.href='{% url 'home:settings' %}';">
-                            <span class="sidebar_button_text">Settings</span>
-                            <img class="sidebar_img" src="{% static 'home/settings.png' %}" alt="top_10_img">
-                        </li>
-                        <li class="item_blocks" title="My Recipes" onclick="window.location.href='{% url 'home:my-images' %}';">
-                            My Recipes
-                        </li>
-                        <li class="item_blocks" title="Logout" onclick="window.location.href='{% url 'home:logout' %}';">
-                            <span class="sidebar_button_text">Logout</span>
-                            <img class="sidebar_img" style="margin-left: 3px;" src="{% static 'home/logout.png' %}" alt="top_10_img">
-                        </li>
-                    </ul>
-                  {% endif %}
-                </div>
-            </div>
-          </div>
-        </div>
+
     </header>
+
+
 
 {% block authForm %}
 <main class="home_main">
@@ -452,7 +429,7 @@
 
         <div class="search-container">
 
-            <label class="search-label" for="product-Item">Which groceries do you have at home?</label> {%  comment %} labesl stehen am Anfang einer input leiste und beschreiben, was der user eingeben soll {% endcomment %}
+
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -517,7 +494,7 @@
 
 
 
-
+<!-- XXXXXXXXXXXXXXX FOOTER SECTION XXXXXXXXXXXXXXXXXXXXXXXXX -->
 
 <footer class="footer_home">
     <div class="left_footer">
@@ -527,6 +504,9 @@
 
          <section style="grid-row: 1;">
             <a href="{% url 'home:index' %}">Categories</a>
+        </section>
+        <section style="grid-row: 2;">
+            <a href="{% url 'home:description' %}">Description</a>
         </section>
         <section style="grid-row: 3;">
             <a href="{% url 'home:index' %}">Sell Your Pictures</a>

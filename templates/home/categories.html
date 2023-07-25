@@ -1,10 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+{% block title %} Home - Create Your own Recipe {% endblock %}
+
+
+
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'detail/detail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'categories/style.css' %}">
+{% endblock %}
+
+
+
+{% block authForm %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <main class="list_view_main">
+           {% for value in image %}
+
+                <button class="category_image_container" type="submit" name="category_container" id="category_container"
+                 value="{{ value.slug }}">
+
+
+                    {% if value.p_cat_picture %}
+
+                    <img class="pic"
+                     title="{{ value.name }}"
+                     src="{{ value.p_cat_picture.url }}"
+                     alt="{{ value.name }}">
+
+                    {%  else %}
+
+                    <img class="pic"
+                     title="{{ value.name }}"
+                     src="{{ value.g_cat_picture.url }}"
+                     alt="{{ value.name }}">
+
+                    {%  endif %}
+
+                    <div class="category_name_text"
+                         title="{{ value.name }}">
+                        <p style="transition-delay: .4s;">
+                            {{ value.name }}
+                        </p>
+                    </div>
+
+                </button>
+
+            {% endfor %}
+        </main>
+    </form>
+
+
+{% endblock %}

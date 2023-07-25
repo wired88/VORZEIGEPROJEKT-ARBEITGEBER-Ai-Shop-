@@ -1,10 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+
+
+{% block title %} Home - Create Your own Recipe {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'edit/edit.css' %}">
+{% endblock %}
+
+
+
+
+{% block styles %}
+
+
+
+
+
+{% endblock %}
+
+
+{% block authForm %}
+<form method="post">
+    <main class="edit_main">
+        <header class="header_box">
+            <div class="header_text_box">
+                <h2>
+                    Edit
+                </h2>
+            </div>
+        </header>
+        <section class="main_container">
+            <header class="header_form_content">
+                <label>
+                    {{ form.title.label }}
+                </label>
+                {{ form.title }}
+            </header>
+            <div class="image_edit_div">
+                <div class="current_image_div">
+                    <img class="current_img" title="{{ object.title }}" src="{{ object.picture.url }}" id="trigger_image" alt="{{ object.title }}">
+                </div>
+                <div class="select_new_img_div">
+                <label>
+                    {{ form.picture.label }}
+                </label>
+                {{ form.picture }}
+                </div>
+            </div>
+        </section>
+        <footer>
+
+        </footer>
+    </main>
+</form>
+
+
+
+
+
+
+
+
+
+<script>
+    document.querySelector('#trigger_image').addEventListener('click', function() {
+        document.querySelector('#{{ form.picture.id }}').click();
+    });
+</script>
+
+
+
+
+
+
+{% endblock %}

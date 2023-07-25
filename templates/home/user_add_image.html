@@ -33,21 +33,21 @@
         <div class="create_container">
 
             <div class="head-container">
-
                 <h2>Sell</h2>
-
             </div>
 
             {% csrf_token %}
             <div class="upper_body">
-                <span class="create_label">{{ title.label }}</span>
+                <span class="create_label">
+                    {{ title.label }}
+                </span>
                 {{ form.title.as_widget }}
 
             </div>
             <div class="create_body">
 
 
-                    <section class="add_ingredients_and_value">
+                    <section class="content_main">
 
                         <div style="grid-row: 1;">
                             <span class="create_label">{{ picture.label }}</span>
@@ -94,7 +94,7 @@
                 </style>
                 {{ username_field.user_name.as_hidden }}
                 {{ request.user.username }}
-                <button class='button-class' name="add_picture_button" id="add_picture_button" style="bottom: -36px; padding: 5px; right: -24px;" type="submit">
+                <button class='button-class' name="add_picture_button" id="add_picture_button"  style="bottom: -36px; padding: 5px; right: -24px;" type="submit">
                     Create
                 </button>
             </div>

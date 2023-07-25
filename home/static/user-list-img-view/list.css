@@ -1,0 +1,351 @@
+
+/* VARIABLES */
+:root {
+    --glow-color: hsl(186 100% 69%);
+    --green-glow-color: hsla(114, 67%, 47%, 0.97);
+    --orange-glow-color: rgb(255, 165, 0);
+    --red-glow-color: hsla(360, 100%, 42%, 0.97);
+}
+
+
+
+.pic {
+        margin-top: 0;
+        width: 110%;
+        top: 0;
+        left: 0;
+
+    }
+
+    .image_container {
+        display: grid;
+        grid-template-columns: 400px;
+        grid-template-rows: 400px 40px 40px;
+        margin: 80px 20px;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, .9);
+        overflow: hidden;
+        grid-column: auto;
+        grid-row: auto;
+        transition: all .3s;
+    }
+
+.sidebar_element {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        margin: 5px 0;
+    }
+
+.list_view_main {
+    width: 180vh;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .8);
+    margin:  150px auto 100px auto;
+    background-color: rgba(0, 0, 0, .8);
+    columns: 3;
+    column-gap: 50px;
+    padding: 35px 5px 35px 5px;
+
+    /* grid: repeat(12, 1fr) / repeat(8, 1fr);  /* erster wert row 2. column. erste Zahl wie viele columns/rows die zwiete wie groß */
+}
+
+
+/* image_container grids */
+/* 1 */
+.image_div {
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid black;
+}
+.image_div:hover {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, .6);
+    background-color: rgba(199, 199, 199, .1);
+}
+
+/* 2 */
+.title_container {
+    grid-row: 2;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+
+}
+
+.title_container p {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.hidden_info_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: row;
+    padding: 5px 4px;
+}
+
+
+
+
+
+
+
+/* 3 */
+.price_container {
+    grid-row: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.price_container p::after {
+    margin-left: 1px;
+    content: "€";
+    color: rgba(36, 49, 73, 0.66);
+}
+
+.image_container p {
+    align-items: center;
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* header */
+.list_view_header {
+    display: grid;
+    grid-template-columns: 100vh;
+    grid-template-rows: 50px 20px 50px;
+    margin: 50px auto;
+    position: relative;
+    width:50%;
+}
+
+.list_view_header > *{
+    justify-content: center;
+    align-items: center;
+    display:flex
+}
+
+.head_text_section {
+    grid-row: 1;
+}
+
+.head_text_section p {
+    font-weight:bold;
+    font-size: 2.2em;
+    color: rgba(36, 49, 73, 0.66);
+}
+
+.choice_button_background_container {
+    grid-row: 3;
+}
+
+.button_area {
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(36, 49, 73, 0.66);
+    display: flex;
+    width: 60%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.head-button:active {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.delete_button_image {
+    padding: 4px;
+    position: relative;
+    display: flex;
+    align-content: center;
+    transition: all 0.2s;
+    border-radius: 5px;
+    color: var(--orange-glow-color);
+    border: 1px solid var(--orange-glow-color);
+    -webkit-box-shadow: inset 0 0 .5em 0 var(--orange-glow-color),
+    0 0 0.5em 0 var(--orange-glow-color);
+    -moz-box-shadow: inset 0 0 0.5em 0 var(--orange-glow-color),
+    0 0 .5em 0 var(--orange-glow-color);
+    box-shadow: inset 0 0 0.5em 0 var(--orange-glow-color),
+    0 0 .5em 0 var(--orange-glow-color);
+}
+
+.delete_button_image:hover {
+    -webkit-box-shadow: inset 0 0 .5em 0 var(--red-glow-color),
+    0 0 0.5em 0 var(--red-glow-color);
+    -moz-box-shadow: inset 0 0 0.5em 0 var(--red-glow-color),
+    0 0 .5em 0 var(--red-glow-color);
+    box-shadow: inset 0 0 0.5em 0 var(--red-glow-color),
+    0 0 .5em 0 var(--red-glow-color);
+    color: var(--red-glow-color);
+    border: 1px solid var(--red-glow-color);
+}
+.delete_button_image:active svg {
+    width: 19px;
+    height: 19px;
+}
+
+/* BUTTONS */
+
+.delete_button {
+    padding:0;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    position: relative;
+    background-color: transparent;
+    border-radius: 0;
+}
+
+.delete_button:hover {
+    border-radius: 0;
+}
+
+
+.my_edit {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    display: flex;
+    border: 3px solid var(--glow-color);
+    perspective: 200em;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: transparent;
+    margin-right: 23px;
+    letter-spacing: .3em;
+    /* webkit and moz will be used when some browsers handle some stuff differently */
+    -webkit-box-shadow: inset 0 0 .5em 0 var(--glow-color),
+    0 0 0.5em 0 var(--glow-color);
+    -moz-box-shadow: inset 0 0 0.5em 0 var(--glow-color),
+    0 0 .5em 0 var(--glow-color);
+    box-shadow: inset 0 0 0.5em 0 var(--glow-color),
+    0 0 .5em 0 var(--glow-color);
+ }
+.my_edit:hover {
+    border: 3px solid var(--green-glow-color);
+    -webkit-box-shadow: inset 0 0 1em 0 var(--green-glow-color),
+    0 0 1em 0 var(--green-glow-color);
+    -moz-box-shadow: inset 0 0 1em 0 var(--green-glow-color),
+    0 0 1em 0 var(--green-glow-color);
+    box-shadow: inset 0 0 01em 0 var(--green-glow-color),
+    0 0 1em 0 var(--green-glow-color);
+    color: var(--green-glow-color);
+
+}
+.my_edit:hover a {
+    color: var(--green-glow-color);
+
+}
+
+.my_edit a {
+    text-decoration: none;
+    color: var(--glow-color)
+}
+.my_edit a:hover {
+    color: var(--green-glow-color);
+}
+
+.custom_edit_button:hover {
+    padding: 5px 3px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 0 10px rgba(255,255,255,0.7);
+}
+
+/* HOVER OPTIONS CONTAINER */
+
+.hover_visible_options_container {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    box-shadow: 1px 25px 25px -29px rgba(255, 255, 255, .6);
+    width: 98%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    padding: 8px 17px 0 25px;
+    align-items: center;
+    transform: translateY(-100%);
+    filter: blur(5px);
+    opacity: 0;
+    transition: all .5s;
+}
+.hover_visible_options_container div {
+    margin:0;
+    display: flex;
+    align-items:center;
+}
+
+
+.hover_visible_options_container div p {
+    color: rgba(255, 255, 255, .85);
+    margin: 0;
+    position: relative;
+
+}
+
+.price_tag_grid2 {
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: flex-start;
+}
+.price::after {
+    content: " €";
+
+}
+
+
+
+
+
+  /* ================================================================= ANIMAIONS */
+
+
+
+/* NOTHING HERE YET */
+.nothing_here_yet_container {
+    width: 120vh;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(111, 143, 175, .7);
+    background-color: rgba(0, 0, 0, .7);
+    position: relative;
+    margin: 100px auto;
+}
+
+.nothing_here_text {
+    color: rgba(0, 0, 0, .8);
+    font-size: 24px;
+
+}
+
+

@@ -1,0 +1,297 @@
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+{% csrf_token %}
+
+
+
+{% block title %} Home - View {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'categories/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_detail/style.css' %}">
+
+{% endblock %}
+
+{% block script %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'basket/script.js' %}"></script>
+    <script>
+        const unclicked_icon = "{% static 'home/home_images/star.png' %}";
+        const clicked_icon = "{% static 'home/home_images/favorite.png' %}";
+    </script>
+    <script src="{% static 'customer_detail/script.js' %}"></script>
+{% endblock %}
+
+
+
+
+{% block styles %}
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block authForm %}
+<form method="post">
+    <main class="customer_detail_main">
+        <section class="header_box">
+            <div class="head_col1">
+                {% if object.user_name.profile_image %}
+                    <img class="profile_img" style="color: orange;" src="{{ object.user_name.profile_image.url }}" alt="profile_img">
+                    <p>
+                        {% if object.user_name.username %}
+                            From: {{ object.user_name.username }}
+                        {% else %}
+                            From: {{ object.g_username.username }}
+                        {% endif %}
+                    </p>
+                {% else %}
+                    <img class="profile_img" style="color: orange;" src="{% static 'home/home_images/user_img_default.png' %}" alt="profile_img">
+                    <p>
+                        {% if object.user_name.username %}
+                            From: {{ object.user_name.username }}
+                        {% else %}
+                            From: {{ object.g_username.username }}
+                        {% endif %}
+                    </p>
+                {% endif %}
+            </div>
+
+            <div class="header_text-container">
+                <h4>
+                    {{ object.title }}
+                </h4>
+            </div>
+
+            <div style="grid-column: 3;">
+
+            </div>
+
+            <div style="grid-column: 4;">
+
+            </div>
+
+            <div style="grid-column: 5;">
+
+            </div>
+
+            <div class="mark_container">
+                <p>
+                    Mark Image:
+                </p>
+                <button type="button" class="mark_button">
+                    <img class="mark_icon" alt="star.png" src="{% static 'home/home_images/star.png' %}">
+                </button>
+            </div>
+
+        </section>
+
+        <section class="customer_image_box">
+            <div class="customer_header_main_image_box">
+                <img src="{{ object.picture.url }}" class="customer_image" alt="{{ object.title }}" title="{{ object.title }}">
+            </div>
+        </section>
+
+        <section class="customer_detail_footer_main">
+            <header class="left_main_header">
+                    <ul>
+                        <li>
+                            <p class="description_text">
+                                {{ object.title }}
+                            </p>
+                        </li>
+                        <li>
+                            <p class="description_text">
+                                Upload: {{ object.date }}
+                            </p>
+                        </li>
+                        <li>
+                            <p class="description_text">
+                                {{ object.tag_field }}
+                            </p>
+                        </li>
+                        <li>
+                            <p class="description_text">
+                                original size (w * h): {{ image_size }} pixels
+                            </p>
+                        </li>
+
+
+                    </ul>
+                <div style="grid-column: 2">
+
+                </div>
+
+            </header>
+
+            <header class="right_main_header">
+                <div class="price_container">
+                    {% if object.price == 0.00 %}
+                        <h4>
+                            Free Download
+                        </h4>
+                    {% else %}
+                        <h4 class="label_price">
+                            Price:
+                        </h4>
+                        <p class="price">
+                            {{ object.price }}
+                        </p>
+                    {% endif %}
+                </div>
+            </header>
+
+
+                <div class="description_and_price">
+                    <div class="right_body_main_header">
+            {% comment %} Platz halten für kleine Info Box {% endcomment %}
+                    </div>
+                </div>
+
+                    {% if object.price == 0.00 %}
+                        <div class="buy_button_div" style="justify-content:center; align-items:flex-end;">
+                            <button type="button" class="download_button" title="Download" >
+                                <a href="{{ object.picture.url }}" download> Download </a>
+                            </button>
+                        </div>
+
+                    {% else %}
+                        <div class="buy_button_div">
+                            <button type="button" id="atc_button" name="atc_button" class="buy_button" value="{{ object.id }}" title="Add to Cart">
+                                Add to Cart
+                            </button>
+
+                            <button type="button" style="padding: .8rem 4.5rem;" class="buy_button" title="Buy">
+                                Buy
+                            </button>
+                        </div>
+                    {% endif %}
+            </section>
+
+{% comment %} ++++++++++++++++++++++++  PRODUCT SLIDER ++++++++++++++++++++++++ {% endcomment %}
+
+    <section class="product_slider_section">
+        <header class="product_carouser_header">
+            <h2>
+                See more form this Creator
+            </h2>
+        </header>
+    <form method="post" enctype="multipart/form-data">
+        <main class="product_carousel_main">
+        {% if other %}
+            {% for image in pictures %}
+                <object class="category_image_container">
+                    <img class="pic" title="{{ image.title }}" src="{{ image.picture.url }}" alt="user_img">
+
+                    <div class="category_name_text"
+                         title="{{ image.title }}">
+                        <p style="transition-delay: .4s;">
+                            {{ image.title }}
+                        </p>
+                    </div>
+                </object>
+            {% endfor %}
+        {% else %}
+            <h4>
+                No more Content from this Creator at this moment ...
+            </h4>
+        {% endif %}
+        </main>
+    </form>
+        <div class="space" style="grid-row: 3;">
+
+        </div>
+        <header class="carousel_scnd_header">
+            <h2>
+                Maybe you like this too?
+            </h2>
+        </header>
+        <main class="product_carousel_two_main">
+             {% for cat_filter_image in other %}
+                <object class="category_image_container">
+                    <img class="pic" title="{{ cat_filter_image.title }}" src="{{ cat_filter_image.picture.url }}" alt="user_img">
+
+                    <div class="category_name_text"
+                         title="{{ cat_filter_image.title }}">
+                        <p style="transition-delay: .4s;">
+                            {{ cat_filter_image.title }}
+                        </p>
+                    </div>
+                </object>
+            {% endfor %}
+        </main>
+        <footer class="space_for_anything">
+
+        </footer>
+
+    </section>
+{% comment %} grid-template-rows: 5% 5% 30% 5% 5% 30% 20%; ++++++++++++++++++++++++ END PRODUCT SLIDER END++++++++++++++++++++++++ {% endcomment %}
+
+
+
+    </main>
+
+</form>
+
+
+
+
+    <script>
+$(document).on('click', '#atc_button', function(e) {
+    e.preventDefault();  // verhindert das standardgemäße verhlten des buttons (normalerweise würde eine post anfrage an
+    // den server geschickt werden) mit diesem codeschnipsel wird dieser teil übersprungen und stattdessen führt ajax
+    // die abfrage durch, sodass man nicht et´xtra refreshen muss.
+    // Scroll to Top of webpage
+    window.scrollTo(0, 0);
+    $.ajax({
+        type: 'POST',
+        url: '{% url "basket:basket_add" %}', // Set the URL of the endpoint
+        data: {
+            productid: $('#atc_button').val(),  // here ajax just gets the value of the value attribute from the element with the id #atc_button
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            action: 'post',
+        },
+        success: function (json) {
+            console.log(json.debug); // gibt in der browserkonsole eine success(grau) oder error mit fehlrmeldung zurück - hilfreich
+        },
+        error: function (xhr, errmsg, err) {}
+    });
+$(window).on('scroll', function() {
+    // check if the user has scrolled to the top of the page
+    if ($(window).scrollTop() === 0) {
+        // reload the page
+        location.reload();
+    }
+});
+})
+// todo ´:
+// button id, get val of input field, -...
+
+// FOR HOME SEARCHBAR
+$(document).on('click', '#add_tag_searchaber_button', function(e) {
+     e.preventDefault();
+     $.ajax({
+        type: 'POST',
+        url: '{% url "basket:basket_add" %}', // Set the URL of the endpoint
+        data: {
+            input_value: $('#input_searchfield').val(),
+            csrfmiddlewaretoken: "{{ csrf_token }}",
+            action: 'post',
+        },
+        success: function (json) {
+
+            console.log(json.debug); // gibt in der browserkonsole eine success(grau) oder error mit fehlrmeldung zurück - hilfreich
+        },
+        error: function (xhr, errmsg, err) {}
+    });
+})
+
+    </script>
+{% endblock %}

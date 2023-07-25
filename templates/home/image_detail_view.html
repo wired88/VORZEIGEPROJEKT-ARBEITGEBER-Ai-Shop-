@@ -6,54 +6,6 @@
 
 {% block styles %}
 
-.modal-title {
-    font-weight: bold;
-
-    }
-a {
-    text-decoration: none;
-    }
-.modal-footer {
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    padding: 4px;
-    }
-.btn.btn-secondary {
-    position: absolute;
-    left: 90px;
-    border: 1px solid black;
-    }
-
-
-.btn.btn-secondary:hover {
-    opacity: 0.9;
-    }
-
-
-.btn.btn-secondary:active {
-    opacity: 0.7;
-    }
-
-
-
-.btn.btn-primary {
-    background-color: #03442c;
-    border: 1px solid black;
-    transition: opacity 0.2s;
-    position: absolute;
-    left: 170px;
-    }
-
-.btn.btn-primary:hover {
-    opacity: 0.9;
-    color: black;
-    }
-.btn.btn-primary:active {
-    opacity: 0.7;
-    }
-
-
 
 
 
@@ -61,21 +13,31 @@ a {
 
 
 
-
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'detail/detail.css' %}">
+{% endblock %}
 {% block authForm %}
 
 
-    <main class="main_recipe_detail_view">
-        <div class="recipe_detail_container">
+    <main class="template_main_class">
+        <div class="list_grid_auto_rows">
             <form method="get">
                 <div class="recipe_detail_heading">
-                    <h1>{{ object.title }}</h1>
+                    <h2>{{ object.title }}</h2>
                 </div>
                 <div class="recipe_detail_image_view">
-                    <img class="recipe_img_detail_list_view" style="width: auto; height: 100%; image-rendering: pixelated;" src="{{ object.recipe_picture.url }}" alt="{{ recipe.title}}">
+                    <img class="recipe_img_detail_list_view" style="image-rendering: pixelated;" src="{{ object.picture.url }}" alt="{{ object.title}}">
                 </div>
                 <div class="ingredients">
-                    {{ object.recipe }}
+                    <section>
+                        {{ object.tag_field }}
+                    </section>
+                    <p>
+                        {{ object.price }}
+                    </p>
                 </div>
                 <div class="recipe_detail_view">
                 {{ object.author }} <br>
@@ -83,14 +45,14 @@ a {
                 </div>
 
 
-
-
-
             </form>
 
             {% csrf_token %}
             <button type="button" class="btn_two btn_two-primary" style="position: absolute; width: 30px; right: -20px; top: 1.5em;" data-toggle="modal" data-target="#exampleModalCenter"> <!-- data toggle sagt welche art element geöffnet werden soll. data target, welches element(anhand der id) -->
                 <img class="trashcan-img" src="{% static 'home/trash-can.png'%}" alt="trash">
+            </button>
+            <button type="button" id="edit_button" onclick="window.location.href='{% url 'home:edit-image' object.pk object.slug %}';">
+                Edit
             </button>
         </div>
     </main>
@@ -106,12 +68,11 @@ a {
         <h5 class="modal-title" id="exampleModalLongTitle">Are you sure you want to delete {{ object.title }}?</h5>
       </div>
       <div class="modal-body">
-        You can edit your Recipe &nbsp; <a href="https://google.com/">here</a>.
+        You can edit your Recipe &nbsp; <a href='{% url 'home:edit-image' object.pk object.slug %}'>here</a>.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button> <!-- data-dismiss gibt an, dass das modal geschlossen werden soll -->
-        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'home:delete-recipe' object.pk %}';">Delete</button>
-      </div>
+        </div>
     </div>
   </div>
 </div>

@@ -96,14 +96,14 @@
 }
 
 
-.add_ingredients_and_value {
+.content_box {
     grid-row: 1;
     display: grid;
     grid-template-rows: 40% 10% 10% 40%;
     grid-template-columns: 80vh;
 }
 
-.add_ingredients_and_value > * {
+.content_box > * {
     margin: 10px 0;
     position: relative;
     display: flex;

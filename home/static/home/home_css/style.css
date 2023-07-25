@@ -3,20 +3,21 @@
     grid-template-columns: 101%;
     top: 50px;
     position: relative;
-    grid-template-rows: 60px 2000px 110px;
-    font-family: 'Roboto', sans-serif;
+    grid-template-rows: 60px auto 110px;
+    font-family: 'Nunito Sans', sans-serif;
     background-color: rgba(255, 255, 250, 0.1);
     margin: 0;  /*rückt die inhalte im Body 0 px ein */
 }
 
+
+/*------------------------------------------------------*//* HEADER *//*----------------------------------------------------------------*/
 .head_container {
     background-color: rgba(0, 0, 0, 0.8);
     box-shadow: 0 3px 3px rgba(0, 0, 0, .5);
     grid-row: 1;
-    border-bottom: 1px solid black;
     display: grid;
     grid-template-rows: 100%;
-    grid-template-columns: 50px 150px 50px 50px 500px 50px 50px 50px 50px
+    grid-template-columns: 10vh 25vh 50vh 30vh;
 }
 
 .head_container > * {
@@ -25,17 +26,194 @@
     align-items: center;
 }
 
-/* head */
+/* HEAD-STUFF *//*----------------------------------------------------------------*/
+.head-button {
+            position: absolute;
+            background-color: transparent;
+            color: white;
+            border-radius: 0;
+            transition: all 0.3s;
+            padding: 8px 11px;
+            border: 0;
+            box-shadow: 0 0;
+        }
+
+        .head-button:hover {
+            background-color: white;
+            color: black;
+            border: 1px solid black;
+        }
+
+        .head-button:active {
+            background-color: #ff9898;
+            color: black;
+        }
+        .bi-basket {
+            display: flex;
+            align-items: center;
+            justify-items: center;
+
+        }
+
+
+        .welcome-text {
+            position: absolute;
+            font-weight: bold;
+            color: white;
+            font-size: 15px;
+            right: 200px;
+
+        }
+
+
+
+
+
+/* HEAD GRID 1 MENU SIDEBAR - BUTTON col*/
 .head_col1 {
     grid-column: 1;
     position: relative;
 }
 
-.head_container header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
+
+
+
+/* GRID 3 BUTTON-BOX */
+.header_button-box {
+    grid-column: 3;
+    display:grid;
+    vertical-align: center;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 1vh;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 100%;
+    top: -50px;
+
 }
+
+.head_right {
+    grid-column: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid lightgreen;
+
+    justify-content: flex-end;
+
+
+
+}
+
+
+
+
+
+/*----------------------------- HEAD - BUTTON - NAV - SIDEBAR BOOTSTRAP TOGGLE TOP -----------------------------------*/
+
+
+
+.sidebar_body_header {
+    grid-row: 1;
+
+    
+}
+
+
+.sidebar_body_mid_section {
+    grid-row: 2;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------------------- HEAD - BUTTON - NAV - TOPBAR BOOTSTRAP TOGGLE TOP -----------------------------------*/
+
+#offcanvasTop1, #offcanvasTop2, #offcanvasTop3 {
+    background-color: rgba(0, 0, 0, 0.8);
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 50px 40px 150px 40px;
+}
+
+.offcanvas-header {
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    color: rgba(255, 255,255,.8);
+    font-weight: bold;
+    background-color: transparent;
+
+}
+
+.offcanvas-header h5 {
+    color: black;
+    top: 10px;
+    position: relative;
+    font-size: 32px;
+    text-decoration: none;
+}
+.offcanvas-body {
+    display: flex;
+    grid-row: 1 / 4;
+    grid-column: 2 / 4;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid lightcoral;
+
+}
+
+
+/* Tagbel 1 */
+.table_1_header {
+    grid-column: 2;
+    border: 1px solid lightblue;
+    grid-row: 2;
+}
+.table_1 {
+    grid-column: 2;
+    border: 1px solid lightblue;
+    grid-row: 3;
+    justify-content: flex-start;
+}
+
+
+
+
+
+
+.header_text {
+    grid-row: 2;
+    border: 1px solid pink;
+}
+
+.offcanvas_nav {
+    grid-row: 3;
+    border: 1px solid yellow;
+}
+
+.offcanvas_a {
+    color: rgba(255, 255, 255, .72);
+    text-decoration: none;
+    transition: all .2s ease-in-out;
+}
+
+.offcanvas_a:hover {
+    text-decoration: none;
+    color: rgba(255, 255, 255, .9);
+}
+
+
 header h3 {
     font-weight: bold;
     color: rgba(255, 255, 255, 0.6)
@@ -50,10 +228,10 @@ header h3 {
     border-radius: 0;
     margin: 0;
     top: -50px;
+    transition: all 0.2s;
 }
 .dropdown_button:hover {
     background-color: rgba(255, 255, 255, 0.8);
-
 }
 
 .dropdown_button_img {
@@ -64,8 +242,7 @@ header h3 {
 }
 
 .dropdown_button_img:hover {
-    filter: invert(0%)
-
+    filter: invert(50%) /* looks like opacity for images */
 }
 
 .logo {
@@ -80,10 +257,10 @@ header h3 {
 }
 
 
-
 .logo_container {
     grid-column:2;
     padding: 0;
+
 
 }
 
@@ -129,7 +306,7 @@ header h3 {
 
 .navbar_a {
     color: rgba(255, 255, 255,.7);
-    text-decoration: none; !important;
+    text-decoration: none;
     opacity: 0;
     filter: blur(5px);
     transition: all 1s, box-shadow .2s; /* ease in out lässt die animation schneller werden. das lässt sie natürlicher aussehen */
@@ -141,7 +318,7 @@ header h3 {
 .navbar_a:hover {
     box-shadow: 0 0 16px rgba(255, 255, 255, 1);
     color: rgba(255, 255, 255,.9);
-    text-decoration: none; !important;
+    text-decoration: none;
 }
 
 #modal_category {
@@ -386,6 +563,7 @@ header h3 {
     margin: 2px;
     float: right; /* so wird dieses element im container rechts angeornet */
 }
+
 .list-item button:hover {
     margin: 0 1px;
     padding: 0;
@@ -428,14 +606,14 @@ header h3 {
 
 /* footer home */
 .footer_home {
-    width: 100%;
+    width: 101%;
     grid-row: 3;
     display: grid;
     grid-template-rows: 100%;
     grid-template-columns: 20% 30% 30% 20%;
     border-bottom: 1px solid black;
     background-color: rgba(0, 0, 0, 0.8);
-    bottom: 50px;
+    margin: 250px 0 150px 0;
     position: relative;
 }
 
@@ -453,7 +631,7 @@ header h3 {
     position: absolute;
 }
 .footer_home a:hover{
-    text-decoration: none; !important;
+    text-decoration: none;
     text-shadow: 0 0 1px rgba(255, 255, 255, 0.6);
     display: flex;
     justify-content:center;
@@ -523,12 +701,10 @@ header h3 {
             justify-content: center;
             align-items: center;
             color: white;
-            background-color: #03442c;
+            background-color: transparent;
             font-weight: bold;
             font-size: 14px;
-            box-shadow: 3px 3px 3px rgb(0, 0, 0, 0.4); /* schatten zeichen (rechts, unten, wie sehr verwischt) */
-            cursor: pointer; /*bei berührung mit cursor wird dieser als Hand dargststellt*/
-            border: 2px solid black; /* legt die breite, gleichmäßigkeit ud die Farbe fest */
+            border: none;
             margin: 15px; /* abstand zwischen den einzelnen buttons */
             transition: all 0.3s; /* macht, beim rauf gehen smooth in andere Farbe und beim verlassen dasselbe (wenn in :hover nur beim raufgehen */
 
@@ -548,8 +724,6 @@ header h3 {
         }
 
         button:hover {
-            box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.4);
-            background-color: rgba(255, 255, 255, 0.8);
             color: black;
             font-size: 16px;
             text-align: center;
@@ -655,68 +829,14 @@ header h3 {
         }
 
 
-        .head-button {
-            position: absolute;
-            background-color: transparent;
-            color: white;
-            border-radius: 0;
-            transition: background-color 0.3s;
-            padding: 11px;
-            border: 0;
-            box-shadow: 0 0;
-        }
-
-        .head-button:hover {
-            background-color: beige;
-            color: black;
-            border: 1px solid black;
-        }
-
-        .head-button:active {
-            background-color: #ff9898;
-            color: black;
-        }
-
-
-        .welcome-text {
-            position: absolute;
-            font-weight: bold;
-            color: white;
-            font-size: 15px;
-            right: 200px;
-            top: 13px;
-        }
 
 
 
 
 
-        .sidebar_button_text { /* solang sidebar closed, wird der Text nicht angezeigt */
-            position: absolute;
-            margin-left: 2px;
-            display: flex;
-            margin-right: 40px;
-            text-align: center;
-            color: black;
-        }
-        .item_blocks {             /* li container */
-            position: relative;
-            height: 40px;
-            width: 100%;
-            left: 0;
-            border-bottom: 1px solid black;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            top: 30%;
-            color: black;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .item_blocks:hover {
-            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-            background-color: rgba(255, 255, 255, 0.5)
-        }
+
+
+
 
 
         .sidebar_img {
@@ -729,21 +849,7 @@ header h3 {
             right: 15px;
         }
 
-        .profile_img {
-            border: 1px solid black;
-            border-radius: 50%;
-            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
-            position: relative;
-            transition: opacity 0.3s;
-            height: 15%;
-            width: 25%;
-            cursor: pointer;
-        }
 
-        .profile_img:hover {
-            opacity: 0.7;
-
-        }
 
 
 
@@ -777,57 +883,163 @@ header h3 {
 
 
         }
+/* ----------------------------------------- header sidebar slideeffect bootstrap -------------------------------- */
+/* ----------------------------------------- ELEMENTS */
+.sidebar_body {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 45% 25%;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, .9)
+
+}
+
+
+
 
         .top_sidebar {
             grid-row: 1;
             position: relative;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+
+            justify-content: center;
             width: 100%;
             height: 100%;
             margin-bottom: 5px;
         }
 
-
         .top_sidebar_info {
             position: relative;
+            height: 100%;
             width: 100%;
-            height: 50px;
-            top: 100px;
+
             color: white;
-            display: flex;
+            display: grid;
+            grid-template-columns: 80%;
+            grid-template-rows: 50% 50%;
+            justify-content: center;
             flex-direction: column;
-            text-align: center;
             font-size: 16px;
         }
-
-
+        .top_sidebar_info div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: rgba(255, 255, 255, .6)
+        }
 
 
         .under_sidebar {
             display: flex;
             grid-row: 2;
             height: 400px;
-            top: 0;
             width: 100%;
             flex-grow: 1;
-            left: 10px;
             position: relative;
+
+            align-items: flex-start;
             overflow: hidden;
         }
 
 
 
-
-
-
         .sidebar_item_container {          /* ul block */
-            padding: 0 0;
+            top:0;
+            padding: 0;
             list-style: none;
             width: 100%;
             height: 80%;
-            top: 20%;
             display: flex;
             flex-direction: column;
         }
+
+
+
+/* ================================================================= ITEMS */
+.offcanvas-title {
+    color: rgba(0, 0, 0, .8)
+}
+
+
+
+
+.profile_button {
+    position: relative;
+    background-color: transparent;
+
+}
+
+
+.profile_img {
+    border: 1px solid black;
+    border-radius: 50%;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+    position: relative;
+    transition: all 0.3s;
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+}
+
+.profile_img:hover {
+    opacity: 0.7;
+
+}
+
+
+.item_blocks {             /* li container */
+        position: relative;
+        height: 40px;
+        width: 100%;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: black;
+        cursor: pointer;
+        font-weight: bold;
+    padding-left: 15px;
+    padding-right: 15px;
+        }
+        .item_blocks:hover {
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, .8)
+        }
+.item_blocks:hover .sidebar_button_text {
+    animation: text_movement .5s linear infinite;
+    animation-iteration-count: 1;
+    color: rgba(0, 0, 0, .9)
+}
+
+
+.sidebar_button_text { /* solang sidebar closed, wird der Text nicht angezeigt */
+    position: relative;
+    justify-content: space-between;
+    display: flex;
+    margin-right: 40px;
+    text-align: center;
+    color: rgba(255, 255, 255, .7);
+    margin-left: 10px;
+}
+
+
+/* ANIMATIONS   */
+@keyframes text_movement {
+
+    25% {
+        left: 18px;
+    }
+    50% {
+        left: 0;
+    }
+    75% {
+        left: 9px;
+    }
+    100% {
+        left: 0;
+    }
+}

@@ -1,13 +1,15 @@
+import random
+
+
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator, DecimalValidator
 from django.db import models
 from django.urls import reverse
 from taggit.managers import TaggableManager
-from djangoProject.settings import MEDIA_URL
-from django.contrib.auth.models import User
+from djangoProject.settings import MEDIA_URL, STATIC_URL, BASE_DIR
+from django.contrib.auth.models import AbstractUser
 
 
-# Create your models here.
 class SearchPictures(models.Model):
     name = models.CharField(max_length=100)
 
@@ -15,60 +17,137 @@ class SearchPictures(models.Model):
         return f'{self.name}'
 
 
-class UserCredentials(models.Model):
-    username = models.CharField(max_length=15)
-    password = models.CharField(max_length=15)
-    email = models.EmailField(max_length=100, help_text='Enter your email address', default='example@example.com')
-    date_created = models.DateTimeField(auto_now_add=True)
+#####################    AUTHENTICATION MODEL    #####################
+
+class User(AbstractUser):
+    profile_image = models.ImageField(
+        default='media/user_img_default.png',
+        blank=True,
+        null=True,
+        upload_to='media',
+        validators=[FileExtensionValidator(
+            allowed_extensions=['jpg', 'jpeg', 'png']
+        )
+        ]
+    )
+    password2 = models.CharField(
+        max_length=32,
+        default=''
+    )
+    date_created = models.DateTimeField(
+        auto_now_add=True
+    )
+    slug = models.SlugField(
+        max_length=100,
+        default=''
+    )
+
 
     def __str__(self):
         return f' {self.username} {self.password} {self.email} {self.date_created}'
 
+    def get_absolute_url(self):  # self.title wird als absoluter url returnt
+        return reverse("home:profile")
 
-from embed_video.fields import EmbedVideoField
+
+'''
+class ImageUpload(models.Model):
+    class ImageType(models.TextChoices):
+        PICTURE = 'Picture' 'Picture'
+        GRAPHIC = 'Graphic' 'Graphic'
+        VIDEO = 'Video' 'Video'
+
+    base_role = ImageType.PICTURE
+
+    image_type = models.CharField(
+        default='Picture',
+        max_length=50,
+        choices=ImageType.choices,
+    )
+
+    def save(self, *args, **kwargs):
+        if len(self.image_type) <= 4:
+            self.role = self.base_role
+            return super().save(*args, **kwargs)
 
 
-class LoadVideoForPageCreation(models.Model):  # the model to load videos on the homepage
-    video = models.FileField(upload_to='media')  # same like models.URLField()
+
+
+
+'''
+
+
+
+#########################        DATA UPLOAD MODELS        #########################
+# CATEGORIES #
+class PictureCategories(models.Model):
+    name = models.CharField(
+        max_length=100,
+        db_index=True
+    )
+    p_cat_picture = models.ImageField(
+        error_messages={'required': 'Load min 1 Graphic ...'},
+        upload_to='media',
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])]
+    )
+    slug = models.SlugField(
+        max_length=100,
+        unique=True
+    )
 
     class Meta:
-        managed = False
+        verbose_name_plural = 'p_categories'
+        ordering = ['name']  # this sort the category names form a-z. if you want to sort by z-a than just write a
+        # comma before
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):  # self.title wird als absoluter url returnt
+        return reverse("home:category_single", kwargs={"slug": self.slug})
+
+    def get_url_to_single(self):
+        return reverse("home:customer_view", kwargs={"slug": self.slug})
 
 
-class ProfileImage(models.Model):
-    profile_image = models.ImageField()
+class GraphicCategory(models.Model):
+    name = models.CharField(
+        max_length=100,
+        db_index=True  # stellt einen index für den namen, sodass bei einer abfrage nciht jedes Mal die gesammte db
+        # durchlaufen werden muss, wenn eine Anfrage gesendet wird
+    )
+    g_cat_picture = models.ImageField(
+        error_messages={'required': 'Load min 1 Graphic ...'},
+        upload_to='media',
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])]
+    )
+    slug = models.SlugField(
+        max_length=100,
+        unique=True  # jeder slug darf nur einmal vorkommen
+    )
 
+    class Meta:
+        verbose_name_plural = 'g_categories'
+        # für instructions (für django)
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):  # self.title wird als absoluter url returnt
+
+        return reverse("home:category_single", kwargs={"slug": self.slug})
+
+    def get_url_to_single(self):
+        return reverse("home:customer_g_view")
+
+
+
+# UPLOAD MEDIA #
 
 class UserAddPicture(models.Model):  # User Create new Picture
-    class CategoryChoices(models.TextChoices):
-        StarWars = 'Star Wars', 'Star Wars'
-        Space = 'Space', 'Space'
-        Nature = 'Nature', 'Nature'
-        Cars = 'Cars', 'Cars'
-        Animals = 'Animals', 'Animals'
-        Architecture = 'Architecture', 'Architecture'
-        Food = 'Food', 'Food'
-        Travel = 'Travel', 'Travel'
-        People = 'People', 'People'
-        Sports = 'Sports', 'Sports'
-        Fashion = 'Fashion', 'Fashion'
-        Art = 'Art', 'Art'
-        Technology = 'Technology', 'Technology'
-        Landscapes = 'Landscapes', 'Landscapes'
-        Cityscapes = 'Cityscapes', 'Cityscapes'
-        Portraits = 'Portraits', 'Portraits'
-        Other = 'Other', 'Other'
-        Abstract = 'Abstract', 'Abstract'
-        Comic = 'Comic', 'Comic'
-        Monochrome = 'Monochrome', 'Monochrome'
-        Macro = 'Macro', 'Macro'
-        Streetyart = 'Street Art', 'Street Art'
-        Documentary = 'Documentary', 'Documentary'
-        Life = 'Life', 'Life'
-        Underwater = 'Underwater', 'Underwater'
-        Epic = 'Epic', 'Epic'
 
-    title = models.CharField( # der title wird im url dargestellt
+    title = models.CharField(  # der title wird im url dargestellt
         error_messages={'required': 'Title is required'},
         max_length=100
     )
@@ -91,25 +170,41 @@ class UserAddPicture(models.Model):  # User Create new Picture
                 decimal_places=2)
         ]
     )
-    category = models.CharField(
+    category = models.ForeignKey(
+        PictureCategories,
         max_length=100,
-        choices=CategoryChoices.choices,
-        default='Category'
+        default='Category',
+        related_name='picture',  # erklärung im GraphicsUpload model
+        on_delete=models.CASCADE
     )
 
     tag_field = TaggableManager(
-        help_text='Choose some tags that people can find your Picture ...')
+        blank=True,
+        help_text='Choose some tags that people can find your Picture ...'
+    )
     user_name = models.ForeignKey(
         User,
-        on_delete=models.CASCADE)  # 1 insanz der klasse wird gespeichert
+        on_delete=models.CASCADE,  # 1 insanz der klasse wird gespeichert
+        related_name='user_name'  # so kann im Template einfacher auf den user zugegeriffen werden.
+    )
+
     date = models.DateTimeField(
         auto_now_add=True
     )
     slug = models.SlugField(
-        default='',
         unique=True,
         max_length=100
     )
+    is_active = models.BooleanField(
+        default=True
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        verbose_name_plural = 'picture'
+        ordering = ['-date']  # wonach die Bilder geordnet werden sollen...
 
     def __str__(self):
         return f' {self.title}' \
@@ -120,8 +215,97 @@ class UserAddPicture(models.Model):  # User Create new Picture
                f' {self.date}'  # 1 jetzt kann jeder in der klasse definierter Wert über die return funktion abgerufen werden
         #        f'{self.currency}' \ später mit currency auswahl
 
-    def get_absolute_url(self): # self.title wird als absoluter url returnt
-        return reverse("user-picture", kwargs={"slug": self.title})
+    def get_absolute_url(self):  # self.title wird als absoluter url returnt
+        # mit self.pk wird die id der instanz automatisch hinzugefügt
+        return reverse("home:user-picture", kwargs={"pk": self.pk, "slug": self.slug})
+
+
+################################
+
+class GraphicUpload(models.Model):
+    title = models.CharField(  # der title wird im url dargestellt
+        error_messages={'required': 'Title is required'},
+        max_length=100
+    )
+    picture = models.ImageField(
+        error_messages={'required': 'Load min 1 Graphic ...'},
+        upload_to='media',
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])]
+    )  # mit FileExtensioValidator können die erlaubten dateiformate festgelegt werden.
+    price = models.DecimalField(
+        error_messages={'required': 'Price in range 0 to 9999€ is required'},
+        max_digits=6,
+        max_length=6,
+        decimal_places=2,
+        help_text='Note: Price in EUR ...',
+        validators=[
+            MinValueValidator(0),  # mit validators kann min und max-value für das integerfield festgelegt werden.
+            MaxValueValidator(9999),
+            DecimalValidator(
+                max_digits=6,
+                decimal_places=2)
+        ]
+    )
+    category = models.ForeignKey(
+        GraphicCategory,
+        max_length=100,
+        default='Category',
+        related_name='graphic_category',
+        # wird für den zugriff in zB views oder im template verwendet: Bsp: Model.graphics.all() statt Model.objects.all()
+        on_delete=models.CASCADE
+    )
+
+    tag_field = TaggableManager(
+        help_text='Choose some tags that people can find your Graphic ...'
+    )
+    g_username = models.ForeignKey(
+        User,
+        related_name='g_username',
+        on_delete=models.CASCADE,  # wird der user gelöscht ird auh das produkt gelöscht
+    )
+    date = models.DateTimeField(
+        auto_now_add=True
+    )
+    slug = models.SlugField(
+        unique=True,
+        max_length=100,
+    )
+    is_active = models.BooleanField(
+        default=True
+    )
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'graphics_upload'
+        ordering = ['-date']  # wonach die graphic-Bilder geordnet werden sollen...
+
+    def __str__(self):
+        return f' {self.title}' \
+               f' {self.picture}' \
+               f' {int(self.price)}' \
+               f' {self.tag_field}' \
+               f' {self.g_username} ' \
+               f' {self.date}'  # 1 jetzt kann jeder in der klasse definierter Wert über die return funktion abgerufen werden
+        #        f'{self.currency}' \ später mit currency auswahl
+
+    def get_absolute_url(self):  # self.title wird als absoluter url returnt
+        # mit self.pk wird die id der instanz automatisch hinzugefügt
+        return reverse("home:user-picture", kwargs={"pk": self.pk, "slug": self.slug})
+
+    def get_edit_url(self):
+        return reverse('home:edit-image', kwargs={"pk": self.pk, "slug": self.slug})
+
+
+#############################################
+
+
+class LoadVideoForPageCreation(models.Model):  # the model to load videos on the homepage
+    video = models.FileField(upload_to='media')  # same like models.URLField()
+
+
+class ProfileImage(models.Model):
+    profile_image = models.ImageField()
+
 
 '''
 class RecipeValueIngredients(models.Model):

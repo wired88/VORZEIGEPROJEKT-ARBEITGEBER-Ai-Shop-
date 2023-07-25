@@ -1,0 +1,271 @@
+
+body {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+.auth_main {
+    display: grid;
+    position: relative;
+    width: 100vh;
+    height: 150vh;
+    grid-template-rows: 10% 20% 60% 10%;
+    grid-template-columns: 10% 80% 10%;
+    background-color: rgba(0, 0, 0, .8);
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+    margin: 20vh auto;
+}
+.auth_main button {
+
+    transition: all .3s ease-in-out;
+    font:  bold 13px "Helvetica Neue", Helvetica, Arial, clean, sans-serif !important;
+
+}
+/* main grid-rows */
+
+.auth_header {
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    grid-column: 2;
+
+}
+
+
+
+
+.auth_body {
+    grid-row: 3;
+    grid-column: 2;
+    color: white;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows:  15% 15% 15% 15% 15% 15% 10%;
+}
+
+.auth_body > * {
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+
+}
+
+.auth_body input { /* focus wird benutzt bei dauerhaft aktiven elementen wie zb einer angeklickten input box */
+    height: 40px;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid gray;
+    color: rgba(255, 255, 255, .9);
+}
+
+.auth_body input:focus {
+    outline: none; /* outline= der blaue rand der beim klicken in ein input fenster erscheint */
+    box-shadow: 4px 4px 40px rgba(255, 255, 255, .2)
+}
+
+.auth_footer {
+    grid-row: 4;
+    grid-column: 2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.auth_footer p {
+    color: rgba(255, 255, 255,.95);
+}
+
+.auth_profile_img_section {
+    grid-row: 2;
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth_profile_img {
+    background-color: transparent;
+    width: 80px;
+    height: 80px;
+    transition: all .2s;
+    cursor: pointer;
+    position: relative;
+
+}
+.auth_profile_img:hover {  /* MERKE 1 */
+    opacity: .7;
+    animation: updown 1s cubic-bezier(0.3, 0.3, 0.6, .5) 1;
+
+
+}
+/* MERKE1 =
+anordnung der animation-werte:
+animation-name: example
+animation-duration: 4s
+animation-timing-function: ease-in-out
+animation-delay: 1s
+animation-iteration-count: infinite
+animation-direction: alternate
+animation-fill-mode: both
+animation-play-state: running
+ */
+@keyframes updown {
+    25% {
+        bottom: 18px;
+    }
+    50% {
+        bottom: 0;
+    }
+    75% {
+        bottom: 9px;
+    }
+    100% {
+        bottom: 0;
+    }
+
+}
+
+/* PROFILE IMAGE BOX-SHADOW */
+/* TIPP: span erstelltt ein normales objekt ohne wirklichen nutzen */
+.profile_img_box_shadow {
+    position: relative;
+    z-index: -1;
+    top: 10px;
+    display: block;
+    border-radius: 100%;
+    height: 20px;
+    width: 90px;
+    background: #000;
+    opacity: .3;
+    box-shadow: 0 0 3px rgba(255, 165, 0, .5)
+}
+
+
+
+.image_form {
+    display: none;
+}
+
+.auth_profile_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    height: 76%;
+}
+/* main_body_grids-rows */
+.body_row1 {
+    grid-row: 1;
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+
+
+
+.body_row2 {
+    grid-row: 2;
+}
+
+
+
+
+.body_row3 {
+    grid-row: 3;
+}
+
+.body_row4 {
+    grid-row: 4;
+    justify-content: center;
+
+}
+.body_row5 {
+    grid-row: 5;
+    justify-content: center;
+    display: flex;
+}
+.body_row6 {
+    grid-row: 6;
+    justify-content: center;
+    display: flex;
+}
+
+/* ITEM CLASSES */
+
+/*---------------------------------------------------------------- Buttons */
+.auth_button {
+    width: 60%;
+    padding: 10px 0;
+    border-radius:15px;
+    background-color: #485461;
+    background-image: linear-gradient(200deg, #5d6b77 0%, #3d5160 25%, #485461 50%, #28313b 75%);
+    box-shadow: 0 0 10px rgba(72, 84, 97, .7);
+    border: none;
+    background-size: 400% 400%;
+    color: rgba(255, 255, 255, .8);
+}
+.auth_button:hover {
+    animation: glowing 5s linear infinite;
+    color: rgba(255, 255, 255, .9);
+}
+
+.auth_button:active{
+    opacity: 0.75;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+
+/*'#### login-button */
+.login_button {
+    position: relative;
+    padding: 10px 15px;
+    box-shadow: none;
+    background-color: transparent;
+    bottom: -15px;
+    margin-left: 30px;
+    border: 1px solid rgba(255, 255, 255, .8);
+}
+
+.login_button:hover {
+    border: none;
+
+    background-color: rgba(0, 0, 0, .2);
+    box-shadow: 0 0 10px rgba(255, 165, 0, .8);
+    color: rgba(255, 255, 255, .9);
+}
+
+
+
+.login_form_field {
+    border: 1px solid pink;
+}
+
+
+/* error messages */
+.errorlist {
+    color: orange;
+    font-size: 12px;
+    background-size: 200%;
+    margin-top: 4px;
+
+}

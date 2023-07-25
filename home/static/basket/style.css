@@ -1,0 +1,273 @@
+.basket_main {
+    width: 176vh;
+    height: auto;
+    display: grid;
+    grid-template-columns: 8% 20% 44% 20% 8%;
+    grid-template-rows: 10vh auto 25vh;
+    border-radius: 7px;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, .9);
+    background-color: rgba(0, 0, 0, .8);
+    margin: 100px auto;
+    box-shadow: 0 0 20px rgba(61, 81, 96, .7);
+}
+/* Basket Page Header */
+
+.basket_p {
+    display: flex;
+    justify-content: center;
+    width: 30vh;
+    margin: 50px auto;
+    background-color: transparent;
+}
+
+.basket_p h2 {
+    color: rgba(61, 81, 96, .7);
+    text-shadow: 0 0 1px rgba(157, 250, 255, 0.7);
+    font-weight: bold;
+}
+/* BASKET MAIN HEADER */
+.basket_header {
+    grid-column: 1 / 6;
+    grid-row: 1;
+    display: flex;
+}
+h5 {
+    color: white;
+}
+.h5_container {
+    bottom: 3px;
+    width: 50%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    box-shadow: 0 2px 2px -2px rgba(255, 255, 255, .7);
+}
+
+/* container */
+.product_header_basket {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.description {
+    grid-row: 1;
+    grid-column: 3;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.price_container_header {
+    grid-row: 1;
+    grid-column: 4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.nothing_in_basket {
+    grid-column: 1 / 6;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 100px auto;
+}
+
+.nothing_in_basket h2{
+    color: rgba(255,255,255,0.8);
+}
+
+
+/* MODAL CLASSES */
+.modal-content {
+    background: linear-gradient(to right, #31315e, #bd5527);
+}
+.modal-header  {
+    border: none;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.modal-body p {
+    text-decoration: none;
+    color: rgba(0, 0, 0, .6);
+}
+/*confirm delete-button */
+.delete_button_confirmation {
+    width: 67px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    border-radius: 5px;
+    box-shadow: none;
+    overflow: hidden;
+    transition: all .4s;
+}
+
+.delete_button_confirmation, .delete_button_confirmation span {
+ transition: all .4s;
+}
+
+.delete_button_confirmation .del_text {
+ color: white;
+ font-weight: bold;
+}
+
+.delete_button_confirmation .icon {
+    position: absolute;
+    transform: translateX(100px);
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete_button_confirmation svg {
+    position: relative;
+    width: 20%;
+    fill: rgba(255, 0, 0, 0.91);
+    top: 10%;
+}
+
+.delete_button_confirmation:hover {
+    background: rgba(255,255,255, .5);
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 0 10px rgba(255,255,255,.8);
+
+}
+
+.delete_button_confirmation:hover .del_text {
+ color: transparent;
+}
+
+.delete_button_confirmation:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(5px);
+
+}
+
+.delete_button_confirmation:focus {
+ outline: none;
+}
+
+.delete_button_confirmation:active .icon svg {
+ transform: scale(0.8);
+}
+
+
+
+/* if products in basket */
+/* container */
+.product_container_basket {
+    grid-column: 2;
+    grid-row: 2;
+
+
+
+}
+.left_col_section {
+    grid-column: 3;
+    grid-row: 2;
+
+/* margin: 60px 0; */
+}
+
+.product_list_element { /* li element */
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+.right_col_section {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+
+/* elements */
+.basket_img {
+    height: 90%;
+
+}
+
+.price_text {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.price_text::after {
+    content: " €"
+}
+
+.basket_delete_button {
+    padding: 5px;
+    position: relative;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: white;
+    margin: auto 15px;
+    left: -5rem;
+    top:46%;
+}
+
+.basket_delete_button:hover {
+    color: rgb(178,34,34);
+    border: 1px solid rgb(178,34,34);
+    box-shadow: 0 0 10px rgb(178,34,34);
+}
+
+
+/* price calculation-container */
+.total_price_container {
+    grid-row: 3;
+    grid-column: 4 / 6;
+    display:grid;
+    grid-template-rows: 10% 40% 40% 10%;
+    align-items: center;
+    grid-template-columns: 100%;
+    justify-content: flex-start;
+
+}
+
+.total_price_text_container{
+    grid-row: 2;
+    grid-column: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.text {
+    color: rgba(255,255,255, .8);
+    font-size: 120%;
+
+}
+.text::after {
+    content: "€";
+}
+
+.buy_button_container {
+    grid-row: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+}

@@ -1,43 +1,22 @@
 // scroll Animation for homePage //
+
+
+
+
+// Scroll animation for home page
 const tagBox = document.querySelector('.product-text');
 
-$.ajax({ // hier wird eine verbindung mit ajx hergestellt
-    type: 'GET', // wir signalisieren eine get anfrage.
-    url: '', // der url wird angegeben
-    success: function (response) { // bei success wird die func ausgeführt
-        console.log('scroll_up', response.text) // und success wird in der konsole ausgegeben
-        tagBox.textContent = response.text
+$.ajax({
+    type: 'GET',
+    url: '', // Set the URL of the endpoint
+    success: function (response) {
+        console.log('scroll_up', response.text);
+        tagBox.textContent = response.text;
     },
-    error: function(error){ // bei error ds gleiche
-        console.log('scroll_down', error)
+    error: function (error) {
+        console.log('scroll_down', error);
     }
-
-},1000);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+},2000);
 
 
 
@@ -60,7 +39,8 @@ const observer = new IntersectionObserver((entries) => {  //1//
     });
 });
 
-const hiddenElements = document.querySelectorAll('.swipe_box, .lower_header_text, .navbar_a');
+
+const hiddenElements = document.querySelectorAll('.swipe_box, .lower_header_text, .navbar_a, .image_div, .title_container, .price_container, .category_name_text');
 hiddenElements.forEach((el) => observer.observe(el));
 
 

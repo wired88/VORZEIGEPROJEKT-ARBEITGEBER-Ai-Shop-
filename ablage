@@ -24,7 +24,11 @@ delete tag/product:
 //entry.target.style.opacity= '1';
            // entry.target.classList.remove('hidden');
 
+            else:
+                # zeigt die fehler an die bei der
+                print(form.errors)
 
+                raise ValidationError('Not allowed signs. Please try again...')
 
 #price_span::after {
     content: '€';
@@ -43,3 +47,1722 @@ delete tag/product:
 }
 
 request.user.username
+
+
+
+
+
+
+************+
+
+<div class="video_container">
+    <img class="recipe_img_detail_list_view" src="{{ recipe.picture.url }}" alt="user_img">
+    <div class="price_container">
+        <p>
+           {{ recipe.price }}
+        </p>
+    </div>
+</div>
+
+<div class="graphic_container">
+    <img class="recipe_img_detail_list_view" src="{{ recipe.picture.url }}" alt="user_img">
+    <div class="price_container">
+        <p>
+           {{ recipe.price }}
+        </p>
+    </div>
+</div>
+
+**************+
+
+
+
+const observer = new IntersectionObserver((entries) => {  //1//
+    entries.forEach((entry) => {
+        console.log(entry)
+        if (entry.isIntersecting) { // wenn über die section gescrollt wird, ... //
+            //entry.target.classList.add('show'); // wird die klasse 'show' hinzugefügt. //
+            entry.target.style.opacity= '1';
+            entry.target.style.filter= 'blur(0)';
+            entry.target.style.transform= 'translateY(0)';
+            entry.target.style.display= 'flex';
+        } else {
+            //entry.target.classList.remove('show');
+            entry.target.style.opacity= '0';
+            entry.target.style.filter= 'blur(5px)';
+            entry.target.style.transform= 'translateY(-100%)';
+           // wird nicht mehr drübergescrollt wird die klasse wieder entfernt, sodass man den effekt immer wieder hat. //
+        }
+    });
+});
+
+const hiddenElements = document.querySelectorAll('.video_container, .graphic_container, .image_container');
+hiddenElements.forEach((el) => observer.observe(el));
+
+*******************************************************++++++++
+#const tagBox = document.querySelector('.product-text');
+
+$.ajax({ // hier wird eine verbindung mit ajx hergestellt
+    type: 'GET', // wir signalisieren eine get anfrage.
+    url: '', // der url wird angegeben
+    success: function (response) { // bei success wird die func ausgeführt
+        console.log('scroll_up', response.text) // und success wird in der konsole ausgegeben
+        tagBox.textContent = response.text
+    },
+    error: function(error){ // bei error ds gleiche
+        console.log('scroll_down', error)
+    }
+
+},2000);
+<link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css"></link>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"></link>
+
+
+
+
+
+
+
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script defer src="{% static 'home/home_js/home.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/4.17.8/tagify.min.js"></script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+
+.head_container header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+offcanvas_a
+
+
+
+
+
+
+
+choices=[(category.pk, category.name) for category in PictureCategories.objects.all()],
+
+
+
+
+
+
+
+
+
+
+.list_view_main {
+        display: grid;
+        width: 180vh;
+        height: auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, .8);
+        position: relative;
+        margin:  150px auto 100px auto;
+        grid-template-columns: repeat(3, 1fr); /* erste Zahl wie viele columns die zwiete wie groß */
+        grid-auto-rows: min-content; /* setzt die höhe der zeilen auf das kleinstmögliche 8 so sind unterschiedlich hohe zeilen möglich (wie in categories)) */
+        background-color: rgba(0, 0, 0, .8);
+        align-items: start;
+
+}
+
+
+.category_image_container {
+    display: inline-block;
+    margin: 20px 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: transparent;
+    overflow: hidden;
+    transition: all .2s;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    height: auto;
+}
+
+
+
+
+
+.list_view_main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    width: 180vh;
+    padding: 20px 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .8);
+    position: relative;
+    margin: 150px auto 100px auto;
+    background-color: rgba(0, 0, 0, .8);
+}
+
+.category_image_container {
+    flex-basis: calc(33.33% - 40px);
+    margin: 20px;
+    max-width: 34%;
+    background-color: transparent;
+    overflow: hidden;
+    transition: all .2s;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+    height: auto;
+}
+
+
+
+
+
+.category_image_container {
+    display: inline-block;
+    margin-top: 20px;
+
+    background-color: transparent;
+    overflow: hidden;
+    transition: all .2s;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    height: auto;
+    grid-column-end: span 2;
+    grid-row-end: span auto;
+}
+
+
+
+
+.list_view_main {
+    display: flex;
+    width: 180vh;
+    height: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .8);
+    position: relative;
+    margin:  150px auto 100px auto;
+    background-color: rgba(0, 0, 0, .8);
+    columns: 4;
+    column-gap: 20px;
+    align-items: start;
+
+    /* grid: repeat(12, 1fr) / repeat(8, 1fr);  /* erster wert row 2. column. erste Zahl wie viele columns/rows die zwiete wie groß */
+}
+.auth_button:hover {
+    box-shadow:  0 0 10px rgba(255, 165, 0, .7);
+    background: linear-gradient(100deg, #e78e56, #d39722, #5bc6e7, #0257cb); /* für mehrere verwischte farben */
+
+}
+.auth_button:active {
+
+}
+
+background-image: linear-gradient(100deg, #485461 0%, #28313b 74%);
+background-image: linear-gradient(200deg,
+background-image: linear-gradient(300deg,
+
+
+
+background-image: linear-gradient(200deg, #485461 0%, #28313b 74%);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+                        <h3 class="box-title mt-5">General Info</h3>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-product">
+                                <tbody>
+                                    <tr>
+                                        <td width="390">Brand</td>
+                                        <td>Stellar</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Delivery Condition</td>
+                                        <td>Knock Down</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Seat Lock Included</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type</td>
+                                        <td>Office Chair</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Style</td>
+                                        <td>Contemporary&amp;Modern</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wheels Included</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Upholstery Included</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Upholstery Type</td>
+                                        <td>Cushion</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Head Support</td>
+                                        <td>No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Suitable For</td>
+                                        <td>Study&amp;Home Office</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adjustable Height</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Model Number</td>
+                                        <td>F01020701-00HT744A06</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Armrest Included</td>
+                                        <td>Yes</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Care Instructions</td>
+                                        <td>Handle With Care,Keep In Dry Place,Do Not Apply Any Chemical For Cleaning.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Finish Type</td>
+                                        <td>Matte</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Rounded Chair</h3>
+                <h6 class="card-subtitle">globe type chair for rest</h6>
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-6">
+                        <div class="white-box text-center">
+                            <img src="https://www.bootdey.com/image/430x600/00CED1/000000" class="img-responsive" alt="images_sexy">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-6">
+                        <h4 class="box-title mt-5">Product description</h4>
+                        <p>Lorem Ipsum available,but the majority have suffered alteration in some form,by injected humour,or randomised words which don't look even slightly believable.but the majority have suffered alteration in some form,by injected humour</p>
+                        <h2 class="mt-5">
+                            $153<small class="text-success">(36%off)</small>
+                        </h2>
+                        <button class="btn btn-dark btn-rounded mr-1" data-toggle="tooltip" title="" data-original-title="Add to cart">
+                            <i class="fa fa-shopping-cart"></i>
+                        </button>
+                        <button class="btn btn-primary btn-rounded">Buy Now</button>
+                        <h3 class="box-title mt-5">Key Highlights</h3>
+                        <ul class="list-unstyled">
+                            <li><i class="fa fa-check text-success"></i>Sturdy structure</li>
+                            <li><i class="fa fa-check text-success"></i>Designed to foster easy portability</li>
+                            <li><i class="fa fa-check text-success"></i>Perfect furniture to flaunt your wonderful collectibles</li>
+                        </ul>
+                    </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    USERNAME_FIELD = models.CharField(max_length=15)
+    password1 = models.CharField(max_length=16, default='')
+    password2 = models.CharField(max_length=16, default='')
+
+    email = models.EmailField(max_length=100, help_text='Enter your email address', default='example@example.com')
+<img class="profile_img"  style="color: orange;" src="{{ object.user_name.profile_image.default.url }}" alt="profile_img">
+
+
+ {% if object.user_name.profile_image %}
+                    <img class="profile_img"  style="color: orange;" src="{{ object.user_name.profile_image.url }}" alt="profile_img">
+                {% else %}
+                    <p>HelloWorld</p>
+                {% endif %}
+
+                username = form.cleaned_data.get('username')  # der Benutzername wird gespeichert
+        password = form.cleaned_data.get('password')
+        if user := authenticate(
+                request, username=username, password=password
+        ):
+            login(self.request, user)
+            return redirect(self.get_success_url())
+        else:
+            messages.error(self.request, 'Invalid E-Mail or Password')  # ansonsten erhält der user diese Fhelermeldung
+            return super().form_invalid(form)
+
+# def __init__(self, *args, **kwargs):
+        #  super().__init__(*args, **kwargs)
+        #     self.fields['date_created'].widget.attrs['placeholder'] = datetime.now().strftime('%d/%m/%Y')  # 2
+        #  2 so gibt man einem field - placeholder den wert einer Variable/ attributes. Man kann dies auch mit der Zuweisung eine modelattributes machen
+
+
+                def form_valid(self, form):
+        form.save()  # wenn die form valid ist, wird sie gespeichert.
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        if user := authenticate(  # wenn der user authentifizert ist...
+                self.request, username=username, password=password
+        ):
+            login(self.request, user)  # wird der user eingelogged,
+            return redirect(self.get_success_url())  # er wird zum sucess_url weitergeleitetr.
+        else:
+            messages.error(self.request, 'Invalid input')  # ansonsten erhält der user diese Fhelermeldung
+            return super().form_invalid(form)  # und diese
+
+
+
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = User.objects.filter(id=self.request.user.id)
+        return context
+
+
+    def get_success_url(self):
+        pass
+
+    def dispatch(self, request, *args, **kwargs):
+        context_data = self.get_context_data()['object']
+        if request.user.is_authenticated:
+            return render(request, self.template_name, {'object': context_data})
+        else:
+            return reverse_lazy('home:login')
+
+
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'profile_edit_button' in request.POST:
+            return render(request, self.template_name, {'object': self.get_context_data()['object']})
+        elif 'confirm_edit_button' in request.POST:
+            if form.is_valid():
+                form.save()
+                return render(request, self.template_name, {'object': self.get_context_data()['v']})
+        return render(request, self.template_name, {'object': self.get_context_data()['object']})
+        #
+
+
+        style="fill:white;stroke:red;stroke-width:4"
+
+
+
+
+
+
+class SingleCategoryPictureView(ListView):
+    template_name = 'home/EVERY_single_pic_category_view.html'
+
+    def get_context_data(self, *, slug, object_list=None, **kwargs):
+        context = super().get_context_data(object_list, **kwargs)
+        context['category'] = get_object_or_404(PictureCategories, slug=slug)
+        context['pictures'] = UserAddPicture.objects.filter(category=context['category'])
+
+
+    def post(self, request, *args, **kwargs):
+        free = request.session.get('free', False)
+        if
+
+
+
+        ['title',
+                  'picture',
+                  'price',
+                  'category',
+                  'tag_field',
+                  'user_name'
+                  ]
+
+
+
+
+<li>
+                        <form method="post" action="{% url 'home:index' %}">
+                            {% csrf_token %}
+                            <button class="dropdown-item" id="free_button" name="free_button" type="submit">
+                                Free(TODO)
+                            </button>
+                        </form>
+                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="bbb_viewed">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                       <div class="bbb_main_container">
+                        <div class="bbb_viewed_title_container">
+                            <h3 class="bbb_viewed_title">Best selling products</h3>
+                            <div class="bbb_viewed_nav_container">
+                                <div class="bbb_viewed_nav bbb_viewed_prev"><i class="fas fa-chevron-left"></i></div>
+                                <div class="bbb_viewed_nav bbb_viewed_next"><i class="fas fa-chevron-right"></i></div>
+                            </div>
+                        </div>
+                        <div class="bbb_viewed_slider_container">
+                            <div class="owl-carousel owl-theme bbb_viewed_slider">
+                                <div class="owl-item">
+                                    <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="bbb_viewed_image"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560924153/alcatel-smartphones-einsteiger-mittelklasse-neu-3m.jpg" alt=""></div>
+                                        <div class="bbb_viewed_content text-center">
+                                            <div class="bbb_viewed_price">₹12225<span>₹13300</span></div>
+                                            <div class="bbb_viewed_name"><a href="#">Alkatel Phone</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="owl-item">
+                                    <div class="bbb_viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="bbb_viewed_image"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560924221/51_be7qfhil.jpg" alt=""></div>
+                                        <div class="bbb_viewed_content text-center">
+                                            <div class="bbb_viewed_price">₹30079</div>
+                                            <div class="bbb_viewed_name"><a href="#">Samsung LED</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="owl-item">
+                                    <div class="bbb_viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="bbb_viewed_image"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560924241/8fbb415a2ab2a4de55bb0c8da73c4172--ps.jpg" alt=""></div>
+                                        <div class="bbb_viewed_content text-center">
+                                            <div class="bbb_viewed_price">₹22250</div>
+                                            <div class="bbb_viewed_name"><a href="#">Samsung Mobile</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="owl-item">
+                                    <div class="bbb_viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="bbb_viewed_image"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560924275/images.jpg" alt=""></div>
+                                        <div class="bbb_viewed_content text-center">
+                                            <div class="bbb_viewed_price">₹1379</div>
+                                            <div class="bbb_viewed_name"><a href="#">Huawei Power</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="owl-item">
+                                    <div class="bbb_viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="bbb_viewed_image"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560924361/21HmjI5eVcL.jpg" alt=""></div>
+                                        <div class="bbb_viewed_content text-center">
+                                            <div class="bbb_viewed_price">₹225<span>₹300</span></div>
+                                            <div class="bbb_viewed_name"><a href="#">Sony Power</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="owl-item">
+                                    <div class="bbb_viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                        <div class="bbb_viewed_image"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560924241/8fbb415a2ab2a4de55bb0c8da73c4172--ps.jpg" alt=""></div>
+                                        <div class="bbb_viewed_content text-center">
+                                            <div class="bbb_viewed_price">₹13275</div>
+                                            <div class="bbb_viewed_name"><a href="#">Speedlink Mobile</a></div>
+                                        </div>
+                                        <ul class="item_marks">
+                                            <li class="item_mark item_discount">-25%</li>
+                                            <li class="item_mark item_new">new</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+    // This code get the element by id (:o) and indicates an eventlistener. (he hear for some clicks).
+// If someone is klicking the button. the window.loacation.href-attribut will be add to the button element.
+// Use: If i dont had this code and dlick on the button in the image_conntainer-div, I will be redirected
+// to the divs-url...
+
+
+document.getElementById("edit_button").addEventListener("click", function(event) {
+    event.stopPropagation();
+    window.location.href = "{% url 'home:edit-image' pic.pk pic.slug %}";
+});
+
+
+
+</script>
+
+
+
+
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+{% csrf_token %}
+
+
+
+{% block title %} Basket {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'categories/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_detail/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'basket/style.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'basket/script.js' %}"></script>
+{% endblock %}
+
+
+
+
+{% block styles %}
+
+
+
+
+
+{% endblock %}
+
+
+{% block authForm %}
+    <form method="post" enctype="multipart/form-data">
+    <header class="basket_p">
+        <h2>
+            Basket
+        </h2>
+    </header>
+    <main class="basket_main" style="padding: 20px 0;">
+        <div class="product_header_basket">
+            <div class="h5_container">
+                <h5>
+                    Product
+                </h5>
+            </div>
+        </div>
+        <div class="description">
+            <div class="h5_container">
+                <h5>
+                    Description
+                </h5>
+            </div>
+        </div>
+
+        <div class="price_container_header">
+            <div class="h5_container">
+                <h5>
+                    Price
+                </h5>
+            </div>
+        </div>
+
+        {% if session_data|length == 0 %} {% comment %} check if the len in session-data context-list=0 {% endcomment %}
+            <section class="nothing_in_basket">
+                <h2>
+                    Nothing here yet!
+                    <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                    </svg>
+                </h2>
+            </section>
+        {% else %}
+            <div class="product_container_basket">
+                {% for product in session_data %}
+                    <ul style="display: flex; flex-direction: row;">
+                        <li class="product_list_element" style="color: white; justify-content: space-between; margin-top: 40px;">
+                            <button id="delete_basket_product_button" class="basket_delete_button" value="{{ product.id }}" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                </svg>
+                            </button>
+                            <img class="basket_img" src="{{ product.picture.url }}" alt="{{ product.title}}">
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+
+            <section class="left_col_section">
+                {% for product in session_data %}
+                    <ul>
+                        <li class="product_list_element" style="color: white; margin: 50px 0;">
+                            {{ product.title }}
+                        </li>
+                    </ul>
+                {% endfor %}
+            </section>
+
+            <section class="right_col_section">
+                {% for product in session_data %}
+                    <ul>
+                        <li class="product_list_element" style="color: white;">
+                            <span class="price_text">
+                                {{ product.price }}
+                            </span>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </section>
+
+            <div class="total_price_container">
+                <div class="space">
+
+                </div>
+
+                <div class="total_price_text_container">
+                    <p class="text">
+                      Total: &nbsp; {{ total_price }}
+                    </p>
+                </div>
+
+                <div class="buy_button_container">
+                    <button class="buy_button" style="padding: 10px 35%; margin: 0;" title="Buy">
+                        Buy
+                    </button>
+                </div>
+
+                <div class="space">
+
+                </div>
+            </div>
+        {% endif %}
+
+    </main>
+    </form>
+{% endblock %}
+# Picture
+                  path('picture-categories/<slug:slug>/', views.single_pic_category_view, name='picture-categories'),
+
+                  # Free Graphic
+                  path('free-graphics/<slug:slug>/', views.single_free_graphic_view, name='free-graphic'),
+
+                  # Free Piture
+                  path('free-images/', views.single_free_pic_view, name='free-images'),
+
+                  # CUSTOMER DETAIL VIEW
+                  # Graphic
+                  path('graphic/<slug:slug>/', CustomerGraphicDetailView.as_view, name='customer_g_view'),
+
+
+
+
+
+
+def single_pic_category_view(request, slug):
+    template_name = 'home/EVERY_single_pic_category_view.html'
+    free = request.session.get('free', False)
+    if 'basket_button' in request.POST:
+        return redirect('basket:basket')
+    if free:
+        category = get_object_or_404(PictureCategories, slug=slug)
+        pictures = UserAddPicture.objects.filter(category=category, price__lt=0.01)
+onclick="window.location.href='{% url 'home:category_single' value.slug %}';"
+        return render(request, template_name, {'pictures': pictures})
+    else:
+        category = get_object_or_404(PictureCategories, slug=slug)
+        pictures = UserAddPicture.objects.filter(category=category)
+        return render(request, template_name, {'pictures': pictures})
+#######
+ def get_queryset(self, slug):
+        picture = self.request.session.get('picture', False)
+        free = self.request.session.get('free', False)
+        if picture and free:
+            category = get_object_or_404(PictureCategories, slug=slug)
+            qs = UserAddPicture.objects.filter(price__lt=0.01, category=category)
+        elif picture and not free:
+            category = get_object_or_404(PictureCategories, slug=slug)
+            qs = UserAddPicture.objects.filter(category=category)
+        elif not picture and free:
+            category = get_object_or_404(GraphicCategory, slug=slug)
+            qs = GraphicUpload.objects.filter(price__lt=0.01, category=category)
+        else:
+            category = get_object_or_404(GraphicCategory, slug=slug)
+            qs = GraphicUpload.objects.filter(category=category)
+        return qs
+##########
+def single_graphic_category_view(request, slug):
+    template_name = 'home/EVERY_single_pic_category_view.html'
+    category = get_object_or_404(GraphicCategory, slug=slug)
+    pictures = GraphicUpload.objects.filter(category=category)
+    if 'basket_button' in request.POST:
+        return redirect('basket:basket')
+    return render(request, template_name, {'pictures': pictures})
+
+
+def single_free_graphic_view(request, slug):
+    template_name = 'home/EVERY_single_pic_category_view.html'
+    category = get_object_or_404(GraphicCategory, slug=slug)
+    # price__lt=0.01 bedeutet price less than so kann auf mehrere operatoren usw zugrgriffen werden
+    pictures = GraphicUpload.objects.filter(category=category, price__lt=0.01)
+    if 'basket_button' in request.POST:
+        return redirect('basket:basket')
+    return render(request, template_name, {'pictures': pictures})
+
+def single_free_pic_view(request):
+    template_name = 'home/EVERY_single_pic_category_view.html'
+    category = get_object_or_404(PictureCategories, slug='free')
+    pictures = UserAddPicture.objects.filter(category=category, price__lt=0.01)
+    if 'basket_button' in request.POST:
+        return redirect('basket:basket')
+    return render(request, template_name, {'pictures': pictures})
+
+
+
+
+class CustomerSingleCategroyPicView(ListView):
+    model = UserAddPicture
+    template_name = 'home/EVERY_single_pic_category_view.html'
+
+    def post(self, request, slug, *args, **kwargs):
+        if 'object_id' in self.request.POST:
+            try:
+                category = get_object_or_404(PictureCategories, slug=slug)
+                pictures = UserAddPicture.objects.filter(category=category)
+                return render(request, self.template_name, {'pictures': pictures})
+            except:
+                category = get_object_or_404(GraphicCategory, slug=slug)
+                pictures = GraphicUpload.objects.filter(category=category)
+                return render(request, self.template_name, {'pictures': pictures})
+
+
+onclick="window.location.href='{% url 'home:category_single' value.slug %}';"
+
+
+class PictureCategoryView(ListView):
+    template_name = 'home/categories.html'
+    model = PictureCategories
+    success_url = reverse_lazy('home:picture-categories')
+    # UserAddPicture.CategoryChoices.choices gibt eine lliste an tupeln zurück, welches den Variablennamen und ihren
+    # wert enthält. so kann ich auf die values der Klasse CategoryChoices und sie im Category-template rendern.
+    object_list = PictureCategories.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context wird der wert von o_l übergeben, sodass darauf im template ordentlich zugegriffen werden kann.
+        context['object_list'] = self.object_list
+        #  context['updated_object_list'] =  UserAddPicture.objects.filter(category=id)
+        # context['category_list'] = UserAddPicture.objects.filter(category=self.kwargs['pk'])
+        return context
+
+    def post(self, request, slug=None, *args, **kwargs):
+        # we get the information about the session-data and store it in the variable. the false - value behind the str
+        # is the default value.
+        free = request.session.get('free', False)
+        if 'div_container' in request.POST and not free:
+            # changed_category wird verwendet um die ausgewählte catagory herauszufinden ...
+            changed_category = get_object_or_404(PictureCategories, slug=slug, is_active=True)
+            # damit im n#chsten schritt danach gefiltert werden kann
+            category_products = UserAddPicture.objects.filter(category=changed_category)
+            return render(request, self.success_url, {'category_products': category_products})
+        elif 'div_container' in request.POST and free:
+            changed_category = get_object_or_404(PictureCategories, slug=slug, is_active=True)
+            category_products = UserAddPicture.objects.filter(category=changed_category, price__lt=0.01)
+            return render(request, self.success_url, {'category_products': category_products})
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+
+
+class GraphicCategoryView(ListView):
+    template_name = 'home/categories.html'
+    model = GraphicCategory
+    success_url = reverse_lazy('home:graphic-categories')
+    # UserAddPicture.CategoryChoices.choices gibt eine lliste an tupeln zurück, welches den Variablennamen und ihren
+    # wert enthält. so kann ich auf die values der Klasse CategoryChoices und sie im Category-template rendern.
+    object_list = GraphicCategory.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context wird der wert von o_l übergeben, sodass darauf im template ordentlich zugegriffen werden kann.
+        context['object_list'] = self.object_list
+        # context['category_list'] = UserAddPicture.objects.filter(category=self.kwargs['pk'])
+        return context
+
+    def post(self, request, slug, *args, **kwargs):
+        if 'div_container' in request.POST:
+            changed_category = get_object_or_404(GraphicCategory, slug=slug, is_active=True)
+            category_products = UserAddPicture.objects.filter(category=changed_category)
+            return render(request, self.success_url, {'category_products': category_products})
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+
+            if picture and free:
+                category = get_object_or_404(PictureCategories, slug=slug)
+                image = UserAddPicture.objects.filter(price__lt=0.01, category=category)
+            elif picture and not free:
+                category = get_object_or_404(PictureCategories, slug=slug)
+                image = UserAddPicture.objects.filter(category=category)
+            elif not picture and free:
+                category = get_object_or_404(GraphicCategory, slug=slug)
+                image = GraphicUpload.objects.filter(price__lt=0.01, category=category)
+            else:
+                category = get_object_or_404(GraphicCategory, slug=slug)
+                image = GraphicUpload.objects.filter(category=category)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                from django.contrib.auth.forms import AuthenticationForm
+from django.core.checks import messages
+from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from django.http import request, JsonResponse, HttpResponse, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
+from PIL import Image
+from django.views.generic import \
+    FormView, \
+    ListView, \
+    TemplateView, \
+    DetailView, \
+    DeleteView, \
+    CreateView, \
+    UpdateView
+
+'''
+FormView, \  # eine vielw klasse zum rendern einer bestimmten form
+    ListView, \  #eine View Klasse für das geordnete rendern vieler bestimmter objekte
+    TemplateView, \ # gibt einzig und eallein ein template zurück (zb für eine anleitung usw...)
+    DetailView, \ # ein detailierter form-view
+    DeleteView, \ # um eine bereits vorhandene form zu löschen
+    CreateView, \ # um eine neue form zu erstellen zu können
+    UpdateView,      # um bestehende objekte zu bearbeiten
+    '''
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout, forms
+
+from django.shortcuts import render, redirect, get_object_or_404
+from home.forms import SignUpForm, UsersAddPictureForm, SearchPicturesForm, UsersAddGraphicForm, SignInForm
+from home.models import UserAddPicture, SearchPictures, LoadVideoForPageCreation, User, GraphicUpload, \
+    GraphicCategory, PictureCategories
+
+from taggit.models import Tag
+from django.template.defaultfilters import slugify
+
+
+
+class HomeView(FormView, ListView):
+    form_class = SearchPicturesForm
+    template_name = 'home/base.html'
+    success_url = reverse_lazy('home:index')
+    model = SearchPictures
+    object_list = SearchPictures.objects.all()
+
+    def get_boolean_free(self):
+        if 'free_button' in self.request.POST:
+            return True
+        return False
+
+    def get_context_data(self, **kwargs):
+        user_add_pictures = []
+        graphic_uploads = []
+        context = super().get_context_data(**kwargs)
+        for prod_id in self.request.session.get('skey', []):
+            if UserAddPicture.objects.filter(id=prod_id).exists():
+                user_add_pictures.append(UserAddPicture.objects.get(id=prod_id))
+            else:
+                graphic_uploads.append(GraphicUpload.objects.get(id=prod_id))
+        user_add_pictures += graphic_uploads
+        context['session_data'] = user_add_pictures
+        context['video'] = LoadVideoForPageCreation.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'add_tag_searchfield' in request.POST:
+            if form.is_valid():
+                form.save()
+                return super().form_valid(form)
+            else:
+                raise ValidationError('Not allowed signs. Please try again ...')
+
+        elif 'search_pictures' in request.POST:  #
+            return super().form_valid(form)  # sucht anhand der Eingabe Bidler mit passenden Tagsw
+
+        elif 'profile_button' in request.POST:
+            return reverse_lazy('home:profile', kwargs={'pk': self.request.user.id})
+
+        # TOPBAR-DROPDOWN BUTTON ACTIONS #########################################################################
+        # hier nicht reverse_lazy verwenden da diese methode nur einen als string url zurückgibt aber nicht
+        # auf eine andere seite weiterleitet I was hier aber gewünscht ist)
+        if 'pic_free_button' in request.POST:
+            request.session['pic_free'] = True
+            request.session['picture'] = True
+            return redirect('home:category')
+
+        elif 'picture_categories' in request.POST:
+            request.session['free'] = False
+            request.session['picture'] = True
+            return redirect('home:category')
+
+        elif 'graphic_categories' in request.POST:
+            request.session['free'] = False
+            request.session['picture'] = False
+            return redirect('home:category')
+
+        elif 'graphic_free' in request.POST:
+             request.session['picture'] = False
+             request.session['free'] = True
+             return redirect('home:category')
+
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+        return render(request, self.template_name)
+
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Oups... Invalid input! Please try again.')
+        return super().form_invalid(form)
+
+
+
+
+
+
+
+
+
+
+
+######################  From filter images for category to detail image-view - both models
+
+class SingleCategoyView(ListView): # filter images for category and model
+    template_name = 'home/EVERY_single_pic_category_view.html'
+    success_url = reverse_lazy('home:customer_detail_view')
+    model = UserAddPicture
+
+    def get_context_data(self, slug=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        picture = self.request.session.get('picture', False)
+        free = self.request.session.get('free', False)
+        if picture and free:
+            category =  get_object_or_404(PictureCategories, slug=slug)
+            context['image'] = UserAddPicture.objects.filter(price__lt=0.01, category=category)
+        elif picture and not free:
+            category = get_object_or_404(PictureCategories, slug=slug)
+            context['image'] = UserAddPicture.objects.filter(category=category)
+        elif not picture and free:
+            category = get_object_or_404(GraphicUpload, slug=slug)
+            context['image'] = GraphicUpload.objects.filter(price__lt=0.01, category=category)
+        elif not picture and not free:
+            category = get_object_or_404(GraphicUpload, slug=slug)
+            context['image'] = GraphicUpload.objects.filter(category=category)
+        return context
+"""
+    def post(self, request, *args, **kwargs):
+        if 'single_category_image' in request.POST:
+            object = self.get_context_data()['image']
+            object_slug = object.slug
+            product = get_object_or_404(object, slug=object_slug)
+            return render(request, self.success_url, {'product': product})
+        return render(request, self.template_name)
+"""
+
+    # Create your views here.
+#################################  CATEGORY VIEWS ############################################
+class CategoryView(ListView):
+    template_name = 'home/categories.html'
+    success_url = reverse_lazy('home:category_single')
+
+    def get_queryset(self):
+        picture = self.request.session.get('picture', False)
+        if picture:
+            qs = PictureCategories.objects.all()
+        else:
+            qs = GraphicCategory.objects.all()
+        return qs
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        picture = self.request.session.get('picture', False)
+        if picture:
+            context['image'] = PictureCategories.objects.all()
+        else:
+            context['image'] = GraphicCategory.objects.all()
+        return context
+
+
+    def get_success_url(self, slug):
+        return reverse_lazy('home:category_single', kwargs={'slug': slug})
+
+    def post(self, request, slug=None, *args, **kwargs):
+        """
+        if you try to get if 'category_container' in request.POST while 'category_container' is a
+        object, you will get a error <(you have to use something like an input or a button-element to get a
+        request.post.
+        """
+        picture = self.request.session.get('picture', False)
+        free = self.request.session.get('free', False)
+        if 'category_container' in request.POST:
+            if picture and free:
+                category = get_object_or_404(PictureCategories, slug=slug)
+                image = UserAddPicture.objects.filter(price__lt=0.01, category=category)
+            elif picture and not free:
+                category = get_object_or_404(PictureCategories, slug=slug)
+                image = UserAddPicture.objects.filter(category=category)
+            elif not picture and free:
+                category = get_object_or_404(GraphicCategory, slug=slug)
+                image = GraphicUpload.objects.filter(price__lt=0.01, category=category)
+            else:
+                category = get_object_or_404(GraphicCategory, slug=self.object.slug)
+                image = GraphicUpload.objects.filter(category=category)
+            return self.get_success_url(slug)
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+
+
+############## SINGLE CATEGORY VIEWS #################
+
+
+class UsersImagesListView(ListView):
+    template_name = 'home/my-images.html'
+    model = UserAddPicture
+    object_list = UserAddPicture.objects.all()
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['picture'] = UserAddPicture.objects.all()
+        context['graphic'] = GraphicUpload.objects.all()
+        context['free_image'] = UserAddPicture.objects.filter(price=0)
+        context['free_graphic'] = GraphicUpload.objects.filter(price=0)
+
+    def post(self, request, *args, **kwargs):
+        # wenn ein button mit dem namen graphic_choice_button gedrückt wird, wird eine get-anfrage a den server gesendet.
+        # in dieser wird dann die gewünschte form zurückgegeben.
+        if 'graphic_choice_button' in request.POST:
+            self.model = GraphicUpload
+            self.object_list = GraphicUpload.objects.filter(g_username=self.request.user.id)
+            # sobald der user wieder den 'picture_choice_button' drückt, ...
+        elif 'picture_choice_button' in request.POST:
+            # wird das model, die object_list und die restlichen kontextdaen benutzt ...
+            self.model = UserAddPicture
+            self.object_list = UserAddPicture.objects.filter(user_name=self.request.user.id)
+            # und im template wiedergegeben.
+        # statt der contextdats wird die object_list zurück gegeben um sie im templete zu rendern.
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+        elif 'edit_button' in request.POST:
+            pass
+            """
+            object = get_object_or_404(self.model, id=pk)
+            return reverse('home:edit-image', kwargs={'pk': object.pk, 'slug': object.slug})
+            """
+        return render(request, self.template_name, {'object_list': self.object_list})
+
+
+
+
+
+
+class RegisterView(FormView):  # for user registration
+    form_class = SignUpForm
+    template_name = 'home/register.html'
+    success_url = reverse_lazy('home:index')
+
+    # die dispatch methode ist die erste die bei einer anfrage verarbeotet wird. Wenn man also einen user unter irgendwelchen Bedingungen
+    # direkt auf eine andere Webpage umleiten will, sollte man das hier tun.
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(request.user.get_absolute_url())
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            user = form.save(commit=False)
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            user.save()
+            username = form.cleaned_data.get('username')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, "You have successfully registered")
+                return self.form_valid(form)
+            else:
+                messages.error(request, "We were unable to log you in at this time")
+        else:
+            image = form.cleaned_data.get('profile_image')
+            if image:
+                return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form})
+
+
+'''
+        if self.request.accepts("text/html"): # wenn die foem invlid ist wird de user auf eine seite weitergeleitet.(irgndiwe rausfinden wie mann eine webpage mit einem counter bauen kann=)
+            return response
+        else:
+'''
+
+
+class UserLoginView(FormView):  # for user login
+    form_class = SignInForm
+    template_name = 'home/login.html'
+    success_url = reverse_lazy('home:index')
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'login_button' in request.POST and form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return self.form_valid(form)
+            else:
+                raise ValidationError('Invalid Password or Username')
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+        else:
+            return self.form_invalid(form)
+
+
+####################### PROFILE VIEWS #######################
+
+class ProfileView(UpdateView):
+    template_name = 'home/profile.html'
+    model = User
+    success_url = reverse_lazy('home:profile')
+    form_class = SignUpForm
+
+    def get_initial(self):
+        # MIT get_initial KANN DER VALUE WERT EINES INPUT FELDES VERÄNDERT WERDEN, DA DIESER AUF DEFAULT BEI EINEM
+        # UPDATEVIEW DEN TATSÄCHLICHEN BISHERIGEN WERT DES FELDES ANZEIGT, WAS BEI PASSWORD DER GEHASHTE WERT IST
+        initial = super(ProfileView, self).get_initial()
+        initial['password'] = ''
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['object'] = User.objects.filter(id=self.request.user.id)
+        return context
+
+    def get_success_url(self):
+        pass
+
+    def dispatch(self, request, pk, *args, **kwargs):
+        # zum init immer zuerst die super methode aufrufen !!! (nicht vergessen!!)
+        response = super().dispatch(request, *args, **kwargs)
+        if request.user.is_authenticated and pk == self.request.user.id:
+            return response
+        else:
+            return HttpResponseRedirect(reverse_lazy('home:login'))
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'profile_edit_button' in request.POST:
+            return render(request, self.template_name, {'object': self.get_context_data()['object']})
+        elif 'confirm_edit_button' in request.POST:
+            if form.is_valid():
+                form.save()
+                return render(request, self.template_name, {'object': self.get_context_data()['object']})
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+        return render(request, self.template_name, {'object': self.get_context_data()['object']})
+
+
+# erben lassen
+
+
+class SettingsView(TemplateView):
+    template_name = 'home/settings.html'
+
+
+class UserAddPictureView(CreateView):  # for user create a recipe
+    template_name = 'home/user_add_image.html'  # in welchem template die form dargestellt werdfen soll
+    form_class = UsersAddPictureForm
+
+    def get_success_url(self):
+        # ein custom success url wird erstellt um beim Weiterleiten slug und pk im url mitgeben zu können
+        # wenn der fehler 'ViewClass has no attribute self.object' auftritt schau dir die form_valid mathode an.
+        # WICHTIG-Nicht den success url in der post methode returnen sonder die iform_valid methode.
+        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
+
+    def get_context_data(self, **kwargs):
+
+        # mit dieser definition der methode kann im html template über das schlüsselwort image_fields auf die
+        # einzelnen attribute zugegriffen werden
+        context = super().get_context_data(**kwargs)
+        context['image_fields'] = UsersAddPictureForm(self.request.POST or None)
+
+        # eine zweite form für das uploadden von graphics wird gesetzt.
+        context['upload_graphic'] = UsersAddGraphicForm(self.request.POST or None)
+
+        # um einer form einen default wert zu geben, wird das parameter initiol verwendet. Jetzt rendert user_name - field
+        # jedes Mal bei einem upload den pk des users. (Der pk muss mitgegeben werden sonst kommt ein error.
+        # Da aber nicht der pk, sondern der username gerndert werden soll, wird der username im template sepperat
+        # gerendert und username_field.user_name als.as_hidden (desplay:none) gesetzt).
+        context['username_field'] = UsersAddPictureForm(initial={'user_name': self.request.user.pk})
+
+        # die 4 ersten Tags die geschrieben wurden, werden in tags gespeichert, sodass sie einfach im template gerendert
+        # werden können # wichtig- hier nicht die Form, sondern das Model auswählen
+        context['tags'] = UserAddPicture.tag_field.most_common()[:4]
+
+        # eine instanz zum model wird erstellt und alle werte in model gespeichert damit darüber iteriert werden kann.
+        context['model'] = UserAddPicture.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # Dies gibt eine Liste aller Titel in der UserAddPicture-Tabelle zurück. flat=True gibt hierbei an,
+        # dass das Ergebniss als liste zurückgegeben werden soll.
+
+        if 'add_picture_button' in request.POST:
+            form = self.get_form()
+            if form.is_valid():
+                # get_form_save wird dda speicher der form übergeben
+                get_form_save = form.save(commit=False)
+                # slug wird der wert title übergeben
+                get_form_save.slug = slugify(get_form_save.title)
+                # die upgedatete form wird gespeichert
+                get_form_save.save()
+                # wichtig!!!
+                form.save_m2m()
+                # der user wird zur success_url weitergeleitet
+                return self.form_valid(form)
+            else:
+                return super().form_invalid(form)
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+        elif 'add_graphic_button' in request.POST:
+
+            # der form variable wird der zugewiesene con´text von graphic zugewiesen um dqrüber iterieren zu können
+            form = self.get_context_data()['upload_graphic']
+
+            if form.is_valid():
+                # get_form_save wird dda speicher der form übergeben
+                get_form_save = form.save(commit=False)
+                # slug wird der wert title übergeben
+                get_form_save.slug = slugify(get_form_save.title)
+                # die upgedatete form wird gespeichert
+                get_form_save.save()
+                # wichtig!!!
+                form.save_m2m()
+                # der user wird zur success_url weitergeleitet
+                return self.form_valid(form)
+            else:
+                return super().form_invalid(form)
+
+    def form_valid(self, form):
+        # Erstellen Sie das neue Objekt und speichern Sie es in der Datenbank
+        self.object = form.save()
+        # Setzen Sie die Instanzvariable self.object
+        self.object = form.instance
+        # Rufen Sie die ursprüngliche form_valid-Methode auf
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Oups... Invalid input! Please try again.')
+        return super().form_invalid(form)
+
+
+class PictureDetailView(DetailView):
+    model = UserAddPicture
+    template_name = 'home/image_detail_view.html'
+
+
+class CustomerDetailView(DetailView):
+    model = UserAddPicture
+    template_name = 'home/random_detail_view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pictures'] = UserAddPicture.objects.filter(user_name=self.object.user_name.id)
+        context['other'] = UserAddPicture.objects.filter(category=self.object.category)
+        with Image.open(self.object.picture) as img: # read the size of the self.object image that i can render it in the template
+            context['image_size'] = img.size
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if 'basket_button' in request.POST:
+            return redirect('basket:basket')
+
+
+class CustomerGraphicDetailView(DetailView):
+    model = GraphicUpload
+    template_name = 'home/random_detail_view.html'
+
+
+class PictureUpdateView(UpdateView):
+    model = UserAddPicture
+    form_class = UsersAddPictureForm
+    template_name = 'home/edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'save_button' in request.POST:
+            if form.is_valid():
+                form.save()
+                return self.get_success_url()
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+        return render(request, self.template_name)
+
+class ProfileUpdateView(UpdateView):
+    model = User
+    fields = ['first_name', 'last_name', 'username', 'password', 'email', 'profile_image']
+    success_url = reverse_lazy('home:profile')
+    template_name = 'home/profile.html'
+
+
+# LoginRequiredMixin???
+
+
+
+
+
+
+
+
+
+
+
+
+class DeleteObjectView(DeleteView):
+    model = SearchPictures
+    success_url = reverse_lazy('home:index')
+    template_name = 'home/base.html'
+
+    def get_context_data(self, pk=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = get_object_or_404(SearchPictures, id=pk)
+        return context
+
+    def post(self, request, pk=None, *args, **kwargs):
+        context = self.get_context_data(pk=pk, **kwargs)
+        if 'delete_tag' in request.POST:
+            context.name.delete()
+            # jetzt muss nur noch pk im template übergeben werden dann funktioniert es
+            return redirect(self.get_success_url())
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+
+
+# function based Views
+
+def delete_object_view(request, pk):
+    tag = get_object_or_404(SearchPictures, id=pk)
+    tag.delete()
+    return redirect(reverse('home:index'))  # der user wird zur my-recipes-page weitergeleitet.
+
+
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('home:index'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+    def get_success_url(self, pk=None, slug=None, **kwargs):
+        self.object = get_object_or_404(UserAddPicture, id=pk, slug=slug)
+        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
+
+
+'''
+
+'''
+def user_add_image_view(request):
+    # wohin der user später weitergeeitet werden soll
+    success_url = 'home:my-pictures'
+    # die form klasse welche im templete gerendert werden soll und die method über welche daten gesendet werden(
+    # post/get)
+    form = UsersAddPictureForm(request.POST)
+    # die 4 ersten Tags die geschrieben wurden werden in tags gespeichert, sodass sie einfach im template gerendert
+    # werden können
+    tags = UsersAddPictureForm.tag_field.most_common()[:4]
+    # eine instanz zum model wird erstellt und alle werte in model gespeichert damit darüber iteriert werden kann.
+    model = UserAddPicture.objects.all()
+    if 'add_picture_button' in request.POST:
+
+        if form.is_valid():
+            print('Success')
+            # get_form_save wird dda speicher der form übergeben
+            get_form_save = form.save(commit=False)
+            # slug wird der wert title übergeben
+            get_form_save.slug = slugify(get_form_save.title)
+            # die upgedatete form wird gespeichert
+            get_form_save.save()
+            # wichtig!!!
+            form.save_m2m()
+            # der user wird zur success_url weitergeleitet
+            return render(request, reverse_lazy(success_url))
+        else:
+            raise ValidationError('No Success')
+
+
+    context = {
+        'title': form.fields['title'],
+        'picture': form.fields['picture'],
+        'price': form.fields['price'],
+        'category': form.fields['category'],
+        'tags': tags,
+        'posts': model,
+        'form': form,
+    }
+
+    return render(request, 'home/user_add_image.html', context)
+            '''
+
+'''
+
+def detail_view(request, slug): # bei klick auf ein
+    picture = get_object_or_404(UserAddPicture, slug=slug)
+    context = {
+        'picture': picture,
+    }
+    return render(request, 'home/image_detail_view.html', context)
+
+def tagged(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    common_tags = UserAddPicture.tag_field.most_common()[:4]
+    posts = UserAddPicture.objects.filter(tags=tag)
+    context = {
+        'tag':tag,
+        'common_tags':common_tags,
+        'posts':posts,
+    }
+    return render(request, 'home/user_add_image.html', context)
+'''
+
+'''
+    def get_success_url(self):
+        # ein custom success url wird erstellt um beim Weiterleiten slug und pk im url mitgeben zu können
+        # wenn der fehler 'ViewClass has no attribute self.object' auftritt schau dir die form_valid mathode an.
+        # WICHTIG-Nicht den success url in der post methode returnen sonder die iform_valid methode.
+        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
+
+
+
+const hover_divs = document.querySelectorAll('.category_image_container');
+const hidden_divs = document.querySelectorAll('.hover_visible_options_container');
+
+hover_divs.forEach((hover_div, index) => {
+    const hidden_div = hidden_divs[index];
+    hover_div.addEventListener('mouseover', function(event) {
+        hidden_div.style.opacity = '1';
+        hidden_div.style.filter = 'blur(0)';
+        hidden_div.style.transform = 'translateY(0)';
+    });
+    hover_div.addEventListener('mouseout', function(event) {
+        hidden_div.style.opacity = '0';
+        hidden_div.style.filter = 'blur(5px)';
+        hidden_div.style.transform = 'translateY(-100%)';
+    });
+});
+
+    def get_success_url(self):
+        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        graphic_edit = self.request.session.get('graphic', False)
+        if graphic_edit:
+            context['edit_form'] = UsersAddGraphicForm
+        else:
+            self.model = UserAddPicture
+            context['edit_form'] = UsersAddPictureForm
+
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'save_button' in request.POST:
+            if form.is_valid():
+                form.save()
+                return self.get_success_url()
+        elif 'basket_button' in request.POST:
+            return redirect('basket:basket')
+        return render(request, self.template_name)

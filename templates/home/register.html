@@ -1,35 +1,96 @@
 {% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
 
+{% load static %}
 
-{% block title %} Home - Register {% endblock %}
+{% block title %} Register {% endblock %}
 {% block styles %}
 
 
 
 {% endblock %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'register/style.css' %}">
+{% endblock %}
 
 {% block authForm %}  {% comment Wir nehemen uns hier zunächst die block und endblock klammern aus home und cpen Sie hier rein %}{% endcomment %}
 
-<form method="POST" action=""> {% comment hier legen wir den body für dieses html file fest. %} {%  endcomment %}
+<form method="POST" enctype="multipart/form-data">
+    <main class="auth_main">
+        <header class="auth_header">
+            <h1>
+                Register
+            </h1>
+        </header>
 
-    <div class="login_container">
-        <h1>Register</h1>
-        {{ form.as_p }} {% comment mit .as_p geben wir den wert als <p> aus %} {%  endcomment %}
-        {% csrf_token %}
+        <section class="auth_profile_img_section">
+            <div class="auth_profile_container">
+                <img class="auth_profile_img" src="{% static 'home/home_images/user_img_default.png' %}" alt="profile_image.jpg"
+                 onclick="document.getElementById('profile_img_id').click()">
+                {{ form.profile_image }}
+                <span class="profile_img_box_shadow"></span>
+            </div>
+        </section>
 
-        <button class='button-class' type="submit">Register</button>
+        <section class="auth_body">
+            {% csrf_token %}
 
-        <p class="login_text" >Have an account yet? Log In here!
-            <span>
-                <button class="button-class"  onclick="window.location.href='{% url 'home:login' %}';">
-                    Login
+            <div class="body_row1">
+
+                <div  style="grid-column: 1; flex-direction: column; margin-right: 15px;">
+                    {{ form.first_name }}
+                    {{ form.first_name.errors }}
+                </div>
+
+                <div style="grid-column: 2; flex-direction: column; margin-left: 15px;">
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </div>
+            </div>
+
+            <div class="body_row2" style="display: flex; flex-direction: column; left: -100px;">
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <div class="body_row3" style="display: flex; flex-direction: column; ">
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+
+            <div class="body_row4" style="display: flex; flex-direction: column; ">
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <div class="body_row5" style="display: flex; flex-direction: column; ">
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+
+            <div class="body_row6">
+                <button class='auth_button' type="submit" id="register_button" name="register_button" title="Register">
+                    Register
                 </button>
+            </div>
 
-            </span>
+        </section>
 
-        </p>
-    </div>
+        <footer class="auth_footer">
+
+            <p class="login_text">
+                Already have an account? <br><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Log In here!
+             </p>
+
+            <button class="login_button"  onclick="window.location.href='{% url 'home:login' %}';">
+                Login
+            </button>
+
+        </footer>
+
+    </main>
+
 </form>
 
 
