@@ -26,6 +26,7 @@
 
 {% block authForm %}
 <form method="post">
+{% csrf_token %}
     <main class="edit_main">
         <header class="header_box">
             <div class="header_text_box">
@@ -40,21 +41,60 @@
                     {{ form.title.label }}
                 </label>
                 {{ form.title }}
+                {{ form.title.errors }}
             </header>
             <div class="image_edit_div">
-                <div class="current_image_div">
-                    <img class="current_img" title="{{ object.title }}" src="{{ object.picture.url }}" id="trigger_image" alt="{{ object.title }}">
+                <div class="current_img_div">
+                    <div class="image_container" id="trigger_image">
+                        <img class="current_img" title="{{ object.title }}" src="{{ object.picture.url }}"
+                          alt="{{ object.title }}" onclick="click()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" onclick="click()" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+                        </svg>
+                    </div>
                 </div>
                 <div class="select_new_img_div">
-                <label>
-                    {{ form.picture.label }}
-                </label>
-                {{ form.picture }}
+                    {{ form.picture }}
+                    {{ form.picture.errors }}
                 </div>
             </div>
-        </section>
-        <footer>
 
+            <div class="price_container_edit">
+                <div class="price_box">
+                    <label>
+                        {{ form.price.label }} &nbsp;
+                    </label>
+                    {{ form.price }}
+                    {{ form.price.errors }}
+                </div>
+                <div class="category_box">
+                    <label>
+                        {{ form.category.label }}
+                    </label>
+                    {{ form.category }}
+                    {{ form.category.errors }}
+                </div>
+
+            </div>
+
+            <div class="tag_field_container">
+                <label for="tags">
+                    {{ form.tag_field.label }}
+                </label>
+                <input id="tags" type="text" data-role="tagsinput" class="form-control" name="tags">
+                {{ form.tag_field.errors }}
+            </div>
+        </section>
+        <footer class="footer_edit">
+            <button class="save_changes_button" type="submit" title="submit">
+                <a>
+                    save changes
+                </a>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                </svg>
+            </button>
         </footer>
     </main>
 </form>
@@ -69,8 +109,34 @@
 
 <script>
     document.querySelector('#trigger_image').addEventListener('click', function() {
-        document.querySelector('#{{ form.picture.id }}').click();
+        document.querySelector('#id_picture').click();
     });
+
+
+
+var input = document.getElementById('id_tag_field');
+
+// Überprüfen Sie, ob der Input-Container fokussiert ist
+if (document.activeElement === input) {
+    input.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === ',') {
+
+    }
+});
+} else {
+    // Der Input-Container ist nicht fokussiert
+    console.log('Der Input-Container ist nicht fokussiert');
+}
+
+
+
+
+
+
+
+
+
+
 </script>
 
 

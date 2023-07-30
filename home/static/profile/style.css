@@ -185,7 +185,7 @@
 }
 
 input {
-    height: 40px;
+    height: 2rem;
     outline: none;
     background: transparent;
     width: 100%;
@@ -193,7 +193,6 @@ input {
     margin-left: 15px;
     border-bottom: 2px solid gray;
     color: rgba(0, 0, 0, .38);
-
 }
 
 input:focus {
@@ -290,7 +289,16 @@ input:focus {
     align-items: flex-end;
     top: 170px;
 }
-
+.save_button_container svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    fill: none;
+    stroke: rgba(255, 165, 0, .8);
+    stroke-dasharray: 650 550;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+}
 /*BUTTONS */                       /*NEU////////////////////////////////NEU*/
 .universal_sexy_button {
   width: 85%;
@@ -302,16 +310,8 @@ input:focus {
     overflow: hidden;
 }
 
-svg {
-  position: absolute;
-  left: 0;
-  top: 0;
-  fill: none;
-  stroke: rgba(255, 165, 0, .8);
-  stroke-dasharray: 650 550;
-  stroke-dashoffset: 150;
-  transition: 1s ease-in-out;
-}
+
+
 
 .universal_sexy_button:hover {
   transition: 1s ease-in-out;

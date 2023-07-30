@@ -233,6 +233,34 @@ h5 {
     border: 1px solid rgb(178,34,34);
     box-shadow: 0 0 10px rgb(178,34,34);
 }
+/* For search_result.html */
+.nothing_found_container {
+    width: 130vh;
+    margin: 75px 30% 75px 10%;
+    position: relative;
+    background-color: transparent;
+    color: rgba(0, 0, 0, .4);
+    display: flex;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, .4);
+    justify-content: flex-start;
+    padding: 2rem 20px 3rem 20px;
+}
+
+.search_result_information {
+    display: flex;
+    border: none;
+    justify-content: flex-start;
+    padding: 2rem 1rem 1rem 20px;
+    margin: 2rem;
+    color: rgba(0, 0, 0, .4);
+
+}
+.alternative_img_header {
+    padding: 0 3rem;
+
+}
+
 
 
 /* price calculation-container */
@@ -271,3 +299,5 @@ h5 {
     justify-content: flex-start;
     position: relative;
 }
+
+

@@ -10,11 +10,6 @@ from djangoProject.settings import MEDIA_URL, STATIC_URL, BASE_DIR
 from django.contrib.auth.models import AbstractUser
 
 
-class SearchPictures(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return f'{self.name}'
 
 
 #####################    AUTHENTICATION MODEL    #####################
@@ -217,6 +212,9 @@ class UserAddPicture(models.Model):  # User Create new Picture
 
     def get_absolute_url(self):  # self.title wird als absoluter url returnt
         # mit self.pk wird die id der instanz automatisch hinzugefügt
+        return reverse("home:customer_detail_view", kwargs={"slug": self.slug})
+
+    def get_user_detail_url(self):
         return reverse("home:user-picture", kwargs={"pk": self.pk, "slug": self.slug})
 
 
@@ -290,10 +288,13 @@ class GraphicUpload(models.Model):
 
     def get_absolute_url(self):  # self.title wird als absoluter url returnt
         # mit self.pk wird die id der instanz automatisch hinzugefügt
-        return reverse("home:user-picture", kwargs={"pk": self.pk, "slug": self.slug})
+        return reverse("home:customer_detail_view", kwargs={"slug": self.slug})
 
     def get_edit_url(self):
         return reverse('home:edit-image', kwargs={"pk": self.pk, "slug": self.slug})
+
+    def get_user_detail_url(self):
+        return reverse("home:user-picture", kwargs={"pk": self.pk, "slug": self.slug})
 
 
 #############################################

@@ -112,7 +112,7 @@
 .price_container p::after {
     margin-left: 1px;
     content: "€";
-    color: rgba(36, 49, 73, 0.66);
+    color: rgba(255, 255, 255, .9);
 }
 
 .image_container p {

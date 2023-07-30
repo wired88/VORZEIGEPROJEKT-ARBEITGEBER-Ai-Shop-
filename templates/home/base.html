@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} Home {% endblock %}</title> {% comment 'hier werden Standardwerte festgelegt, welche nur verändert werden, wenn sie in einem anderen File überschireben werden' %}{% endcomment %}
     <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
-
+    <link rel="icon" type="image/x-icon" href="{% static 'home/home_images/shopLogo.png' %}">
     {% block css %}
 
     {% endblock %}
@@ -134,11 +134,11 @@
 
 
 <script>
-
+/*
         function ClearField() {
-            document.getElementById("product-Item").value = "";
+            document.getElementById("search_tag_input").value = "";
         }
-
+*/
         </script>
 
 </head>
@@ -157,140 +157,22 @@
          <script defer src="{% static 'home/libaries/js/es_module_shims1.js' %}"></script>
 
 
+
     <header class="head_container">
+        <div class="head_col1">
+            <button class="dropdown_button"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </button>
+        </div>
+
         <div class="logo_container">
             <img class="logo" src="{% static 'home/home_images/shopLogo.png' %}" alt="Logo" title="Home" onclick="window.location.href='/';">
         </div>
 
-
-        <div class="head_col1">
-            <button class="dropdown_button"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                <img id="dropdown_menu_button" class="dropdown_button_img" src="{% static 'home/home_images/menu.png' %}" alt="dropdown_img">
-            </button>
-        </div>
-
-
-{% comment %} ------------------------ SIDE-SLIDEBAR MENU ---------------- {% endcomment %}
-
-        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasWithBothOptionsLabel">
-
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-                    Menu
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-
-            <div class="sidebar_body">
-
-                <div class="top_sidebar">
-
-                    {% if request.user.is_authenticated %}
-
-                        <div class="top_sidebar_info">
-                            <div style="grid-row: 1;">
-                            <button name="profile_button"
-                            id="profile_button"
-                            title="Profile" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
-
-                            <img class="profile_img"  src="{% static 'home/home_images/user_img_default.png' %}"
-                                 alt="profile_img">
-                            </button>
-                            </div>
-                            <div style="grid-row: 2;">
-                            <p>
-                            {{ request.user.username }} <br>
-                            </p>
-                            <p>
-                            Registered since: {{ request.user.date_joined }}
-                            </p>
-                            </div>
-                            </div>
-
-                            {% else %}
-
-                                <div class="top_sidebar_info" style="color: black; position: absolute; z-index: 4;">
-
-                                    <button class="head-button" style="position: relative; left: 10px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
-                                        Login
-                                    </button>
-
-                                    <button class="head-button" style=" right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
-                                        Register
-                                    </button>
-
-                                </div>
-
-                    {% endif %}
-
-                </div>
-
-                <div class="under_sidebar">
-
-                {% if request.user.is_authenticated %}
-                <ul class="sidebar_item_container">
-
-                <li class="item_blocks" title="Profile" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
-                    <span class="sidebar_button_text">
-                        Profile
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                    </svg>
-                </li>
-
-                <li class="item_blocks" title="My Images" onclick="window.location.href='{% url 'home:my-images' %}';">
-                    <span class="sidebar_button_text">
-                        My Images
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
-                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
-                    </svg>
-                </li>
-
-                <li class="item_blocks" title="Marked Images" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
-                    <span class="sidebar_button_text">
-                        Marked Images
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-                    </svg>
-                </li>
-
-                <li class="item_blocks" title="Settings" onclick="window.location.href='{% url 'home:settings' %}';">
-                    <span class="sidebar_button_text">
-                        Settings
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" style="position: relative;" width="24" height="24" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
-                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
-                    </svg>
-                </li>
-
-
-                <li class="item_blocks" title="Sign out" onclick="window.location.href='{% url 'home:logout' %}';">
-                    <span class="sidebar_button_text">
-                        Sign out
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-                    </svg>
-                </li>
-
-                </ul>
-                {% endif %}
-                </div>
-                </div>
-            </div>
-
-
-{% comment %} END ------------------------END SIDE-SLIDEBAR MENU END ---------------- END {% endcomment %}
-
         <section class="header_button-box">
-            <div style="grid-column: 1;" class="dropdown">
+            <div class="dropdown">
                 <button title="Pictures" class="head-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Pictures
                 </button>
@@ -316,7 +198,7 @@
                 </ul>
             </div>
 
-            <div style="grid-column: 2;" class="dropdown">
+            <div class="dropdown">
                 <button title="Graphics" class="head-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Graphics
                 </button>
@@ -342,7 +224,7 @@
                 </ul>
             </div>
 
-            <div style="grid-column: 3;" class="dropdown">
+            <div class="dropdown">
                 <button title="Videos" class="head-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Videos
                 </button>
@@ -375,7 +257,7 @@
             </div>
         </section>
 
-        <section class="head_right">
+        <section class="head_grid_col_5">
             {% if request.user.is_authenticated %}
 
             <p class="welcome-text">
@@ -428,32 +310,26 @@
         </form>
 
         <div class="search-container">
-
-
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button class="button-class" id="add_tag_searchfield" name="add_tag_searchfield" type="submit" title="add_tag_searchfield Grocery" style=" right: 10px; bottom: -20px;">
-                    <span class="add_button_sign">+</span>
-                </button>
+                <div class="search-icon-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(255, 255, 255)" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                    <input type="text" aria-label="Search" id="search_tag_input" name="search_tag_input" title="Search" placeholder=" Search . . ." class="searchbar_input" required>
+
+                    <button class="search_button" id="search_button" name="search_button" title="Search" aria-label="Search" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
             </form>
 
 
-            <button class="btn-close" title="delete line" aria-label="Close" onclick="ClearField()">
-            </button>
-            <img class="search-img" src="{% static 'home/pot2.png' %}" alt=Pot>
+
         </div>
-        <div class="product-container">
-            {% for product in object_list %}
-                <div class="list-item">
-                <form method="get" action="">
-                   <p class="product-text">{{ product.name }}</p>
-                </form>
-                    <button class="btn-close" id="delete_item" name="delete_item" title="delete" aria-label="Close" onclick="window.location.href='{% url 'home:delete' product.pk %}';"></button>
-                </div>
-            {% endfor %}
-            <button class="button-class" style="position:absolute; right: -25px; bottom: -48px;" title="search">search</button>
-        </div>
+
     </div>
     <div class="middle_main">
     </div>
@@ -614,7 +490,114 @@
     </div>
   </div>
 </div>
+{% comment %} ------------------------ SIDE-SLIDEBAR MENU ---------------- {% endcomment %}
 
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasWithBothOptionsLabel">
+
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">
+                    Menu
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="sidebar_body">
+                <div class="top_sidebar">
+                    {% if request.user.is_authenticated %}
+                    <div class="top_sidebar_info">
+                        <div style="grid-row: 1;">
+                            <button name="profile_button"
+                                id="profile_button"
+                                title="Profile" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
+
+                                <img class="profile_img"  src="{% static 'home/home_images/user_img_default.png' %}"
+                                    alt="profile_img">
+                            </button>
+                        </div>
+                            <div style="grid-row: 2;">
+                                <p>
+                                    {{ request.user.username }} <br>
+                                </p>
+                                <p>
+                                    Registered since: {{ request.user.date_joined }}
+                                </p>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="top_sidebar_info" style="color: black; position: absolute; z-index: 4;">
+
+                            <button class="head-button" style="position: relative; left: 10px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+                                Login
+                            </button>
+
+                            <button class="head-button" style=" right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+                                Register
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="under_sidebar">
+
+                {% if request.user.is_authenticated %}
+                <ul class="sidebar_item_container">
+
+                <li class="item_blocks" title="Profile" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
+                    <span class="sidebar_button_text">
+                        Profile
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                </li>
+
+                <li class="item_blocks" title="My Images" onclick="window.location.href='{% url 'home:my-images' %}';">
+                    <span class="sidebar_button_text">
+                        My Images
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+                    </svg>
+                </li>
+
+                <li class="item_blocks" title="Marked Images" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
+                    <span class="sidebar_button_text">
+                        Marked Images
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                    </svg>
+                </li>
+
+                <li class="item_blocks" title="Settings" onclick="window.location.href='{% url 'home:settings' %}';">
+                    <span class="sidebar_button_text">
+                        Settings
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" style="position: relative;" width="24" height="24" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                        <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                        <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                    </svg>
+                </li>
+
+
+                        <li class="item_blocks" title="Sign out" onclick="window.location.href='{% url 'home:logout' %}';">
+                            <span class="sidebar_button_text">
+                                Sign out
+                            </span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                            </svg>
+                        </li>
+
+                    </ul>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+{% comment %} END ------------------------END SIDE-SLIDEBAR MENU END ---------------- END {% endcomment %}
 
 </body>
 </html>

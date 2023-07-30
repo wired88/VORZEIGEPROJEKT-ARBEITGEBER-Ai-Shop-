@@ -5,7 +5,7 @@ from django.forms import models, FileField
 from django.http import request
 from django.utils.datetime_safe import datetime
 from datetime import date
-from .models import User, SearchPictures, GraphicUpload, UserAddPicture
+from .models import User, GraphicUpload, UserAddPicture
 from taggit.forms import TagField
 import string
 from django.utils.safestring import mark_safe
@@ -187,27 +187,6 @@ class SignUpForm(forms.ModelForm):
         }
         self.fields['password2'].label = 'Confirm '
 
-
-
-
-class SearchPicturesForm(forms.ModelForm):
-    class Meta:
-        model = SearchPictures
-        fields = '__all__'
-        widgets = {
-            'name': forms.TextInput(
-                attrs={
-                    'placeholder': 'Search for Picture Tags ... ',
-                    'class': 'search_field_home',
-                    'id': 'name_field',
-                    'label': ''
-                }
-            )
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].label = ''  # So wird das default label nicht mehr angezeigt
 
 
 class CustomTagWidget(forms.TextInput):

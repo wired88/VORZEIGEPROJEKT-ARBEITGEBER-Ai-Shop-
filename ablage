@@ -1755,7 +1755,22 @@ hover_divs.forEach((hover_div, index) => {
         else:
             self.model = UserAddPicture
             context['edit_form'] = UsersAddPictureForm
-
+<form method="post" enctype="multipart/form-data">
+                {% csrf_token %}            </form>
+        for word in search_data:
+            if graphic:
+                qs = GraphicUpload.objects.filter(
+                    Q(category__exact=word) |
+                    Q(tag_field__contains__iexact=word) |
+                    Q(title__iexact=word) |
+                    Q(g_username__exact=word))
+                return qs
+            else:
+                qs = UserAddPicture.objects.filter(
+                    Q(category__exact=word) |
+                    Q(tag_field__contains__iexact=word) |
+                    Q(title__iexact=word) |
+                    Q(user_name__exact=word))
 
     def post(self, request, *args, **kwargs):
         form = self.get_form()
@@ -1763,6 +1778,197 @@ hover_divs.forEach((hover_div, index) => {
             if form.is_valid():
                 form.save()
                 return self.get_success_url()
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
+
         return render(request, self.template_name)
+form = self.get_form()
+        if 'add_tag_searchfield' in request.POST:
+            if form.is_valid():
+                form.save()
+                return super().form_valid(form)
+            else:
+                raise ValidationError('Not allowed signs. Please try again ...')
+
+        elif 'search_pictures' in request.POST:  #
+            return super().form_valid(form)  # sucht anhand der Eingabe Bidler mit passenden Tagsw
+
+
+
+        try:
+            for word in search_data:
+                if graphic:
+                    context['search_result'] = GraphicUpload.objects.filter(
+                        Q(category__name__iexact=word.lower()) |
+                        Q(tag_field__name__iexact=word) |
+                        Q(title__iexact=word) |
+                        Q(g_username__username__iexact=word.lower()))
+                elif not graphic:
+                    context['search_result'] = UserAddPicture.objects.filter(
+                        Q(category__name__iexact=word.lower()) |
+                        Q(tag_field__name__iexact=word) |
+                        Q(title__iexact=word) |
+                        Q(user_name__username__iexact=word.lower()))
+        except:
+            """
+                here i try to handle spelling mistakes.
+            """
+
+
+import nltk
+from fuzzywuzzy import process
+
+from nltk.corpus import words
+
+
+
+
+            # In der get_context_data-Methode
+for word in search_data:
+    if graphic:
+        context['search_result'] = GraphicUpload.objects.filter(
+            Q(category__name__iexact=word.lower()) |
+            Q(tag_field__name__in=[word]) |
+            Q(title__iexact=word) |
+            Q(g_username__username__iexact=word.lower()))
+    elif not graphic:
+        context['search_result'] = UserAddPicture.objects.filter(
+            Q(category__name__iexact=word.lower()) |
+            Q(tag_field__name__in=[word]) |
+            Q(title__iexact=word) |
+            Q(user_name__username__iexact=word.lower()))
+return context
+{% comment %} ------------------------ HADER NAVBAR  ---------------- {% endcomment %}
+
+
+
+
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgba(0, 0, 0, .8)">
+        <div class="container-fluid">
+            <button class="dropdown_button"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <img id="dropdown_menu_button" class="dropdown_button_img" src="{% static 'home/home_images/menu.png' %}" alt="dropdown_img">
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <img class="logo" src="{% static 'home/home_images/shopLogo.png' %}" alt="Logo" title="Home"
+                             onclick="window.location.href='/';">
+                    </li>
+                    <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" title="Pictures" type="button">
+                            Pictures
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <input class="dropdown-item" id="p_top_rated" name="p_top_rated" type="submit" value="Top Rated">
+                                </form>
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <input  class="dropdown-item" id="picture_categories" name="picture_categories" type="submit" value="Categories">
+                                </form>
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <input class="dropdown-item" id="pic_free_button" name="pic_free_button" type="submit" value="Free">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" title="Pictures" type="button">
+                            Graphics
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <input class="dropdown-item" id="g_top_rated" name="g_top_rated" type="submit" value="Top rated">
+                                </form>
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <input class="dropdown-item" id="graphic_categories" name="graphic_categories" type="submit" value="Categories">
+                                </form>
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <input class="dropdown-item" id="graphic_free" name="graphic_free" type="submit" value="Free">
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown" >
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" title="Pictures" type="button">
+                            Videos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <object class="dropdown-item" id="v_top_rated" name="v_top_rated" type="submit">
+                                        Top rated
+                                    </object>
+                                </form>
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <object class="dropdown-item" id="cat_v_button" name="cat_v_button" type="submit">
+                                        Categories
+                                    </object>
+                                </form>
+                            </li>
+                            <li>
+                                <form method="post" action="{% url 'home:index' %}">
+                                    {% csrf_token %}
+                                    <object class="dropdown-item" id="cat_free_v_button" name="cat_free_v_button" type="submit">
+                                        Free
+                                    </object>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <li style="width: 30rem; border: 1px solid yellow;">
+
+                    </li>
+                    <li class="search_container_header">
+                        <input class="input_header" type="search" placeholder="Search" aria-label="Search">
+                    </li>
+                    <li class="custom_user_welcome_li">
+                        {% if request.user.is_authenticated %}
+                        <div class="p_div">
+                            <p class="welcome-text">
+                                Welcome {{ request.user.username }}!
+                            </p>
+                        </div>
+                        <div class="button_div">
+                            <button class="head-button" title="Profile" style=" position: relative;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        {% else %}
+                            <button class="head-button" style="position: relative; left: 10px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+                                Login
+                            </button>
+                            <button class="head-button" style=" right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+                                Register
+                            </button>
+                            {% endif %}
+                    </li>
+                </ul>
+
+
+            </div>
+        </div>
+    </nav>

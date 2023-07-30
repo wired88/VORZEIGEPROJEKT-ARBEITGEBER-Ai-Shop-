@@ -6,15 +6,28 @@ from django.contrib.auth.models import User
 from django.http import request, JsonResponse, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from PIL import Image
+
+
+from spellchecker import SpellChecker
+
 from django.views.generic import \
     FormView, \
     ListView, \
     TemplateView, \
     DetailView, \
-    DeleteView, \
     CreateView, \
     UpdateView
+from django.db.models import Q
+from taggit.models import Tag
+from django.template.defaultfilters import slugify
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout, forms
+from textblob import TextBlob
 
+from django.shortcuts import render, redirect, get_object_or_404
+from home.forms import SignUpForm, UsersAddPictureForm, UsersAddGraphicForm, SignInForm
+from home.models import UserAddPicture, LoadVideoForPageCreation, User, GraphicUpload, \
+    GraphicCategory, PictureCategories
 '''
 FormView, \  # eine vielw klasse zum rendern einer bestimmten form 
     ListView, \  #eine View Klasse für das geordnete rendern vieler bestimmter objekte
@@ -24,25 +37,14 @@ FormView, \  # eine vielw klasse zum rendern einer bestimmten form
     CreateView, \ # um eine neue form zu erstellen zu können
     UpdateView,      # um bestehende objekte zu bearbeiten
     '''
-from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout, forms
-
-from django.shortcuts import render, redirect, get_object_or_404
-from home.forms import SignUpForm, UsersAddPictureForm, SearchPicturesForm, UsersAddGraphicForm, SignInForm
-from home.models import UserAddPicture, SearchPictures, LoadVideoForPageCreation, User, GraphicUpload, \
-    GraphicCategory, PictureCategories
-
-from taggit.models import Tag
-from django.template.defaultfilters import slugify
 
 
 
-class HomeView(FormView, ListView):
-    form_class = SearchPicturesForm
+
+
+class HomeView(TemplateView):
     template_name = 'home/base.html'
     success_url = reverse_lazy('home:index')
-    model = SearchPictures
-    object_list = SearchPictures.objects.all()
 
     def get_boolean_free(self):
         if 'free_button' in self.request.POST:
@@ -64,24 +66,13 @@ class HomeView(FormView, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if 'add_tag_searchfield' in request.POST:
-            if form.is_valid():
-                form.save()
-                return super().form_valid(form)
-            else:
-                raise ValidationError('Not allowed signs. Please try again ...')
-
-        elif 'search_pictures' in request.POST:  #
-            return super().form_valid(form)  # sucht anhand der Eingabe Bidler mit passenden Tagsw
-
-        elif 'profile_button' in request.POST:
+        if 'profile_button' in request.POST:
             return reverse_lazy('home:profile', kwargs={'pk': self.request.user.id})
 
         # TOPBAR-DROPDOWN BUTTON ACTIONS #########################################################################
         # hier nicht reverse_lazy verwenden da diese methode nur einen als string url zurückgibt aber nicht
         # auf eine andere seite weiterleitet I was hier aber gewünscht ist)
-        if 'pic_free_button' in request.POST:
+        elif 'pic_free_button' in request.POST:
             request.session['free'] = True
             request.session['picture'] = True
             return redirect('home:category')
@@ -100,18 +91,93 @@ class HomeView(FormView, ListView):
              request.session['picture'] = False
              request.session['free'] = True
              return redirect('home:category')
-
         elif 'basket_button' in request.POST:
             return redirect('basket:basket')
+
+        elif 'just_graphics' in request.POST:
+            request.session['search_graphic'] = True
+        elif 'just_pictures' in request.POST:
+            request.session['search_graphic'] = False
+
+        elif 'search_button' in request.POST:
+            search_input = request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            request.session['filter'] = word_list
+            return redirect('home:search')
+
         return render(request, self.template_name)
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
 
-    def form_invalid(self, form):
-        messages.error(self.request, 'Oups... Invalid input! Please try again.')
-        return super().form_invalid(form)
+class SearchResultView(ListView):
+    template_name = 'home/search_result.html'
+
+    def get_queryset(self):
+        graphic = self.request.session.get('search_graphic', False)
+        if graphic:
+            qs = GraphicUpload.objects.all()
+        else:
+            qs = UserAddPicture.objects.all()
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        """
+        simple method to filter the objects for the search-input from the user.
+            1. get the val of filter - list (contains the user input words from the input field)
+            2. get the bool value from search_graphic so that django know which model the user will be looking for
+            3. loop through all the words in filter to filter the objects for every word the user has typed in 
+        mark:
+            __iexact = ignore upper and lower case can only be used for CharField and TextField. ForeignKey-Fields will#
+                        raise an error. For foreignKey-Field use __exact
+            __contains = for example in tag_field is a list of strings. if word = a str in tag_field show this too
+            g_username__username__exact = g_username is a koreignkey-field. to iterate through this model you need to use
+                                            __ModelFieldName. __exact because its a foreignkey field
+            
+        """
+        word_list = []
+        search_data = self.request.session.get('filter')
+
+        graphic = self.request.session.get('search_graphic', False)
+        spell = SpellChecker()
+        spell.distance = 20  # Set the maximum edit distance for suggested corrections
+        misspelled = spell.unknown(search_data)
+        correct = spell.known(search_data)
+
+        for word in misspelled:
+            final_word = spell.correction(word)
+            word_list.append(final_word)
+        for word in correct:
+            word_list.append(word)
+
+        for word in word_list:
+            if graphic:
+                context['explore'] = GraphicUpload.objects.filter(is_active=True)
+                context['search_result'] = GraphicUpload.objects.filter(
+                    Q(category__name__iexact=word.lower()) |
+                    Q(tag_field__name__iexact=word) |
+                    Q(title__iexact=word) |
+                    Q(g_username__username__iexact=word.lower()))
+
+            elif not graphic:
+                context['explore'] = UserAddPicture.objects.filter(is_active=True)
+                context['search_result'] = UserAddPicture.objects.filter(
+                    Q(category__name__iexact=word.lower()) |
+                    Q(tag_field__name__iexact=word) |
+                    Q(title__iexact=word) |
+                    Q(user_name__username__iexact=word.lower()))
+
+
+        # here i unpack the list of final_words to render them as a comma sepperated string in my template
+        # (if search gain 0 hits)
+        final_words = ', '.join(word_list)
+        context['word_list'] = final_words
+
+        return context
+
+
+
+
+
 
 
 
@@ -273,6 +339,7 @@ class UsersImagesListView(ListView):
         # wenn ein button mit dem namen graphic_choice_button gedrückt wird, wird eine get-anfrage a den server gesendet.
         # in dieser wird dann die gewünschte form zurückgegeben.
         if 'graphic_choice_button' in request.POST:
+
             request.session['graphic'] = True
             self.model = GraphicUpload
             self.object_list = GraphicUpload.objects.filter(g_username=self.request.user.id)
@@ -496,9 +563,15 @@ class UserAddPictureView(CreateView):  # for user create a recipe
 
 
 class PictureDetailView(DetailView):
-    model = UserAddPicture
     template_name = 'home/image_detail_view.html'
 
+    def get_object(self):
+        graphic = self.request.session.get('graphic')
+        if graphic:
+            model = GraphicUpload
+        else:
+            model = UserAddPicture
+        return model.objects.get(pk=self.kwargs.get('pk'), slug=self.kwargs.get('slug'))
 
 
 class CustomerGraphicDetailView(DetailView):
@@ -510,7 +583,6 @@ class PictureUpdateView(UpdateView):
     fields = ['title', 'picture', 'tag_field', 'category', 'price']
     template_name = 'home/edit.html'
 
-
     def get_queryset(self):
         graphic_edit = self.request.session.get('graphic', False)
         if graphic_edit:
@@ -519,6 +591,14 @@ class PictureUpdateView(UpdateView):
             qs = UserAddPicture.objects.all()
         return qs
 
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'submit_button' in request.POST:
+            if form.is_valid():
+                newpost = form.save(commit=False)
+                newpost.slug = slugify(newpost.title)
+                newpost.save()
+                form.save_m2m()
 
 class ProfileUpdateView(UpdateView):
     model = User
@@ -538,7 +618,7 @@ class ProfileUpdateView(UpdateView):
 
 
 
-
+"""
 
 class DeleteObjectView(DeleteView):
     model = SearchPictures
@@ -562,11 +642,12 @@ class DeleteObjectView(DeleteView):
 
 # function based Views
 
+
 def delete_object_view(request, pk):
     tag = get_object_or_404(SearchPictures, id=pk)
     tag.delete()
     return redirect(reverse('home:index'))  # der user wird zur my-recipes-page weitergeleitet.
-
+"""
 
 def logout_view(request):
     logout(request)

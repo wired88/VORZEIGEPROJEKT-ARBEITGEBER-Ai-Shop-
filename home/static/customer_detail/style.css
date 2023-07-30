@@ -253,14 +253,12 @@
 }
 
 .price::after {
-    content: ' €';
-    color: rgba(255, 255, 255, .8);
-
-
-
+    content: '€';
 }
 
-
+::after {
+    color: white;
+}
 
 
 

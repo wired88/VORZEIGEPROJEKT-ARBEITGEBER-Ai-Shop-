@@ -5,7 +5,8 @@ from django.views.generic import TemplateView
 
 from . import views
 from .views import HomeView, RegisterView, UserLoginView, ProfileView, SettingsView, PictureDetailView, logout_view, \
-    UsersImagesListView, UserAddPictureView, PictureUpdateView, CustomerDetailView, CategoryView, SingleCategoyView
+    UsersImagesListView, UserAddPictureView, PictureUpdateView, CustomerDetailView, CategoryView, SingleCategoyView, \
+    SearchResultView
 
 app_name = 'home'
 urlpatterns = [
@@ -31,7 +32,8 @@ urlpatterns = [
                   # Graphic
                   path('categories/', CategoryView.as_view(), name='category'),
 
-                  # Picture
+                  # Search View SearchResultView
+                  path('search/', SearchResultView.as_view(), name='search'),
 
                   # VIEWS FOR SINGLE CATEGORY
                   # Graphic
@@ -52,7 +54,7 @@ urlpatterns = [
                   path('edit-image/<int:pk>/<slug:slug>/', PictureUpdateView.as_view(), name='edit-image'),
 
                   # DELETE VIEW
-                  path('delete/<int:pk>/', views.delete_object_view, name='delete'),
+                 # path('delete/<int:pk>/', views.delete_object_view, name='delete'),
 
                   # CREATE VIEW
                   path('create/', UserAddPictureView.as_view(), name='create'),
