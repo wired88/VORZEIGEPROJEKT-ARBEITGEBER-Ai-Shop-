@@ -35,9 +35,25 @@
         <section class="auth_body">
             <div class="body_row1">
                 {{ form.username }}
+                {{ form.username.errors }}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
             <div class="body_row2">
                 {{ form.password }}
+                {{ form.password.errors }}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             </div>
 
             <div class="body_row4">
@@ -54,11 +70,11 @@
         <footer class="auth_footer">
 
             <p class="login_text">
-                Dont have an account yet? <br><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
+                Don't have an account yet? <br><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Register here!
              </p>
 
-            <button class="login_button"  onclick="window.location.href='{% url 'home:register' %}';">
+            <button class="login_button" name="register_button" title="Register">
                 Register
             </button>
 
@@ -66,5 +82,6 @@
 
     </main>
 
-{% endblock %}
 </form>
+
+{% endblock %}

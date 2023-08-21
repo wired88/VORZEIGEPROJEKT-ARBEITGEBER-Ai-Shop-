@@ -33,8 +33,24 @@ class SignInForm(AuthenticationForm):
                     'class': 'login_form_field',
                     'id': 'login_password'
                 }
+
             ),
         }
+
+    def clean_username(self):
+        data = self.cleaned_data.get('username')
+        if not data:
+            raise forms.ValidationError('This Field is required ...')
+        names = User.objects.values_list('username', flat=True)
+        if data not in names:
+            raise forms.ValidationError(f"The username '{data}' does not exist")
+        return data
+
+    def clean_password(self):
+        data = self.cleaned_data.get('password')
+        if not data:
+            raise forms.ValidationError('This Field is required ...')
+        return data
 
 
 
@@ -121,7 +137,7 @@ class SignUpForm(forms.ModelForm):
             raise forms.ValidationError('This Field is required ...')
         for unsupported_sign in string.punctuation:
             if unsupported_sign in data:
-                raise forms.ValidationError(f'the following Signs are not allowed: {string.punctuation}')
+                raise forms.ValidationError(f'the following Signs are NOT allowed: {string.punctuation}')
         return data
 
     def clean_password(self):
@@ -206,7 +222,6 @@ class UsersAddPictureForm(forms.ModelForm):
         model = UserAddPicture
         fields = ['title',
                   'picture',
-                  'price',
                   'category',
                   'tag_field',
                   'user_name'
@@ -225,13 +240,6 @@ class UsersAddPictureForm(forms.ModelForm):
                 attrs={'class': 'form-control',
                        "type": "file",
                        "id": "formFile",
-                       }
-            ),
-
-            'price': forms.NumberInput(
-                attrs={'class': 'form-control',
-                       'placeholder': '0.00',
-                       'id': 'recipe_field'
                        }
             ),
 
@@ -254,7 +262,6 @@ class UsersAddPictureForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['title'].label = 'Title'  # So wird das default label nicht mehr angezeigt
         self.fields['picture'].label = 'Your Image'  # So wird das default label nicht mehr angezeigt
-        self.fields['price'].label = 'Price'  # So wird das default label nicht mehr angezeigt
         self.fields['category'].label = 'Category'  # So wird das default label nicht mehr
         self.fields['tag_field'].label = 'Tags'  # So wird das default label nicht mehr angezeigt
         self.fields['user_name'].label = 'From: '
@@ -266,7 +273,6 @@ class UsersAddGraphicForm(forms.ModelForm):
 
         fields = ['title',
                   'picture',
-                  'price',
                   'category',
                   'tag_field',
                   'g_username'
@@ -285,13 +291,6 @@ class UsersAddGraphicForm(forms.ModelForm):
                 attrs={'class': 'form-control',
                        "type": "file",
                        "id": "formFile",
-                       }
-            ),
-
-            'price': forms.NumberInput(
-                attrs={'class': 'form-control',
-                       'placeholder': '0.00',
-                       'id': 'recipe_field'
                        }
             ),
 
@@ -314,7 +313,6 @@ class UsersAddGraphicForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['title'].label = 'Title'  # So wird das default label nicht mehr angezeigt
         self.fields['picture'].label = 'Your Image'  # So wird das default label nicht mehr angezeigt
-        self.fields['price'].label = 'Price'  # So wird das default label nicht mehr angezeigt
         self.fields['category'].label = 'Category'  # So wird das default label nicht mehr
         self.fields['tag_field'].label = 'Tags'  # So wird das default label nicht mehr angezeigt
         self.fields['g_username'].label = 'From: '
@@ -327,7 +325,4 @@ class UsersAddGraphicForm(forms.ModelForm):
     tag_field = models.CharField(max_length=180)
     user = models.ForeignKey(UserCredentials, on_delete=models.CASCADE)  # 1 insanz der klasse wird gespeichert
     date = models.DateTimeField(auto_now_add=True)
-
-
-
 '''

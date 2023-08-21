@@ -1,6 +1,5 @@
 import random
 
-
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator, FileExtensionValidator, DecimalValidator
 from django.db import models
@@ -8,8 +7,6 @@ from django.urls import reverse
 from taggit.managers import TaggableManager
 from djangoProject.settings import MEDIA_URL, STATIC_URL, BASE_DIR
 from django.contrib.auth.models import AbstractUser
-
-
 
 
 #####################    AUTHENTICATION MODEL    #####################
@@ -36,7 +33,6 @@ class User(AbstractUser):
         max_length=100,
         default=''
     )
-
 
     def __str__(self):
         return f' {self.username} {self.password} {self.email} {self.date_created}'
@@ -72,7 +68,6 @@ class ImageUpload(models.Model):
 '''
 
 
-
 #########################        DATA UPLOAD MODELS        #########################
 # CATEGORIES #
 class PictureCategories(models.Model):
@@ -102,7 +97,7 @@ class PictureCategories(models.Model):
         return reverse("home:category_single", kwargs={"slug": self.slug})
 
     def get_url_to_single(self):
-        return reverse("home:customer_view", kwargs={"slug": self.slug})
+        return reverse("home:customer_detail_view", kwargs={"slug": self.slug})
 
 
 class GraphicCategory(models.Model):
@@ -137,7 +132,6 @@ class GraphicCategory(models.Model):
         return reverse("home:customer_g_view")
 
 
-
 # UPLOAD MEDIA #
 
 class UserAddPicture(models.Model):  # User Create new Picture
@@ -151,20 +145,6 @@ class UserAddPicture(models.Model):  # User Create new Picture
         upload_to='media',
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])]
     )  # mit FileExtensioValidator können die erlaubten dateiformate festgelegt werden.
-    price = models.DecimalField(
-        error_messages={'required': 'Price in range 0 to 9999€ is required'},
-        max_digits=6,
-        max_length=6,
-        decimal_places=2,
-        help_text='Note: Price in EUR ...',
-        validators=[
-            MinValueValidator(0),  # mit validators kann min und max-value für das integerfield festgelegt werden.
-            MaxValueValidator(9999),
-            DecimalValidator(
-                max_digits=6,
-                decimal_places=2)
-        ]
-    )
     category = models.ForeignKey(
         PictureCategories,
         max_length=100,
@@ -204,11 +184,9 @@ class UserAddPicture(models.Model):  # User Create new Picture
     def __str__(self):
         return f' {self.title}' \
                f' {self.picture}' \
-               f' {int(self.price)}' \
                f' {self.tag_field}' \
                f' {self.user_name} ' \
                f' {self.date}'  # 1 jetzt kann jeder in der klasse definierter Wert über die return funktion abgerufen werden
-        #        f'{self.currency}' \ später mit currency auswahl
 
     def get_absolute_url(self):  # self.title wird als absoluter url returnt
         # mit self.pk wird die id der instanz automatisch hinzugefügt
@@ -216,6 +194,9 @@ class UserAddPicture(models.Model):  # User Create new Picture
 
     def get_user_detail_url(self):
         return reverse("home:user-picture", kwargs={"pk": self.pk, "slug": self.slug})
+
+    def get_absolute_customer_detail_url(self):
+        return reverse("home:customer_detail_view", kwargs={"slug": self.slug})
 
 
 ################################
@@ -230,20 +211,6 @@ class GraphicUpload(models.Model):
         upload_to='media',
         validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])]
     )  # mit FileExtensioValidator können die erlaubten dateiformate festgelegt werden.
-    price = models.DecimalField(
-        error_messages={'required': 'Price in range 0 to 9999€ is required'},
-        max_digits=6,
-        max_length=6,
-        decimal_places=2,
-        help_text='Note: Price in EUR ...',
-        validators=[
-            MinValueValidator(0),  # mit validators kann min und max-value für das integerfield festgelegt werden.
-            MaxValueValidator(9999),
-            DecimalValidator(
-                max_digits=6,
-                decimal_places=2)
-        ]
-    )
     category = models.ForeignKey(
         GraphicCategory,
         max_length=100,
@@ -280,7 +247,6 @@ class GraphicUpload(models.Model):
     def __str__(self):
         return f' {self.title}' \
                f' {self.picture}' \
-               f' {int(self.price)}' \
                f' {self.tag_field}' \
                f' {self.g_username} ' \
                f' {self.date}'  # 1 jetzt kann jeder in der klasse definierter Wert über die return funktion abgerufen werden

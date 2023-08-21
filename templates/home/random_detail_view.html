@@ -16,7 +16,6 @@
 
 {% block script %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'basket/script.js' %}"></script>
     <script>
         const unclicked_icon = "{% static 'home/home_images/star.png' %}";
         const clicked_icon = "{% static 'home/home_images/favorite.png' %}";
@@ -43,21 +42,27 @@
         <section class="header_box">
             <div class="head_col1">
                 {% if object.user_name.profile_image %}
-                    <img class="profile_img" style="color: orange;" src="{{ object.user_name.profile_image.url }}" alt="profile_img">
+                    {% if object.user_name.username %}
+                        <img class="profile_img" style="color: orange;" src="{{ object.user_name.profile_image.url }}" alt="profile_img"
+                         onclick="window.location.href='{% url "home:customer_profile_view" object.user_name.id object.user_name.username %}';">
+                    {% else %}
+                        <img class="profile_img" style="color: orange;" src="{{ object.g_username.profile_image.url }}" alt="profile_img"
+                         onclick="window.location.href='{% url "home:customer_profile_view" object.g_username.id object.g_username.username %}';">
+                    {% endif %}
                     <p>
                         {% if object.user_name.username %}
-                            From: {{ object.user_name.username }}
+                            {{ object.user_name.username }}
                         {% else %}
-                            From: {{ object.g_username.username }}
+                            {{ object.g_username.username }}
                         {% endif %}
                     </p>
                 {% else %}
                     <img class="profile_img" style="color: orange;" src="{% static 'home/home_images/user_img_default.png' %}" alt="profile_img">
                     <p>
                         {% if object.user_name.username %}
-                            From: {{ object.user_name.username }}
+                            {{ object.user_name.username }}
                         {% else %}
-                            From: {{ object.g_username.username }}
+                            {{ object.g_username.username }}
                         {% endif %}
                     </p>
                 {% endif %}
@@ -232,65 +237,11 @@
 
     </section>
 {% comment %} grid-template-rows: 5% 5% 30% 5% 5% 30% 20%; ++++++++++++++++++++++++ END PRODUCT SLIDER END++++++++++++++++++++++++ {% endcomment %}
-
-
-
     </main>
-
 </form>
 
 
 
 
-    <script>
-$(document).on('click', '#atc_button', function(e) {
-    e.preventDefault();  // verhindert das standardgemäße verhlten des buttons (normalerweise würde eine post anfrage an
-    // den server geschickt werden) mit diesem codeschnipsel wird dieser teil übersprungen und stattdessen führt ajax
-    // die abfrage durch, sodass man nicht et´xtra refreshen muss.
-    // Scroll to Top of webpage
-    window.scrollTo(0, 0);
-    $.ajax({
-        type: 'POST',
-        url: '{% url "basket:basket_add" %}', // Set the URL of the endpoint
-        data: {
-            productid: $('#atc_button').val(),  // here ajax just gets the value of the value attribute from the element with the id #atc_button
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            action: 'post',
-        },
-        success: function (json) {
-            console.log(json.debug); // gibt in der browserkonsole eine success(grau) oder error mit fehlrmeldung zurück - hilfreich
-        },
-        error: function (xhr, errmsg, err) {}
-    });
-$(window).on('scroll', function() {
-    // check if the user has scrolled to the top of the page
-    if ($(window).scrollTop() === 0) {
-        // reload the page
-        location.reload();
-    }
-});
-})
-// todo ´:
-// button id, get val of input field, -...
 
-// FOR HOME SEARCHBAR
-$(document).on('click', '#add_tag_searchaber_button', function(e) {
-     e.preventDefault();
-     $.ajax({
-        type: 'POST',
-        url: '{% url "basket:basket_add" %}', // Set the URL of the endpoint
-        data: {
-            input_value: $('#input_searchfield').val(),
-            csrfmiddlewaretoken: "{{ csrf_token }}",
-            action: 'post',
-        },
-        success: function (json) {
-
-            console.log(json.debug); // gibt in der browserkonsole eine success(grau) oder error mit fehlrmeldung zurück - hilfreich
-        },
-        error: function (xhr, errmsg, err) {}
-    });
-})
-
-    </script>
 {% endblock %}

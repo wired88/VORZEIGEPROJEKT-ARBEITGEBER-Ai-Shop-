@@ -1,13 +1,12 @@
-from django.contrib.auth.forms import AuthenticationForm
+import random
+
 from django.core.checks import messages
-from django.shortcuts import get_object_or_404
-from django.core.exceptions import ValidationError
+
 from django.contrib.auth.models import User
-from django.http import request, JsonResponse, HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from PIL import Image
-
-
+from .Lex import Lexica
 from spellchecker import SpellChecker
 
 from django.views.generic import \
@@ -21,13 +20,13 @@ from django.db.models import Q
 from taggit.models import Tag
 from django.template.defaultfilters import slugify
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout, forms
-from textblob import TextBlob
+from django.contrib.auth import login, authenticate, logout
 
 from django.shortcuts import render, redirect, get_object_or_404
 from home.forms import SignUpForm, UsersAddPictureForm, UsersAddGraphicForm, SignInForm
 from home.models import UserAddPicture, LoadVideoForPageCreation, User, GraphicUpload, \
     GraphicCategory, PictureCategories
+
 '''
 FormView, \  # eine vielw klasse zum rendern einer bestimmten form 
     ListView, \  #eine View Klasse für das geordnete rendern vieler bestimmter objekte
@@ -39,17 +38,9 @@ FormView, \  # eine vielw klasse zum rendern einer bestimmten form
     '''
 
 
-
-
-
 class HomeView(TemplateView):
     template_name = 'home/base.html'
     success_url = reverse_lazy('home:index')
-
-    def get_boolean_free(self):
-        if 'free_button' in self.request.POST:
-            return True
-        return False
 
     def get_context_data(self, **kwargs):
         user_add_pictures = []
@@ -72,32 +63,42 @@ class HomeView(TemplateView):
         # TOPBAR-DROPDOWN BUTTON ACTIONS #########################################################################
         # hier nicht reverse_lazy verwenden da diese methode nur einen als string url zurückgibt aber nicht
         # auf eine andere seite weiterleitet I was hier aber gewünscht ist)
-        elif 'pic_free_button' in request.POST:
-            request.session['free'] = True
+        elif 'pic_explore' in request.POST:
             request.session['picture'] = True
-            return redirect('home:category')
+            request.session['explore'] = True
+            return redirect('home:explore_view')
 
         elif 'picture_categories' in request.POST:
-            request.session['free'] = False
             request.session['picture'] = True
+            request.session['explore'] = False
             return redirect('home:category')
 
         elif 'graphic_categories' in request.POST:
-            request.session['free'] = False
             request.session['picture'] = False
+            request.session['explore'] = False
             return redirect('home:category')
 
-        elif 'graphic_free' in request.POST:
-             request.session['picture'] = False
-             request.session['free'] = True
-             return redirect('home:category')
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
+        elif 'graphic_explore' in request.POST:
+            request.session['picture'] = False
+            request.session['explore'] = True
+            return redirect('home:explore_view')
 
         elif 'just_graphics' in request.POST:
             request.session['search_graphic'] = True
         elif 'just_pictures' in request.POST:
             request.session['search_graphic'] = False
+
+
+        # FOR SEARCH RESULT
+        elif "graphic_choice" in request.POST:
+            request.session["graphic_search"] = True
+            request.session["picture_search"] = False
+            return redirect('home:search')
+
+        elif "pictures_choice" in request.POST:
+            request.session["graphic_search"] = False
+            request.session["picture_search"] = True
+            return redirect('home:search')
 
         elif 'search_button' in request.POST:
             search_input = request.POST.get('search_tag_input')
@@ -108,16 +109,64 @@ class HomeView(TemplateView):
         return render(request, self.template_name)
 
 
+class ExploreListView(ListView):
+    template_name = 'home/EVERY_single_pic_category_view.html'
+    success_url = reverse_lazy('home:customer_detail_view')
+
+    def get_queryset(self):
+        picture = self.request.session.get('picture', False)
+        explore = self.request.session.get("explore", False)
+        print("1. expl: ", explore, "pic: ", picture)
+        if picture and explore:
+            qs = UserAddPicture.objects.all()
+        else:
+            qs = GraphicUpload.objects.all()
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        picture = self.request.session.get('picture', False)
+        explore = self.request.session.get("explore", False)
+        if picture and explore:
+            context['image'] = UserAddPicture.objects.all()
+        else:
+            context['image'] = GraphicUpload.objects.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if 'single_category_image' in request.POST:
+            return HttpResponseRedirect(self.success_url)
+        elif 'search_button' in request.POST:
+            search_input = request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            request.session['filter'] = word_list
+            return redirect('home:search')
+
+
 class SearchResultView(ListView):
     template_name = 'home/search_result.html'
 
     def get_queryset(self):
-        graphic = self.request.session.get('search_graphic', False)
+        graphic = self.request.session.get('graphic_search', True)
+        picture = self.request.session.get('pictures_search', True)
+
         if graphic:
             qs = GraphicUpload.objects.all()
-        else:
+        elif not graphic:
             qs = UserAddPicture.objects.all()
+        elif picture and graphic:
+            qs = {
+                UserAddPicture.objects.all(),
+                GraphicUpload.objects.all()
+            }
         return qs
+
+    def post(self, *args, **kwargs):
+        if 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -137,7 +186,9 @@ class SearchResultView(ListView):
         word_list = []
         search_data = self.request.session.get('filter')
 
-        graphic = self.request.session.get('search_graphic', False)
+        graphic = self.request.session.get('graphic_search', True)
+        picture = self.request.session.get('pictures_search', True)
+
         spell = SpellChecker()
         spell.distance = 20  # Set the maximum edit distance for suggested corrections
         misspelled = spell.unknown(search_data)
@@ -145,20 +196,47 @@ class SearchResultView(ListView):
 
         for word in misspelled:
             final_word = spell.correction(word)
-            word_list.append(final_word)
+            if final_word is not None:
+                word_list.append(final_word)
+            else:
+                word_list.append(word)
         for word in correct:
-            word_list.append(word)
+            if word is not None:
+                word_list.append(word)
+            else:
+                word_list.append(search_data)
+
+        # Graphic Search Keywords
+        graphic_word_list = ["Flyer", "Poster", "Logo", "Business card", "Brochure", "Banner", "Infographic",
+                             "Packaging", "Label", "Signage", "Billboard", "Menu", "Catalogue", "Invitation",
+                             "Letterhead", "Envelope", "Postcard", "Greeting card", "Birthday card", "Wedding card",
+                             "Advertisement", "Magazine cover", "Book cover", "CD cover", "DVD cover", "T-shirt design",
+                             "Hat design", "Bag design", "Shoe design", "Sticker design", "Button design", "Pin design",
+                             "Magnet design", "Calendar design", "Notebook design", "Diary design", "Planner design",
+                             "Mousepad design", "Phone case design", "Laptop case design", "Tablet case design",
+                             "Email signature", "Social media graphic", "Web banner", "Website design", "App design",
+                             "User interface design", "User experience design", "Game graphic design",
+                             "<EUGPSCoordinates>"]
 
         for word in word_list:
-            if graphic:
+            if graphic and not picture:
                 context['explore'] = GraphicUpload.objects.filter(is_active=True)
                 context['search_result'] = GraphicUpload.objects.filter(
-                    Q(category__name__iexact=word.lower()) |
+                    Q(category__name__iexact=word.lower()) |  # lower() transforms all big letters in small letters
                     Q(tag_field__name__iexact=word) |
                     Q(title__iexact=word) |
                     Q(g_username__username__iexact=word.lower()))
 
-            elif not graphic:
+                """
+                Setup Lexica API for just Graphics
+                """
+                context["lexica_final_urls"] = []
+                for graphic_word in graphic_word_list:
+                    if word == graphic_word:
+                        lex = Lexica(query=graphic_word).images()
+                        context["lexica_final_urls"].append(lex)
+
+            elif picture and not graphic:
                 context['explore'] = UserAddPicture.objects.filter(is_active=True)
                 context['search_result'] = UserAddPicture.objects.filter(
                     Q(category__name__iexact=word.lower()) |
@@ -166,19 +244,68 @@ class SearchResultView(ListView):
                     Q(title__iexact=word) |
                     Q(user_name__username__iexact=word.lower()))
 
+                """
+                Setup Lexica API for just Pictures
+                """
+                context["lexica_final_urls"] = []
+                if word not in graphic_word_list:
+                    lex = Lexica(query=word).images()
+                    context["lexica_final_urls"].append(lex)
+
+            else:
+                objects_list = [
+                    UserAddPicture.objects.filter(is_active=True),
+                    GraphicUpload.objects.filter(is_active=True)
+                ]
+
+                context['explore'] = objects_list
+
+                picture_result = UserAddPicture.objects.filter(
+                    Q(category__name__iexact=word.lower()) |
+                    Q(tag_field__name__iexact=word) |
+                    Q(title__iexact=word) |
+                    Q(user_name__username__iexact=word.lower()))
+
+                graphic_result = GraphicUpload.objects.filter(
+                    Q(category__name__iexact=word.lower()) |
+                    Q(tag_field__name__iexact=word) |
+                    Q(title__iexact=word) |
+                    Q(g_username__username__iexact=word.lower()))
+
+                """
+                Setup Lexica API for Graphics and Pictures
+                """
+                context["lexica_final_urls"] = []
+                lex = Lexica(query=word).images()
+                context["lexica_final_urls"].append(lex)
+
+                print(context["lexica_final_urls"])
+                search_result_list = list(picture_result) + list(graphic_result)
+
+                context['search_result'] = search_result_list
+
+        # If Lexica-url-list ist empty, i get the names of PictureCategories - Model - names and search for a random value
+        object_names = PictureCategories.objects.filter().values_list('name', flat=True)
+        if len(context["lexica_final_urls"]) == 0:
+            context["lexica_final_urls"] = Lexica(query=random.choice(object_names)).images()
+
+        context["zipped_list"] = zip(context["lexica_final_urls"], context['search_result'])
 
         # here i unpack the list of final_words to render them as a comma sepperated string in my template
         # (if search gain 0 hits)
         final_words = ', '.join(word_list)
+
+        # just to show the people what they are searched for
         context['word_list'] = final_words
 
+
+        # becaus i need a slug to visit the Detail page, i take a random element from the users input and give that
+        # lex-elements as a slug
+        context["lex_slug"] = random.choice(context['word_list'])
+        context["user_search_result"] = User.objects.filter(
+            username__iexact=final_words
+        )
         return context
-
-
-
-
-
-
 
 
 ######################  From filter images for category to detail image-view - both models
@@ -192,17 +319,13 @@ class CustomerDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['pictures'] = UserAddPicture.objects.filter(user_name=self.object.user_name.id)
         context['other'] = UserAddPicture.objects.filter(category=self.object.category)
-        with Image.open(self.object.picture) as img: # read the size of the self.object image that i can render it in the template
+        with Image.open(
+                self.object.picture) as img:  # read the size of the self.object image that i can render it in the template
             context['image_size'] = img.size
         return context
 
-    def post(self, request, *args, **kwargs):
-        if 'basket_button' in request.POST:
-            return redirect('basket:basket')
 
-
-
-class SingleCategoyView(ListView): # filter images for category and model
+class SingleCategoryView(ListView):  # filter images for category and model
     template_name = 'home/EVERY_single_pic_category_view.html'
     success_url = reverse_lazy('home:customer_detail_view')
 
@@ -210,55 +333,53 @@ class SingleCategoyView(ListView): # filter images for category and model
         # django will get the slug-parameter from the url
         slug = self.kwargs['slug']
         picture = self.request.session.get('picture', False)
-        free = self.request.session.get('free', False)
-        if picture and not free:
+        explore = self.request.session.get("explore", False)
+        print("expl: ", explore, "pic: ", picture)
+        if picture and not explore:
             # dont forget to get at first the categor with get_object_or_404-method and filter for slug
             category = get_object_or_404(PictureCategories, slug=slug)
             qs = UserAddPicture.objects.filter(category=category)
-        elif picture and free:
-            category = get_object_or_404(PictureCategories, slug=slug)
-            qs = UserAddPicture.objects.filter(price__lt=0.01, category=category)
-        elif not picture and not free:
+        elif not picture and not explore:
             category = get_object_or_404(GraphicCategory, slug=slug)
             qs = GraphicUpload.objects.filter(category=category)
+        elif picture and explore:
+            qs = UserAddPicture.objects.all()
         else:
-            category = get_object_or_404(GraphicCategory, slug=slug)
-            qs = GraphicUpload.objects.filter(price__lt=0.01, category=category)
+            qs = GraphicUpload.objects.all()
         return qs
 
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
         picture = self.request.session.get('picture', False)
-        free = self.request.session.get('free', False)
+        explore = self.request.session.get("explore", False)
         slug = self.kwargs['slug']
-        print(slug, free, picture)
-        if picture and free:
-            category = get_object_or_404(PictureCategories, slug=slug)
-            context['image'] = UserAddPicture.objects.filter(price=0, category=category)
-        elif picture and not free:
+        if picture:
             category = get_object_or_404(PictureCategories, slug=slug)
             context['image'] = UserAddPicture.objects.filter(category=category)
-        elif not picture and free:
+        elif not picture:
             category = get_object_or_404(GraphicCategory, slug=slug)
-            context['image'] = GraphicUpload.objects.filter(price=0, category=category)
+            context['image'] = GraphicUpload.objects.filter(category=category)
+        elif picture and explore:
+            context['image'] = UserAddPicture.objects.all()
         else:
-            category = get_object_or_404(GraphicCategory, slug=slug)
-            context['image'] = GraphicUpload.objects.filter(price=0, category=category)
+            context['image'] = GraphicUpload.objects.all()
         return context
 
     def get_success_url(self, slug):
         return reverse_lazy('home:customer_detail_view', kwargs={'slug': slug})
-
 
     def post(self, request, *args, **kwargs):
         if 'single_category_image' in request.POST:
             slug = request.POST.get('single_category_image')
             success_url = self.get_success_url(slug)
             return HttpResponseRedirect(success_url)
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
 
+        if 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
 
 
 """
@@ -271,7 +392,8 @@ class SingleCategoyView(ListView): # filter images for category and model
         return render(request, self.template_name)
 """
 
-    # Create your views here.
+
+# Create your views here.
 #################################  CATEGORY VIEWS ############################################
 class CategoryView(ListView):
     template_name = 'home/categories.html'
@@ -291,7 +413,6 @@ class CategoryView(ListView):
 
     def get_success_url(self, slug):
         return reverse_lazy('home:category_single', kwargs={'slug': slug})
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -316,8 +437,11 @@ class CategoryView(ListView):
             # FALSCH return self.get_success_url(slug) dies würde einen fehler auslösen. versuche ->
             success_url = self.get_success_url(slug)
             return HttpResponseRedirect(success_url)
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
+        if 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
 
 
 ############## SINGLE CATEGORY VIEWS #################
@@ -332,14 +456,11 @@ class UsersImagesListView(ListView):
         context = super().get_context_data(**kwargs)
         context['picture'] = UserAddPicture.objects.all()
         context['graphic'] = GraphicUpload.objects.all()
-        context['free_image'] = UserAddPicture.objects.filter(price=0)
-        context['free_graphic'] = GraphicUpload.objects.filter(price=0)
 
     def post(self, request, *args, **kwargs):
         # wenn ein button mit dem namen graphic_choice_button gedrückt wird, wird eine get-anfrage a den server gesendet.
         # in dieser wird dann die gewünschte form zurückgegeben.
         if 'graphic_choice_button' in request.POST:
-
             request.session['graphic'] = True
             self.model = GraphicUpload
             self.object_list = GraphicUpload.objects.filter(g_username=self.request.user.id)
@@ -351,13 +472,12 @@ class UsersImagesListView(ListView):
             self.object_list = UserAddPicture.objects.filter(user_name=self.request.user.id)
             # und im template wiedergegeben.
         # statt der contextdats wird die object_list zurück gegeben um sie im templete zu rendern.
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
+        if 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
         return render(request, self.template_name, {'object_list': self.object_list})
-
-
-
-
 
 
 class RegisterView(FormView):  # for user registration
@@ -373,6 +493,11 @@ class RegisterView(FormView):  # for user registration
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        if 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
         form = self.get_form()
         if form.is_valid():
             user = form.save(commit=False)
@@ -391,6 +516,7 @@ class RegisterView(FormView):  # for user registration
             image = form.cleaned_data.get('profile_image')
             if image:
                 return render(request, self.template_name, {'form': form})
+
         return render(request, self.template_name, {'form': form})
 
 
@@ -399,6 +525,27 @@ class RegisterView(FormView):  # for user registration
             return response
         else:
 '''
+
+
+class CustomerProfileView(DetailView):
+    model = User
+    template_name = "home/customer_profile_view.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # GET THE NUMBER OF UPLOADED IMAGES FROM THE USER
+        # GET.get gets the value of the html element (in the template) with the name username
+        # second argument is a default value
+        watched_user = self.kwargs.get('slug')
+        print(f"name: {watched_user}")
+        user_images = UserAddPicture.objects.filter(user_name__username=watched_user)
+        user_graphics = GraphicUpload.objects.filter(g_username__username=watched_user)
+        context["pictures"] = user_images
+        context["graphics"] = user_graphics
+        context["value_images"] = len(user_images)
+        context["value_graphics"] = len(user_graphics)
+
+        return context
 
 
 class UserLoginView(FormView):  # for user login
@@ -414,13 +561,19 @@ class UserLoginView(FormView):  # for user login
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                print(user)
                 return self.form_valid(form)
             else:
-                raise ValidationError('Invalid Password or Username')
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
-        else:
-            return self.form_invalid(form)
+                print("Login Failed . . . ")
+                raise form.ValidationError('Invalid Input . . . ')
+        elif "register_button" in request.POST:
+            return redirect("home:register")
+        elif 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
+        return self.form_invalid(form)
 
 
 ####################### PROFILE VIEWS #######################
@@ -462,12 +615,12 @@ class ProfileView(UpdateView):
             if form.is_valid():
                 form.save()
                 return render(request, self.template_name, {'object': self.get_context_data()['object']})
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
+        elif 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
         return render(request, self.template_name, {'object': self.get_context_data()['object']})
-
-
-# erben lassen
 
 
 class SettingsView(TemplateView):
@@ -528,8 +681,13 @@ class UserAddPictureView(CreateView):  # for user create a recipe
                 return self.form_valid(form)
             else:
                 return super().form_invalid(form)
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
+
+        elif 'search_button' in self.request.POST:
+            search_input = self.request.POST.get('search_tag_input')
+            word_list = search_input.split(' ')
+            self.request.session['filter'] = word_list
+            return redirect('home:search')
+
         elif 'add_graphic_button' in request.POST:
 
             # der form variable wird der zugewiesene con´text von graphic zugewiesen um dqrüber iterieren zu können
@@ -578,6 +736,19 @@ class CustomerGraphicDetailView(DetailView):
     model = GraphicUpload
     template_name = 'home/random_detail_view.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # GET.get gets the value of the html element (in the template) with the name username
+        # second argument is a default value
+        watched_user = self.kwargs.get('slug')
+        print(f"name: {watched_user}")
+        user_images = UserAddPicture.objects.filter(user_name__username=watched_user)
+        user_graphics = GraphicUpload.objects.filter(g_username__username=watched_user)
+        context["value_images"] = len(user_images)
+        context["value_graphics"] = len(user_graphics)
+        return context
+
 
 class PictureUpdateView(UpdateView):
     fields = ['title', 'picture', 'tag_field', 'category', 'price']
@@ -591,14 +762,6 @@ class PictureUpdateView(UpdateView):
             qs = UserAddPicture.objects.all()
         return qs
 
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if 'submit_button' in request.POST:
-            if form.is_valid():
-                newpost = form.save(commit=False)
-                newpost.slug = slugify(newpost.title)
-                newpost.save()
-                form.save_m2m()
 
 class ProfileUpdateView(UpdateView):
     model = User
@@ -608,14 +771,6 @@ class ProfileUpdateView(UpdateView):
 
 
 # LoginRequiredMixin???
-
-
-
-
-
-
-
-
 
 
 """
@@ -636,8 +791,7 @@ class DeleteObjectView(DeleteView):
             context.name.delete()
             # jetzt muss nur noch pk im template übergeben werden dann funktioniert es
             return redirect(self.get_success_url())
-        elif 'basket_button' in request.POST:
-            return redirect('basket:basket')
+        
 
 
 # function based Views
@@ -649,175 +803,7 @@ def delete_object_view(request, pk):
     return redirect(reverse('home:index'))  # der user wird zur my-recipes-page weitergeleitet.
 """
 
+
 def logout_view(request):
     logout(request)
     return redirect(reverse('home:index'))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-    def get_success_url(self, pk=None, slug=None, **kwargs):
-        self.object = get_object_or_404(UserAddPicture, id=pk, slug=slug)
-        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
-
-
-'''
-
-'''
-def user_add_image_view(request):
-    # wohin der user später weitergeeitet werden soll
-    success_url = 'home:my-pictures'
-    # die form klasse welche im templete gerendert werden soll und die method über welche daten gesendet werden(
-    # post/get)
-    form = UsersAddPictureForm(request.POST)
-    # die 4 ersten Tags die geschrieben wurden werden in tags gespeichert, sodass sie einfach im template gerendert
-    # werden können
-    tags = UsersAddPictureForm.tag_field.most_common()[:4]
-    # eine instanz zum model wird erstellt und alle werte in model gespeichert damit darüber iteriert werden kann.
-    model = UserAddPicture.objects.all()
-    if 'add_picture_button' in request.POST:
-
-        if form.is_valid():
-            print('Success')
-            # get_form_save wird dda speicher der form übergeben
-            get_form_save = form.save(commit=False)
-            # slug wird der wert title übergeben
-            get_form_save.slug = slugify(get_form_save.title)
-            # die upgedatete form wird gespeichert
-            get_form_save.save()
-            # wichtig!!!
-            form.save_m2m()
-            # der user wird zur success_url weitergeleitet
-            return render(request, reverse_lazy(success_url))
-        else:
-            raise ValidationError('No Success')
-
-
-    context = {
-        'title': form.fields['title'],
-        'picture': form.fields['picture'],
-        'price': form.fields['price'],
-        'category': form.fields['category'],
-        'tags': tags,
-        'posts': model,
-        'form': form,
-    }
-
-    return render(request, 'home/user_add_image.html', context)
-            '''
-
-'''
-
-def detail_view(request, slug): # bei klick auf ein
-    picture = get_object_or_404(UserAddPicture, slug=slug)
-    context = {
-        'picture': picture,
-    }
-    return render(request, 'home/image_detail_view.html', context)
-
-def tagged(request, slug):
-    tag = get_object_or_404(Tag, slug=slug)
-    common_tags = UserAddPicture.tag_field.most_common()[:4]
-    posts = UserAddPicture.objects.filter(tags=tag)
-    context = {
-        'tag':tag,
-        'common_tags':common_tags,
-        'posts':posts,
-    }
-    return render(request, 'home/user_add_image.html', context)
-'''
-
-'''
-    def get_success_url(self):
-        # ein custom success url wird erstellt um beim Weiterleiten slug und pk im url mitgeben zu können
-        # wenn der fehler 'ViewClass has no attribute self.object' auftritt schau dir die form_valid mathode an.
-        # WICHTIG-Nicht den success url in der post methode returnen sonder die iform_valid methode.
-        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
-'''

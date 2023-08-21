@@ -1972,3 +1972,133 @@ return context
             </div>
         </div>
     </nav>
+
+
+
+
+
+
+    def get_queryset(self):
+        graphic_edit = self.request.session.get('graphic', False)
+        if graphic_edit:
+            qs = GraphicUpload.objects.all()
+        else:
+            qs = UserAddPicture.objects.all()
+        return qs
+
+    def get_object(self):
+        graphic = self.request.session.get('graphic')
+        if graphic:
+            model = GraphicUpload
+        else:
+            model = UserAddPicture
+        return model.objects.get(pk=self.kwargs.get('pk'), slug=self.kwargs.get('slug'))
+
+    def get_success_url(self):
+        self.object = self.get_object()
+        # ein custom success url wird erstellt um beim Weiterleiten slug und pk im url mitgeben zu können
+        # wenn der fehler 'ViewClass has no attribute self.object' auftritt schau dir die form_valid mathode an.
+        # WICHTIG-Nicht den success url in der post methode returnen sonder die iform_valid methode.
+        return reverse_lazy('home:user-picture', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
+
+
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if 'submit_button' in request.POST:
+            if form.is_valid():
+                form.save()
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+        return render(request, self.template_name)
+
+    def form_valid(self, form):
+        # Erstellen Sie das neue Objekt und speichern Sie es in der Datenbank
+        # Setzen Sie die Instanzvariable self.object
+        self.object = form.instance
+        print(self.object.picture.url, "val")
+        print(self.object.picture)
+
+        # Rufen Sie die ursprüngliche form_valid-Methode auf
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        self.object = form.instance
+        print(self.object.picture.url, "inv")
+        print(self.object.picture)
+        return super().form_invalid(form)
+
+<!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter{{ form.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                    Are you sure you want to delete {{ form.title }}?
+                                </h5>
+                            </div>
+                            <div class="modal-body">
+                                You can edit your Image &nbsp; <a href='{% url 'home:edit-image' form.pk form.slug %}'>here</a>.
+                            </div>
+                            <div class="modal-footer">
+                                <button style="position: relative; margin: 0 90px;" type="button" class="delete_button_confirmation" data-dismiss="modal">
+                                    <span class="del_text">
+                                        Close
+                                    </span>
+                                    <span class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 0.91);">
+                                            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button type="button" class="delete_button_confirmation" title="delete"
+                                    value="{{ product.id }}" name="delete_basket_product_button"
+                                    id="delete_basket_product_button">
+                                    <span class="del_text">
+                                        Delete
+                                    </span>
+                                    <span class="icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+    <section class="graphic_section_r6" style="margin-top: 50px; grid-row: 6; grid-column: 1;">
+        {% for form in search_result %}
+            <a href='{{ form.get_absolute_url }}'>
+                <button class="category_image_container" type="button" value="{{ form.pk }}" id="{{ form.slug }}" name="image_container">
+                    <img class="pic" src="{{ form.picture.url }}"
+                         alt="user_img" >
+
+                        <span class="category_name_text"
+                             title="{{ image.title }}">
+                            <small style="transition-delay: .4s;">
+                                {{ form.title }}
+                            </small>
+                        </span>
+                </button>
+            </a>
+                <div class="hover_visible_options_container" id="{{ form.value }}">
+                    <div style="grid-column: 2; justify-content: flex-end;">
+
+
+                        <button class="delete_button_image" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ form.pk }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                              <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="price_tag_grid2">
+
+                    </div>
+                </div>
+        {% endfor %}
+    </section>

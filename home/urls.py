@@ -5,8 +5,8 @@ from django.views.generic import TemplateView
 
 from . import views
 from .views import HomeView, RegisterView, UserLoginView, ProfileView, SettingsView, PictureDetailView, logout_view, \
-    UsersImagesListView, UserAddPictureView, PictureUpdateView, CustomerDetailView, CategoryView, SingleCategoyView, \
-    SearchResultView
+    UsersImagesListView, UserAddPictureView, PictureUpdateView, CustomerDetailView, CategoryView, \
+    SearchResultView, CustomerProfileView, SingleCategoryView, ExploreListView
 
 app_name = 'home'
 urlpatterns = [
@@ -36,9 +36,11 @@ urlpatterns = [
                   path('search/', SearchResultView.as_view(), name='search'),
 
                   # VIEWS FOR SINGLE CATEGORY
-                  # Graphic
+                  # Graphic, Explore
 
-                  path('category/<slug:slug>/', SingleCategoyView.as_view(), name='category_single'),
+                  path('explore/', ExploreListView.as_view(), name="explore_view"),
+
+                  path('category/<slug:slug>/', SingleCategoryView.as_view(), name='category_single'),
 
                   # Picture DETAIL VIEW
                   path('image/<slug:slug>', CustomerDetailView.as_view(), name='customer_detail_view'),
@@ -52,6 +54,12 @@ urlpatterns = [
 
                   # UPDATE VIEW
                   path('edit-image/<int:pk>/<slug:slug>/', PictureUpdateView.as_view(), name='edit-image'),
+
+                    # CUSTOMER PROFILE VIEW
+                    path('user/<int:pk>/<slug:slug>/', CustomerProfileView.as_view(), name='customer_profile_view'),
+
+
+
 
                   # DELETE VIEW
                  # path('delete/<int:pk>/', views.delete_object_view, name='delete'),

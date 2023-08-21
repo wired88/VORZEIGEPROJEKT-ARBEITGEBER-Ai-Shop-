@@ -1,11 +1,13 @@
 
 
-
 .category_image_container {
-    display: inline-block;
-    margin: 50px 10px 0 10px;
+    display: inline-flex;
+    margin: 3vh 0 0 0;
+    align-items: center;
+    justify-content: center;
     background-color: transparent;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
     transition: all .2s;
     cursor: pointer;
     padding: 0;
@@ -13,7 +15,7 @@
     height: auto;
     break-inside: avoid;
     min-width: 100px;
-    z-index: 100;
+    z-index: 10;
 }
 
 .category_image_container:hover {
@@ -26,15 +28,18 @@
     background-color: rgba(0, 0, 0, .65);
     position: absolute;
     width: 100%;
-    height: 50px;
-    font-size: 20px;
+    height: 3vh;
     justify-content: center;
     align-items: center;
     color: rgba(255, 255, 255, .8);
-    top: 44%;
     filter: blur(5px); /* je höher der 'blur'- Wert ist, desto verschwommener wird ein element. */
     transform: translateX(-100%);
     opacity: 0;
     transition: all 1s, box-shadow 0.2s;
 }
 
+.category_name_text p {
+    height: 75%;
+    margin: auto;
+
+}

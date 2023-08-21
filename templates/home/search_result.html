@@ -2,9 +2,7 @@
 {% load static %}
 
 
-
-
-{% block title %} Home - Create Your own Recipe {% endblock %}
+{% block title %} Search . . .{% endblock %}
 
 
 {% block css %}
@@ -14,112 +12,80 @@
     <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'categories/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'basket/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'search_result/style.css' %}">
 {% endblock %}
 
 
-
-
 {% block styles %}
-
-
-
-
 
 {% endblock %}
 
 
 {% block authForm %}
 <form method="POST" enctype="multipart/form-data">
-    {% if search_result|length == 0 %}
-        <header class="nothing_found_container">
-            <h2>
-                The search for '{{ word_list }}' did not give any results ...
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
-                </svg>
-            </h2>
-        </header>
-        <main class="list_view_main" style="margin-top: 50px;">
-            <section class="alternative_img_header">
-                <h2 style="color: white;">
-                    Explore
-                </h2>
-            </section>
-            <section>
-                {% for form in explore %}
-                <a href='{{ form.get_absolute_url }}'>
-                    <button class="category_image_container" type="button" value="{{ form.pk }}" id="{{ form.slug }}" name="image_container">
-                        <img class="pic" src="{{ form.picture.url }}"
-                             alt="user_img" >
-
-                            <span class="category_name_text"
-                                 title="{{ image.title }}">
-                                <small style="transition-delay: .4s;">
-                                    {{ form.title }}
-                                </small>
-                            </span>
-                    </button>
-                </a>
-                    <div class="hover_visible_options_container" id="{{ form.value }}">
-                        <div style="grid-column: 2; justify-content: flex-end;">
-                            <button class="my_edit">
-                                <a href='{% url 'home:edit-image' form.pk form.slug %}'>
-                                    Edit
-                                </a>
-                            </button>
-
-                            <button class="delete_button_image" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ form.pk }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="price_tag_grid2">
-                            {% if form.price < 0.01 %}
-                            <p>
-                                Free
-                            </p>
-                            {% else %}
-                            <p class="price">
-                               {{ form.price }}
-                            </p>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endfor %}
-            </section>
-        </main>
-    {% else %}
-        <header class="search_result_information">
+    <main class="search_main">
+        <header class="header_grid_r1">
             <h2 style="color: rgba(0, 0, 0, .4);">
-                Search results for '{{ word_list }}' . . .
+                {% if search_result|length == 0 and user_search_result|length == 0 %}
+                    The search for '{{ word_list }}' did not give any results ...
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                    </svg>
+                {% else %}
+                    Search results for '{{ word_list }}':
+                {% endif %}
             </h2>
         </header>
-        <main class="list_view_main" style="margin-top: 50px;">
-        {% for form in search_result %}
-            <a href='{{ form.get_absolute_url }}'>
-                <button class="category_image_container" type="button" value="{{ form.pk }}" id="{{ form.slug }}" name="image_container">
-                    <img class="pic" src="{{ form.picture.url }}"
-                         alt="user_img" >
 
-                        <span class="category_name_text"
-                             title="{{ image.title }}">
-                            <small style="transition-delay: .4s;">
-                                {{ form.title }}
-                            </small>
-                        </span>
+        <section class="user_search_result_r2">
+            <div class="header_user_search_result">
+                <h4 class="info_text_search">
+                    Users:
+                </h4>
+            </div>
+            <div class="user_search_result">
+                {% if user_search_result %}
+                    {% for user in user_search_result %}
+                        <div class="user_box" onclick="window.location.href='{% url 'home:customer_profile_view' user.pk user.username %}';">
+                            <img class="profile_img" src="{{ user.profile_image.url }}"
+                                 alt="{{ user.username }}" style="margin: 1vh auto;">
+                            <p class="info_text_search" style="font-size: 16px; opacity: 1; display: block;">
+                                {{ user.username }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <h3>
+                        No users found
+                    </h3>
+                {% endif %}
+            </div>
+        </section>
+
+        <div class="label_section_r3_r5" style="grid-row: 3; grid-column: 1;">
+
+        </div>
+
+    <section class="picture_section_r4" style="grid-row: 4; grid-column: 1;">
+        {% if search_result|length == 0 %}
+            {% for form in explore %}
+                <button class="category_image_container" type="button" value="{{ form.pk }}" id="{{ form.slug }}"
+                        name="image_container" onclick="window.location.href='{{ form.get_url_to_single }}';">
+                    <img class="pic" src="{{ form.picture.url }}" alt="{{ form.title }}" >
+                    <span class="category_name_text"
+                         title="{{ image.title }}">
+                        <small style="transition-delay: .4s;">
+                            {{ form.title }}
+                        </small>
+                    </span>
                 </button>
-            </a>
+
                 <div class="hover_visible_options_container" id="{{ form.value }}">
                     <div style="grid-column: 2; justify-content: flex-end;">
                         <button class="my_edit">
-                            <a href='{% url 'home:edit-image' form.pk form.slug %}'>
-                                Edit
-                            </a>
-                        </button>
 
+                        </button>
                         <button class="delete_button_image" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ form.pk }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                               <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
@@ -127,68 +93,67 @@
                         </button>
                     </div>
                     <div class="price_tag_grid2">
-                        {% if form.price < 0.01 %}
-                        <p>
-                            Free
-                        </p>
-                        {% else %}
-                        <p class="price">
-                           {{ form.price }}
-                        </p>
-                        {% endif %}
+
                     </div>
                 </div>
+            {% endfor %}
+        {% else %}
+        {% comment %}   MODEL RESULT {% endcomment %}
+            {% for lex, form in zipped_list %}
+                <button class="category_image_container" type="button" value="{{ form.pk }}" id="{{ form.slug }}"
+                        name="image_container" onclick="window.location.href='{{ form.get_url_to_single }}';">
+                    <img class="pic" src="{{ form.picture.url }}" alt="{{ form.title }}" >
+                    <span class="category_name_text"
+                         title="{{ image.title }}">
+                        <small style="transition-delay: .4s;">
+                            {{ form.title }}
+                        </small>
+                    </span>
+                </button>
+                <div class="hover_visible_options_container" id="{{ form.value }}">
+                    <div style="grid-column: 2; justify-content: flex-end;">
+                        <button class="my_edit">
+                        </button>
+                        <button class="delete_button_image" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ form.pk }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                              <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="price_tag_grid2">
 
+                    </div>
+                </div>
+        {% comment %}   LEX API RESULT {% endcomment %}
+                {% for lex_img_url in lex %}
+                    <button class="category_image_container" type="button"
+                            name="image_container" onclick="window.location.href='{% url 'home:customer_detail_view' lex_slug %}';">
+                        <img class="pic" src="{{ lex_img_url }}" alt="img_from:https://lexica.art/" >
+                        <span class="category_name_text">
+                            <small style="transition-delay: .4s;">
+                                 {{ lex_slug }}
+                            </small>
+                        </span>
+                    </button>
+                    <div class="hover_visible_options_container"> {% comment %} Problem wegen script (visible options bekommt die width von main container {% endcomment %}
+                        <div style="grid-column: 2; justify-content: flex-end;">
+                            <button class="my_edit">
 
-<!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter{{ form.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">
-                                    Are you sure you want to delete {{ form.title }}?
-                                </h5>
-                            </div>
-                            <div class="modal-body">
-                                You can edit your Image &nbsp; <a href='{% url 'home:edit-image' form.pk form.slug %}'>here</a>.
-                            </div>
-                            <div class="modal-footer">
-                                <button style="position: relative; margin: 0 90px;" type="button" class="delete_button_confirmation" data-dismiss="modal">
-                                    <span class="del_text">
-                                        Close
-                                    </span>
-                                    <span class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 0.91);">
-                                            <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path>
-                                        </svg>
-                                    </span>
-                                </button>
-                                <button type="button" class="delete_button_confirmation" title="delete"
-                                    value="{{ product.id }}" name="delete_basket_product_button"
-                                    id="delete_basket_product_button">
-                                    <span class="del_text">
-                                        Delete
-                                    </span>
-                                    <span class="icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24">
-                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                                        </svg>
-                                    </span>
-                                </button>
-                            </div>
+                            </button>
+                            <button class="delete_button_image" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ form.pk }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="price_tag_grid2">
+
                         </div>
                     </div>
-                </div>
-
-
-        {% endfor %}
-
-
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </section>
     </main>
-    {% endif %}
 </form>
-
-
-
-
 {% endblock %}

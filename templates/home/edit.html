@@ -25,7 +25,7 @@
 
 
 {% block authForm %}
-<form method="post">
+<form method=POST enctype=multipart/form-data>
 {% csrf_token %}
     <main class="edit_main">
         <header class="header_box">
@@ -74,6 +74,7 @@
                     </label>
                     {{ form.category }}
                     {{ form.category.errors }}
+                    {{ object.picture.url }}
                 </div>
 
             </div>
@@ -82,12 +83,12 @@
                 <label for="tags">
                     {{ form.tag_field.label }}
                 </label>
-                <input id="tags" type="text" data-role="tagsinput" class="form-control" name="tags">
+                {{ form.tag_field }}
                 {{ form.tag_field.errors }}
             </div>
         </section>
         <footer class="footer_edit">
-            <button class="save_changes_button" type="submit" title="submit">
+            <button class="save_changes_button" type="submit" title="submit_button" name="submit_button">
                 <a>
                     save changes
                 </a>

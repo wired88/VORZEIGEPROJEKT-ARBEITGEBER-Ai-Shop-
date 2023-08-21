@@ -1,0 +1,230 @@
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+{% block title %} Username here {% endblock %}
+
+
+
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home_css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'user-list-img-view/list.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_detail/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'customer_profile_view/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'create/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'categories/style.css' %}">
+{% endblock %}
+
+
+
+{% block authForm %}
+
+
+<!-- SCRIPTS -->
+    <script src="{% static 'home/libaries/js/OwlCarousel2.2.1.js' %}"></script>
+    <script defer src="{% static 'user-list-img-view/list.js' %}"></script>
+    <script defer src="{% static 'home/home_js/home.js' %}"></script>
+
+<form enctype="multipart/form-data" method="POST">
+    <main class="profile_view_main">
+        <header class="customer_profile_view_header">
+
+        </header>
+        <section class="image_short_descriptoion_container">
+            <img class="profile_img" src="{{ object.profile_image.url }}" alt="{{ object.username }}'s profile_image">
+            <span class="profile_img_box_shadow"></span>
+
+            <button class="name_button" name="username" value="{{ object.username }}">
+                {{ object.username }}
+            </button>
+        </section>
+
+        <section class="small_info_section">
+            <ul class="small_info_ul">
+                <li class="small_info_li">
+                    {% if value_images > 1 %}
+                        <a href="#images_section">
+                            {{ value_images }} active Images
+                        </a>
+                    {% elif value_images == 0 %}
+                        <p>
+                            {{ value_images }} active Images
+                        </p>
+                    {% else %}
+                        <a href="#images_section">
+                            {{ value_images }} active Image
+                        </a>
+                    {% endif %}
+                </li>
+
+                <li class="small_info_li">
+                    {% if value_graphics > 1 %}
+                        <a href="#graphic_section">
+                            {{ value_graphics }} active Graphics
+                        </a>
+                    {% elif value_graphics == 0 %}
+                        <p class="default_text">
+                            {{ value_graphics }} active Graphics
+                        </p>
+                    {% else %}
+                        <a href="#graphic_section">
+                            {{ value_graphics }} active Graphic
+                        </a>
+                    {% endif %}
+                </li>
+
+                <li class="small_info_li">
+                    <p>
+                        likes
+                    </p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="image_section" id="images_section">
+            <div class="image_section_header">
+                <h5>
+                    {{ object.username }}'s Pictures:
+                </h5>
+            </div>
+        {% if value_images > 0 %}
+            <div class="images">
+                {% for form in pictures %}
+                    <button class="category_image_container" style="vertical-align: top;" type="button"
+                            value="{{ form.pk }}" id="image_field_{{ forloop.counter }}"
+                            name="image_container" onclick="window.location.href='{{ form.get_absolute_url }}';">
+                        <img class="pic" src="{{ form.picture.url }}" alt="user_img" >
+                        <span class="category_name_text"
+                             title="{{ image.title }}">
+                            <small style="transition-delay: .4s;">
+                                {{ form.title }}
+                            </small>
+                        </span>
+                    </button>
+                    <div class="hover_visible_options_container"  id="visible_cont_{{ forloop.counter }}">
+                        <div style="grid-column: 2; justify-content: flex-end;">
+                            <button type="button" class="small_download_button" title="Download" >
+                                <a class="download_anker" href="{{ form.picture.url }}" download>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                        <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                                    </svg>
+                                </a>
+                            </button>
+                        </div>
+
+
+
+
+
+
+                        <div class="price_tag_grid2" style="grid-column: 1 / 2;">
+                            {% if form.user_name.profile_image %}
+                                <img class="profile_img_unvisible_container" src="{{ form.user_name.profile_image.url }}" alt="profile_img">
+                                <a class="username_text" href="{% url 'home:customer_profile_view' form.user_name.id form.user_name.username %}">
+                                    {{ form.user_name.username }}
+                                </a>
+                            {% else %}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                    <script>
+                        var element1 = document.getElementById('visible_cont_{{ forloop.counter }}');
+                        var element2 = document.getElementById('image_field_{{ forloop.counter }}');
+
+                        var parentWidth = element2.parentNode.offsetWidth;
+                        var element2Width = element2.offsetWidth;
+                        var widthInPercent = (element2Width / parentWidth) * 100;
+
+                        element1.style.width = widthInPercent + '%';
+                    </script>
+                {% endfor %}
+            </div>
+            {% else %}
+                <div class="picture_section_footer">
+                    <h2>
+                        Nothing here yet
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="rgba(255, 39,51)" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                        </svg>
+                    </h2>
+                </div>
+            {% endif %}
+        </section>
+
+        <section class="graphic_section" id="graphic_section">
+            <div class="image_section_header">
+                <h5>
+                    {{ object.username }}'s Graphics:
+                </h5>
+            </div>
+            {% if value_graphics > 0 %}
+                {% for form in graphics %}
+                    <button class="category_image_container" type="button" value="{{ form.pk }}" id="image_field_g_{{ forloop.counter }}"
+                            name="image_container" onclick="window.location.href='{{ form.get_absolute_url }}';">
+                        <img class="pic" src="{{ form.picture.url }}" alt="user_img" >
+                        <span class="category_name_text"
+                             title="{{ image.title }}">
+                            <small style="transition-delay: .4s;">
+                                {{ form.title }}
+                            </small>
+                        </span>
+                    </button>
+                    <div class="hover_visible_options_container" id="visible_cont_g_{{ forloop.counter }}">
+                        <div style="grid-column: 2; justify-content: flex-end;">
+                            <button class="delete_button_image" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter{{ form.pk }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="price_tag_grid2">
+                            <img class="profile_img_unvisible_container" src="{{ form.g_username.profile_image }}" alt="profile_img">
+                            <a class="username_text" href="{% url 'home:customer_profile_view' form.g_username.id form.g_username.username %}">
+                                {{ form.g_username.username }}
+                            </a>
+                        </div>
+                    </div>
+                    <script>
+                        var element1 = document.getElementById('visible_cont_g_{{ forloop.counter }}');
+                        var element2 = document.getElementById('image_field_g_{{ forloop.counter }}');
+
+                        var parentWidth = element2.parentNode.offsetWidth;
+                        var element2Width = element2.offsetWidth;
+                        var widthInPercent = (element2Width / parentWidth) * 100;
+
+                        element1.style.width = widthInPercent + '%';
+                    </script>
+                {% endfor %}
+            {% else %}
+                <div class="picture_section_footer">
+                    <h2>
+                        Nothing here yet
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                        </svg>
+                    </h2>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -127,7 +127,9 @@
 
 
 
-
+html {
+  scroll-behavior: smooth;
+}
     </style>
 
 
@@ -192,7 +194,7 @@
                     <li>
                         <form method="post" action="{% url 'home:index' %}">
                             {% csrf_token %}
-                            <input class="dropdown-item" id="pic_free_button" name="pic_free_button" type="submit" value="Free">
+                            <input class="dropdown-item" id="pic_explore" name="pic_explore" type="submit" value="Explore">
                         </form>
                     </li>
                 </ul>
@@ -218,7 +220,7 @@
                     <li>
                         <form method="post" action="{% url 'home:index' %}">
                             {% csrf_token %}
-                            <input class="dropdown-item" id="graphic_free" name="graphic_free" type="submit" value="Free">
+                            <input class="dropdown-item" id="graphic_explore" name="graphic_explore" type="submit" value="Explore">
                         </form>
                     </li>
                 </ul>
@@ -249,7 +251,7 @@
                         <form method="post" action="{% url 'home:index' %}">
                             {% csrf_token %}
                             <object class="dropdown-item" id="cat_free_v_button" name="cat_free_v_button" type="submit">
-                                Free
+                                Explore
                             </object>
                         </form>
                     </li>
@@ -257,48 +259,46 @@
             </div>
         </section>
 
-        <section class="head_grid_col_5">
+        <section class="head_grid_col_4">
             {% if request.user.is_authenticated %}
 
             <p class="welcome-text">
                 Welcome {{ request.user.username }}!
             </p>
-            <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-                <button class="head-button" title="Basket" id="basket_button" name="basket_button" style="right: 12px; margin: auto 10px; top: 8px;">
-                {% if session_data|length > 0 %}
-                    <svg xmlns="http://www.w3.org/2000/svg" style="right: 7px; top: 15px; position: absolute;" width="16" height="16" fill="rgb(255, 0, 0)" class="bi bi-circle-fill" viewBox="0 0 16 16">
-                        <circle cx="8" cy="8" r="8"/>
-                        </svg>
-                    {% endif %}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"  fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
-                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
-                    </svg>
-                </button>
-            </form>
-
             {% else %}
-            <button class="head-button" style="right: 150px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+            <button class="head-button" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
                 Login
             </button> {% comment #2  %} {%  endcomment %}
-            <button class="head-button" style="right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+            <button class="head-button" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
                 Register
             </button>
 
             {% endif %}
         </section>
 
-
-
+        <section class="head_grid_col_5">
+            <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div class="input-group rounded">
+                    <input type="search" class="form-control rounded" id="search_tag_input" name="search_tag_input" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <button class="search_button_small" id="search_button" name="search_button" title="Search" aria-label="Search" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </section>
     </header>
-
 
 
 {% block authForm %}
 <main class="home_main">
     <div class="upper_main">
         <div class="upper_header">
-            <h2>Your Place for AI-Art</h2>
+            <h2>
+                Your Place for AI-Art
+            </h2>
         </div>
 
         <form method="get" action="">
@@ -313,9 +313,56 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="search-icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(255, 255, 255)" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
+                    <div class="dropdown">
+                    <input title="Select Option" value="All contents" class="head-button dropdown-toggle" id="shown_choice"
+                           type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <ul class="dropdown-menu" id="dropdown_search_choice">
+                        <li>
+                            <form method="post" action="{% url 'home:index' %}">
+                                {% csrf_token %}
+                                <input class="dropdown-item" id="pictures_choice" name="pictures_choice" type="button" value="Pictures">
+                            </form>
+                        </li>
+                        <li>
+                            <form method="post" action="{% url 'home:index' %}">
+                                {% csrf_token %}
+                                <input class="dropdown-item" id="graphic_choice" name="graphic_choice" type="button" value="Graphics">
+                            </form>
+                        </li>
+                        <li>
+                            <form method="post" action="{% url 'home:index' %}">
+                                {% csrf_token %}
+                                <input class="dropdown-item" id="user_choice" name="user_choice" type="button" value="Users">
+                            </form>
+                        </li>
+                    </ul>
+                    <script>
+                        var pictures_choice = document.getElementById("pictures_choice");
+                        var graphic_choice = document.getElementById("graphic_choice");
+                        var default_choice = document.getElementById("shown_choice");
+                        var dropdown = document.getElementById("dropdown_search_choice")
+
+                        function closeDropdown() {
+                            dropdown.classList.remove('show');
+                        }
+                        function openDropdown() {
+                            dropdown.classList.add("show");
+                        }
+                        default_choice.addEventListener("click", function() {
+                            openDropdown();
+                        });
+
+                        pictures_choice.addEventListener("click", function() {
+                            default_choice.value = pictures_choice.value;
+                            closeDropdown(); // makes the dropdown unclicked (removes:focus)
+                        });
+
+                        graphic_choice.addEventListener("click", function() {
+                            default_choice.value = graphic_choice.value;
+                            closeDropdown();
+                        });
+                    </script>
+                </div>
                     <input type="text" aria-label="Search" id="search_tag_input" name="search_tag_input" title="Search" placeholder=" Search . . ." class="searchbar_input" required>
 
                     <button class="search_button" id="search_button" name="search_button" title="Search" aria-label="Search" >
@@ -504,16 +551,15 @@
                 <div class="top_sidebar">
                     {% if request.user.is_authenticated %}
                     <div class="top_sidebar_info">
-                        <div style="grid-row: 1;">
+                        <div>
                             <button name="profile_button"
                                 id="profile_button"
                                 title="Profile" onclick="window.location.href='{% url 'home:profile' request.user.pk %}';">
-
-                                <img class="profile_img"  src="{% static 'home/home_images/user_img_default.png' %}"
+                                <img class="profile_img"  src="{{ request.user.profile_image.url }}"
                                     alt="profile_img">
                             </button>
                         </div>
-                            <div style="grid-row: 2;">
+                            <div>
                                 <p>
                                     {{ request.user.username }} <br>
                                 </p>
@@ -523,13 +569,14 @@
                             </div>
                         </div>
                         {% else %}
-                        <div class="top_sidebar_info" style="color: black; position: absolute; z-index: 4;">
+                        <div class="top_sidebar_info" style="color: black; position: absolute; flex-direction: row;
+                        justify-content: center; align-items: center;">
 
-                            <button class="head-button" style="position: relative; left: 10px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+                            <button class="head-button" style="margin: 10px; height: 44px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
                                 Login
                             </button>
 
-                            <button class="head-button" style=" right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+                            <button class="head-button" style="margin: 10px; height: 44px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
                                 Register
                             </button>
                         </div>
