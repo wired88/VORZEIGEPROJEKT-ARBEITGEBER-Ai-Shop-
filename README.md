@@ -14,9 +14,4 @@ ToDo's for the future:
 - Get your Midjourney Plan here!
 - include Ads
 
-!!!ALTERT ---{
-YOU ARE NOT ALLOWED TO USE
-THIS CODE FOR COMMERCIAL USE
-}--- ALERT!!!
-
 
